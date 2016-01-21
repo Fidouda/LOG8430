@@ -1,0 +1,14 @@
+package View;
+
+import javax.swing.JPanel;
+
+public class FileChooser extends JPanel {
+
+	/**
+	 * Create the panel.
+	 */
+	public FileChooser() {
+
+	}
+
+}

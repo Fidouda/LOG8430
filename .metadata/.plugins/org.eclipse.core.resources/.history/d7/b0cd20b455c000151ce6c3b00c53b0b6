@@ -1,0 +1,82 @@
+package View;
+
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import javax.swing.JTextPane;
+import java.awt.Color;
+import javax.swing.JSeparator;
+import javax.swing.SwingConstants;
+import javax.swing.JTextField;
+
+public class GraphicUserInterface {
+
+	private JFrame frame;
+	private JTextField textField;
+
+	/**
+	 * Launch the application.
+	 */
+	public static void main(String[] args) {
+		EventQueue.invokeLater(new Runnable() {
+			public void run() {
+				try {
+					GraphicUserInterface window = new GraphicUserInterface();
+					window.frame.setVisible(true);
+				} catch (Exception e) {
+					e.printStackTrace();
+				}
+			}
+		});
+	}
+
+	/**
+	 * Create the application.
+	 */
+	public GraphicUserInterface() {
+		initialize();
+	}
+
+	/**
+	 * Initialize the contents of the frame.
+	 */
+	private void initialize() {
+		frame = new JFrame();
+		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+		frame.setBounds(250, 100, 500, 500);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.getContentPane().setLayout(null);
+		
+		JButton boutonFichier = new JButton("Bouton fichier");
+		boutonFichier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		boutonFichier.setBounds(75, 388, 139, 40);
+		frame.getContentPane().add(boutonFichier);
+		
+		JTextPane textPane = new JTextPane();
+		textPane.setBackground(Color.WHITE);
+		textPane.setBounds(33, 44, 217, 325);
+		frame.getContentPane().add(textPane);
+		
+		JSeparator separator = new JSeparator();
+		separator.setOrientation(SwingConstants.VERTICAL);
+		separator.setBackground(Color.BLACK);
+		separator.setForeground(Color.BLACK);
+		separator.setBounds(260, 44, 28, 325);
+		frame.getContentPane().add(separator);
+		
+		JButton btnNewButton_1 = new JButton("New button");
+		btnNewButton_1.setBounds(272, 44, 97, 40);
+		frame.getContentPane().add(btnNewButton_1);
+		
+		textField = new JTextField();
+		textField.setBounds(388, 54, 86, 20);
+		frame.getContentPane().add(textField);
+		textField.setColumns(10);
+	}
+}
