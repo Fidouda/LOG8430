@@ -7,9 +7,15 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import javax.swing.JTextPane;
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+import javax.swing.SwingWorker;
+import javax.swing.border.CompoundBorder;
+import javax.swing.border.EmptyBorder;
+import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JFileChooser;
@@ -17,6 +23,17 @@ import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import Controller.Controller;
 import javax.swing.JCheckBox;
+
+import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+import javax.swing.tree.MutableTreeNode;
+import javax.swing.tree.TreeNode;
+
+import java.io.File;
+import javax.swing.JScrollPane;
 
 public class GraphicUserInterface {
 
@@ -27,6 +44,9 @@ public class GraphicUserInterface {
 	private JTextField reponse4;
 	private JTextField reponse5;
 
+	private File root;
+	private javax.swing.JTree tree;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -67,8 +87,12 @@ public class GraphicUserInterface {
 				JFileChooser chooser = new JFileChooser();
 				chooser.setCurrentDirectory(new java.io.File("C:\\"));
 				 int fileValue = chooser.showSaveDialog(null);
-				    if(fileValue == JFileChooser.APPROVE_OPTION)
-				     System.out.println("allo");
+				    if(fileValue == JFileChooser.APPROVE_OPTION){
+				    	root = chooser.getSelectedFile();
+				    	System.out.println(root.getAbsolutePath());
+				    	//updateArbre(root);
+				    }
+				  
 			}
 		});
 		boutonFichier.addActionListener(new ActionListener() {
@@ -77,11 +101,6 @@ public class GraphicUserInterface {
 		});
 		boutonFichier.setBounds(55, 380, 139, 40);
 		frame.getContentPane().add(boutonFichier);
-		
-		JTextPane affichageArbre = new JTextPane();
-		affichageArbre.setBackground(Color.WHITE);
-		affichageArbre.setBounds(10, 44, 217, 325);
-		frame.getContentPane().add(affichageArbre);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -158,5 +177,54 @@ public class GraphicUserInterface {
 		reponse5.setColumns(10);
 		reponse5.setBounds(354, 302, 120, 40);
 		frame.getContentPane().add(reponse5);
+		
+		//ARBRE
+		tree = new JTree(new DefaultTreeModel(getTree(null, new File("."))));
+		
+		//Lorsqu'on clique sur un element de l'arbre
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+			public void valueChanged(TreeSelectionEvent arg0) {
+				if(tree.getSelectionPath() == null)
+					return;
+				
+				String selectedNodeWPath = "";
+				
+				for(Object part : tree.getSelectionPath().getPath())
+					selectedNodeWPath += part.toString();
+				
+				System.out.println(selectedNodeWPath);
+			}
+		});
+		
+		
+		//Ajouter l'arbre au JScrollPane
+		JScrollPane scrollPane = new JScrollPane(tree);
+		scrollPane.setBounds(15, 44, 207, 325);
+		frame.getContentPane().add(scrollPane);
+	}
+	
+	//http://www.java2s.com/Code/Java/File-Input-Output/DisplayafilesysteminaJTreeview.htm
+	private DefaultMutableTreeNode getTree(DefaultMutableTreeNode top, File repertoire){
+		DefaultMutableTreeNode currentNode;
+		
+		//Si top est null, c'est le root
+		if(top != null){
+			currentNode = new DefaultMutableTreeNode(repertoire.getName());
+			top.add(currentNode);
+		}
+		else
+			currentNode = new DefaultMutableTreeNode(repertoire.getAbsolutePath());
+		
+		if(!repertoire.isDirectory())
+			return currentNode;
+		
+		if(repertoire.listFiles() != null){
+			for(File fichier : repertoire.listFiles()){
+				if(fichier.canRead())
+					getTree(currentNode, fichier);
+			}
+		}
+		
+		return currentNode;
 	}
 }
