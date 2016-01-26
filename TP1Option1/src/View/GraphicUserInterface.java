@@ -46,6 +46,7 @@ public class GraphicUserInterface {
 
 	private File root;
 	private javax.swing.JTree tree;
+	private JScrollPane scrollPane;
 	
 	/**
 	 * Launch the application.
@@ -80,27 +81,9 @@ public class GraphicUserInterface {
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
-		JButton boutonFichier = new JButton("Bouton fichier");
-		boutonFichier.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.setCurrentDirectory(new java.io.File("C:\\"));
-				 int fileValue = chooser.showSaveDialog(null);
-				    if(fileValue == JFileChooser.APPROVE_OPTION){
-				    	root = chooser.getSelectedFile();
-				    	System.out.println(root.getAbsolutePath());
-				    	//updateArbre(root);
-				    }
-				  
-			}
-		});
-		boutonFichier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		boutonFichier.setBounds(55, 380, 139, 40);
-		frame.getContentPane().add(boutonFichier);
+		scrollPane = new JScrollPane();
+		scrollPane.setBounds(15, 44, 207, 325);
+		frame.getContentPane().add(scrollPane);
 		
 		JSeparator separator = new JSeparator();
 		separator.setOrientation(SwingConstants.VERTICAL);
@@ -178,6 +161,31 @@ public class GraphicUserInterface {
 		reponse5.setBounds(354, 302, 120, 40);
 		frame.getContentPane().add(reponse5);
 		
+		//Boutton fichier
+		JButton boutonFichier = new JButton("Bouton fichier");
+		boutonFichier.addMouseListener(new MouseAdapter() {
+			@Override
+			public void mouseClicked(MouseEvent arg0) {
+				JFileChooser chooser = new JFileChooser();
+				chooser.setCurrentDirectory(new java.io.File("C:\\"));
+				 int fileValue = chooser.showSaveDialog(null);
+				    if(fileValue == JFileChooser.APPROVE_OPTION){
+				    	root = chooser.getSelectedFile();
+				    	System.out.println(root.getAbsolutePath());
+				    }
+			}
+		});
+		boutonFichier.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent arg0) {
+			}
+		});
+		boutonFichier.setBounds(55, 380, 139, 40);
+		frame.getContentPane().add(boutonFichier);
+		
+		genererArbre();
+	}
+	
+	private void genererArbre(){
 		//ARBRE
 		tree = new JTree(new DefaultTreeModel(getTree(null, new File("."))));
 		
@@ -196,11 +204,8 @@ public class GraphicUserInterface {
 			}
 		});
 		
-		
-		//Ajouter l'arbre au JScrollPane
-		JScrollPane scrollPane = new JScrollPane(tree);
-		scrollPane.setBounds(15, 44, 207, 325);
-		frame.getContentPane().add(scrollPane);
+		//Ajouter l'arbre au scrollPane
+		scrollPane.getViewport().add(tree);
 	}
 	
 	//http://www.java2s.com/Code/Java/File-Input-Output/DisplayafilesysteminaJTreeview.htm
