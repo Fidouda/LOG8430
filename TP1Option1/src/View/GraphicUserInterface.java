@@ -35,7 +35,9 @@ import javax.swing.tree.TreeNode;
 import java.io.File;
 import javax.swing.JScrollPane;
 
-public class GraphicUserInterface {
+import java.util.Observable;
+
+public class GraphicUserInterface extends Observable {
 
 	private JFrame frame;
 	private JTextField reponse1;
@@ -43,26 +45,13 @@ public class GraphicUserInterface {
 	private JTextField reponse3;
 	private JTextField reponse4;
 	private JTextField reponse5;
-
+	private JButton boutonFichier;
+	private JButton boutonClear;
+	
 	private File root;
 	private javax.swing.JTree tree;
 	private JScrollPane scrollPane;
 	
-	/**
-	 * Launch the application.
-	 */
-	public static void main(String[] args) {
-		EventQueue.invokeLater(new Runnable() {
-			public void run() {
-				try {
-					GraphicUserInterface window = new GraphicUserInterface();
-					window.frame.setVisible(true);
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-			}
-		});
-	}
 
 	/**
 	 * Create the application.
@@ -77,7 +66,7 @@ public class GraphicUserInterface {
 	private void initialize() {
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
-		frame.setBounds(250, 100, 500, 500);
+		frame.setBounds(250, 100, 598, 485);
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frame.getContentPane().setLayout(null);
 		
@@ -98,6 +87,7 @@ public class GraphicUserInterface {
 		frame.getContentPane().add(boutonCommande1);
 		
 		reponse1 = new JTextField();
+		reponse1.setEditable(false);
 		reponse1.setBounds(354, 44, 120, 40);
 		frame.getContentPane().add(reponse1);
 		reponse1.setColumns(10);
@@ -109,10 +99,6 @@ public class GraphicUserInterface {
 		
 		JButton boutonCommande3 = new JButton("Commande 3");
 		boutonCommande3.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande3.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		boutonCommande3.setBounds(247, 172, 97, 40);
 		frame.getContentPane().add(boutonCommande3);
 		
@@ -122,16 +108,19 @@ public class GraphicUserInterface {
 		frame.getContentPane().add(boutonCommande4);
 		
 		reponse2 = new JTextField();
+		reponse2.setEditable(false);
 		reponse2.setColumns(10);
 		reponse2.setBounds(354, 109, 120, 40);
 		frame.getContentPane().add(reponse2);
 		
 		reponse3 = new JTextField();
+		reponse3.setEditable(false);
 		reponse3.setColumns(10);
 		reponse3.setBounds(354, 172, 120, 40);
 		frame.getContentPane().add(reponse3);
 		
 		reponse4 = new JTextField();
+		reponse4.setEditable(false);
 		reponse4.setColumns(10);
 		reponse4.setBounds(354, 239, 120, 40);
 		frame.getContentPane().add(reponse4);
@@ -142,7 +131,15 @@ public class GraphicUserInterface {
 		separator_1.setBounds(237, 367, 247, 19);
 		frame.getContentPane().add(separator_1);
 		
-		JButton boutonClear = new JButton("Bouton Clear");
+		boutonClear = new JButton("Clear");
+		boutonClear.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				notifyObservers("Clear tree");
+			
+			}
+		});
 		boutonClear.setBounds(237, 380, 107, 40);
 		frame.getContentPane().add(boutonClear);
 		
@@ -157,22 +154,24 @@ public class GraphicUserInterface {
 		frame.getContentPane().add(boutonCommande5);
 		
 		reponse5 = new JTextField();
+		reponse5.setEditable(false);
 		reponse5.setColumns(10);
 		reponse5.setBounds(354, 302, 120, 40);
 		frame.getContentPane().add(reponse5);
 		
 		//Boutton fichier
-		JButton boutonFichier = new JButton("Bouton fichier");
+		boutonFichier = new JButton("Select file/folder");
 		boutonFichier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
 				JFileChooser chooser = new JFileChooser();
+				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //Permet la selection de file et folder
 				chooser.setCurrentDirectory(new java.io.File("C:\\"));
 				 int fileValue = chooser.showSaveDialog(null);
 				    if(fileValue == JFileChooser.APPROVE_OPTION){
 				    	root = chooser.getSelectedFile();
 				    	System.out.println(root.getAbsolutePath());
-				    	//genererArbre(root);
+				    	genererArbre(root);
 				    }
 			}
 		});
@@ -180,38 +179,12 @@ public class GraphicUserInterface {
 			public void actionPerformed(ActionEvent arg0) {
 			}
 		});
-		boutonFichier.setBounds(55, 380, 139, 40);
+		boutonFichier.setBounds(25, 380, 175, 40);
 		frame.getContentPane().add(boutonFichier);
-		
-		genererArbre();
-	}
-	
-	private void genererArbre(){
-		//ARBRE
-		tree = new JTree(new DefaultTreeModel(getTree(null, new File(System.getProperty("user.dir")))));
-		
-		//Lorsqu'on clique sur un element de l'arbre
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			public void valueChanged(TreeSelectionEvent arg0) {
-				if(tree.getSelectionPath() == null)
-					return;
-				
-				String selectedNodeWPath = "";
-				
-				for(Object part : tree.getSelectionPath().getPath())
-					selectedNodeWPath += part.toString();
-				
-				System.out.println(selectedNodeWPath);
-			}
-		});
-		
-		//Ajouter l'arbre au scrollPane
-		scrollPane.getViewport().add(tree);
 	}
 	
 	private void genererArbre(File racine){
 		//ARBRE
-		//tree = new JTree(new DefaultTreeModel(getTree(null, new File(System.getProperty("user.dir")))));
 		tree = new JTree(new DefaultTreeModel(getTree(null, racine)));
 		
 		//Lorsqu'on clique sur un element de l'arbre
@@ -228,9 +201,8 @@ public class GraphicUserInterface {
 				System.out.println(selectedNodeWPath);
 			}
 		});
-		
-		//Ajouter l'arbre au scrollPane
-		scrollPane.getViewport().add(tree);
+		scrollPane.setViewportView(tree);
+		scrollPane.repaint();
 	}
 	
 	//http://www.java2s.com/Code/Java/File-Input-Output/DisplayafilesysteminaJTreeview.htm
@@ -257,4 +229,35 @@ public class GraphicUserInterface {
 		
 		return currentNode;
 	}
+	
+	public JScrollPane getScrollPane(){
+		return scrollPane;
+	}
+	
+	public JFrame getFrame(){
+		return frame;
+	}
+	
+	public JButton getBoutonFichier(){
+		return boutonFichier;
+	}
+	
+	public JButton getBoutonClear(){
+		return boutonClear;
+	}
+	
+	public void setScrollPane(JScrollPane scrollToSet){
+		scrollPane = scrollToSet;
+	}
+	
+	public void setFrame(JFrame frameToSet){
+		frame = frameToSet;
+	}
+	
+	public void setBoutonFichier(JButton buttonToSet){
+		boutonFichier = buttonToSet;
+	}
+
+	
+	
 }
