@@ -144,9 +144,6 @@ public class GraphicUserInterface implements Observer {
 		boutonClear.addActionListener(controller);
         model.addObserver(this);
         boutonClear.setActionCommand("clearButton");
-		
-		
-		
 		boutonClear.setBounds(237, 380, 107, 40);
 		frame.getContentPane().add(boutonClear);
 		
@@ -166,80 +163,12 @@ public class GraphicUserInterface implements Observer {
 		reponse5.setBounds(354, 302, 120, 40);
 		frame.getContentPane().add(reponse5);
 		
-		//Boutton fichier
 		boutonFichier = new JButton("Select file/folder");
 		boutonFichier.addActionListener(controller);
         boutonFichier.setActionCommand("browseButton");
-		
-        /*
-		boutonFichier.addMouseListener(new MouseAdapter() {
-			@Override
-			public void mouseClicked(MouseEvent arg0) {
-				JFileChooser chooser = new JFileChooser();
-				chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //Permet la selection de file et folder
-				chooser.setCurrentDirectory(new java.io.File("C:\\"));
-				 int fileValue = chooser.showSaveDialog(null);
-				    if(fileValue == JFileChooser.APPROVE_OPTION){
-				    	root = chooser.getSelectedFile();
-				    	System.out.println(root.getAbsolutePath());
-				    	//genererArbre(root);
-				    }
-			}
-		});
-		boutonFichier.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});*/
         
 		boutonFichier.setBounds(25, 380, 175, 40);
 		frame.getContentPane().add(boutonFichier);
-	}
-	
-	private void genererArbre(File racine){
-		//ARBRE
-		tree = new JTree(new DefaultTreeModel(getTree(null, racine)));
-		
-		//Lorsqu'on clique sur un element de l'arbre
-		tree.addTreeSelectionListener(new TreeSelectionListener() {
-			public void valueChanged(TreeSelectionEvent arg0) {
-				if(tree.getSelectionPath() == null)
-					return;
-				
-				String selectedNodeWPath = "";
-				
-				for(Object part : tree.getSelectionPath().getPath())
-					selectedNodeWPath += part.toString();
-				
-				System.out.println(selectedNodeWPath);
-			}
-		});
-		scrollPane.setViewportView(tree);
-		scrollPane.repaint();
-	}
-	
-	//http://www.java2s.com/Code/Java/File-Input-Output/DisplayafilesysteminaJTreeview.htm
-	private DefaultMutableTreeNode getTree(DefaultMutableTreeNode top, File repertoire){
-		DefaultMutableTreeNode currentNode;
-		
-		//Si top est null, c'est le root
-		if(top != null){
-			currentNode = new DefaultMutableTreeNode(repertoire.getName());
-			top.add(currentNode);
-		}
-		else
-			currentNode = new DefaultMutableTreeNode(repertoire.getAbsolutePath());
-		
-		if(!repertoire.isDirectory())
-			return currentNode;
-		
-		if(repertoire.listFiles() != null){
-			for(File fichier : repertoire.listFiles()){
-				if(fichier.canRead())
-					getTree(currentNode, fichier);
-			}
-		}
-		
-		return currentNode;
 	}
 	
 	public JScrollPane getScrollPane(){
@@ -276,17 +205,12 @@ public class GraphicUserInterface implements Observer {
 		
 		switch(arg1.toString()){
 		
-		case "Create Tree":
+		case "Update Tree":
 			scrollPane.setViewportView(model.getTree());
 			scrollPane.repaint();
 			break;
 		case "Clear Tree": 
-			//model.setTree(new Jtree); getTree()
-			//JFrame frameTemp =  getFrame();
-			//frameTemp.getContentPane().remove(window.getScrollPane());
-			
 			frame.remove(scrollPane);
-			
 			JScrollPane scrollPaneTemp = new JScrollPane();
 			scrollPaneTemp.setBounds(15, 44, 207, 325);
 			scrollPane = scrollPaneTemp;
@@ -294,10 +218,20 @@ public class GraphicUserInterface implements Observer {
 			scrollPane.repaint();
 			
 			break;
+		case "Root Tree":
+			JFileChooser chooser = new JFileChooser();
+    		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //Permet la selection de file et folder
+    		chooser.setCurrentDirectory(new java.io.File("C:\\"));
+    		 int fileValue = chooser.showSaveDialog(null);
+    		    if(fileValue == JFileChooser.APPROVE_OPTION){
+    		    	root = chooser.getSelectedFile();
+    		    	System.out.println(root.getAbsolutePath());
+    		    	//genererArbre(root);
+    		    	model.genererArbre(root);
+    		    }	
+			break;
 		}
-	
 	}
-
 	
 	
 }
