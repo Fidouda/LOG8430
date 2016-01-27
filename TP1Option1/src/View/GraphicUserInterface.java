@@ -172,6 +172,7 @@ public class GraphicUserInterface {
 				    if(fileValue == JFileChooser.APPROVE_OPTION){
 				    	root = chooser.getSelectedFile();
 				    	System.out.println(root.getAbsolutePath());
+				    	//genererArbre(root);
 				    }
 			}
 		});
@@ -187,7 +188,31 @@ public class GraphicUserInterface {
 	
 	private void genererArbre(){
 		//ARBRE
-		tree = new JTree(new DefaultTreeModel(getTree(null, new File("."))));
+		tree = new JTree(new DefaultTreeModel(getTree(null, new File(System.getProperty("user.dir")))));
+		
+		//Lorsqu'on clique sur un element de l'arbre
+		tree.addTreeSelectionListener(new TreeSelectionListener() {
+			public void valueChanged(TreeSelectionEvent arg0) {
+				if(tree.getSelectionPath() == null)
+					return;
+				
+				String selectedNodeWPath = "";
+				
+				for(Object part : tree.getSelectionPath().getPath())
+					selectedNodeWPath += part.toString();
+				
+				System.out.println(selectedNodeWPath);
+			}
+		});
+		
+		//Ajouter l'arbre au scrollPane
+		scrollPane.getViewport().add(tree);
+	}
+	
+	private void genererArbre(File racine){
+		//ARBRE
+		//tree = new JTree(new DefaultTreeModel(getTree(null, new File(System.getProperty("user.dir")))));
+		tree = new JTree(new DefaultTreeModel(getTree(null, racine)));
 		
 		//Lorsqu'on clique sur un element de l'arbre
 		tree.addTreeSelectionListener(new TreeSelectionListener() {
