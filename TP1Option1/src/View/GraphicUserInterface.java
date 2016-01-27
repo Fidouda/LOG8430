@@ -36,9 +36,16 @@ import java.io.File;
 import javax.swing.JScrollPane;
 
 import java.util.Observable;
+import java.util.Observer;
 
-public class GraphicUserInterface extends Observable {
+import Controller.Controller;
+import Model.SimpleModel;
 
+public class GraphicUserInterface implements Observer {
+
+	private Controller controller;
+	private SimpleModel model;
+	
 	private JFrame frame;
 	private JTextField reponse1;
 	private JTextField reponse2;
@@ -56,7 +63,9 @@ public class GraphicUserInterface extends Observable {
 	/**
 	 * Create the application.
 	 */
-	public GraphicUserInterface() {
+	public GraphicUserInterface(SimpleModel modelToSet, Controller controllerToSet) {
+		model = modelToSet;
+		controller = controllerToSet;
 		initialize();
 	}
 
@@ -132,14 +141,12 @@ public class GraphicUserInterface extends Observable {
 		frame.getContentPane().add(separator_1);
 		
 		boutonClear = new JButton("Clear");
-		boutonClear.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-				
-				
-				notifyObservers("Clear tree");
-			
-			}
-		});
+		boutonClear.addActionListener(controller);
+        model.addObserver(this);
+        boutonClear.setActionCommand("clearButton");
+		
+		
+		
 		boutonClear.setBounds(237, 380, 107, 40);
 		frame.getContentPane().add(boutonClear);
 		
@@ -161,6 +168,10 @@ public class GraphicUserInterface extends Observable {
 		
 		//Boutton fichier
 		boutonFichier = new JButton("Select file/folder");
+		boutonFichier.addActionListener(controller);
+        boutonFichier.setActionCommand("browseButton");
+		
+        /*
 		boutonFichier.addMouseListener(new MouseAdapter() {
 			@Override
 			public void mouseClicked(MouseEvent arg0) {
@@ -171,14 +182,15 @@ public class GraphicUserInterface extends Observable {
 				    if(fileValue == JFileChooser.APPROVE_OPTION){
 				    	root = chooser.getSelectedFile();
 				    	System.out.println(root.getAbsolutePath());
-				    	genererArbre(root);
+				    	//genererArbre(root);
 				    }
 			}
 		});
 		boutonFichier.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 			}
-		});
+		});*/
+        
 		boutonFichier.setBounds(25, 380, 175, 40);
 		frame.getContentPane().add(boutonFichier);
 	}
@@ -256,6 +268,34 @@ public class GraphicUserInterface extends Observable {
 	
 	public void setBoutonFichier(JButton buttonToSet){
 		boutonFichier = buttonToSet;
+	}
+
+	@Override
+	public void update(Observable arg0, Object arg1) {
+		System.out.println("Je suis dans la methode update");
+		
+		switch(arg1.toString()){
+		
+		case "Create Tree":
+			scrollPane.setViewportView(model.getTree());
+			scrollPane.repaint();
+			break;
+		case "Clear Tree": 
+			//model.setTree(new Jtree); getTree()
+			//JFrame frameTemp =  getFrame();
+			//frameTemp.getContentPane().remove(window.getScrollPane());
+			
+			frame.remove(scrollPane);
+			
+			JScrollPane scrollPaneTemp = new JScrollPane();
+			scrollPaneTemp.setBounds(15, 44, 207, 325);
+			scrollPane = scrollPaneTemp;
+			frame.add(scrollPane);
+			scrollPane.repaint();
+			
+			break;
+		}
+	
 	}
 
 	

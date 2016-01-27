@@ -8,8 +8,9 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
 import View.GraphicUserInterface;
+import java.util.Observable;
 
-public class SimpleModel {
+public class SimpleModel extends Observable {
 	
 	private javax.swing.JTree tree;
 	private GraphicUserInterface view;
@@ -25,5 +26,12 @@ public class SimpleModel {
 	
 	public void setTree(JTree treeToSet){
 		tree = treeToSet;
+		setChanged();
+		notifyObservers("Create Tree");
+	}
+	public void clearTree(){
+		tree = new JTree();
+		setChanged();
+		notifyObservers("Clear Tree");
 	}
 }

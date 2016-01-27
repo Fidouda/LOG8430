@@ -3,8 +3,11 @@ import View.GraphicUserInterface;
 import Model.SimpleModel;
 
 import java.awt.EventQueue;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JFrame;
 import javax.swing.JScrollPane;
 import javax.swing.JTree;
@@ -13,18 +16,40 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import java.util.Observable;
-import java.util.Observer;
-public class Controller implements Observer {
+
+public class Controller implements ActionListener {
 	
 	private SimpleModel model;
 	private GraphicUserInterface window;
+	private File root;
 
-	public Controller(SimpleModel modelSet, GraphicUserInterface windowSet ) {
-		model = modelSet;
-		window = windowSet;
+	public Controller(SimpleModel modelToSet){
+		model = modelToSet;
 	}
 	
+	
+   public void actionPerformed(ActionEvent e)
+    {
+	   
+        if("clearButton".equals(e.getActionCommand()))
+        {
+        	model.clearTree();
+        }
+        else if("browseButton".equals(e.getActionCommand()))
+        {
+    		JFileChooser chooser = new JFileChooser();
+    		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //Permet la selection de file et folder
+    		chooser.setCurrentDirectory(new java.io.File("C:\\"));
+    		 int fileValue = chooser.showSaveDialog(null);
+    		    if(fileValue == JFileChooser.APPROVE_OPTION){
+    		    	root = chooser.getSelectedFile();
+    		    	System.out.println(root.getAbsolutePath());
+    		    	genererArbre(root);
+    		    }
+        }
+    }
+
+   
 	private void genererArbre(File racine){
 
 		final JTree treeTemp = new JTree(new DefaultTreeModel(getTree(null, racine)));
@@ -43,8 +68,6 @@ public class Controller implements Observer {
 		});
 				
 		model.setTree(treeTemp);				
-		window.getScrollPane().setViewportView(model.getTree());
-		window.getScrollPane().repaint();
 	}
 	
 	//http://www.java2s.com/Code/Java/File-Input-Output/DisplayafilesysteminaJTreeview.htm
@@ -70,28 +93,6 @@ public class Controller implements Observer {
 		}
 		
 		return currentNode;
-	}
-
-	@Override
-	public void update(Observable arg0, Object arg1) {
-		
-		switch(arg1.toString()){
-		
-		case "Clear tree": 
-			//model.setTree(new Jtree); getTree()
-			JFrame frameTemp =  window.getFrame();
-			frameTemp.getContentPane().remove(window.getScrollPane());
-			
-			JScrollPane scrollPane = new JScrollPane();
-			scrollPane.setBounds(15, 44, 207, 325);
-			frameTemp.getContentPane().add(scrollPane);
-			scrollPane.repaint();
-			
-			window.setFrame(frameTemp);
-			
-			break;
-		}
-	
 	}
 	
 	public GraphicUserInterface getWindow(){

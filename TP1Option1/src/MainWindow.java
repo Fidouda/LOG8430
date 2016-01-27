@@ -17,16 +17,15 @@ public class MainWindow {
 			public void run() {
 				try {
 					
-					
-					window = new GraphicUserInterface();
+				
 		
 					model = new SimpleModel(window);
 					
-					Controller controller = new Controller(model, window);
-					window.addObserver(controller);
-					
+					Controller controller = new Controller(model);
+					//window.addObserver(controller);
+				
+					window = new GraphicUserInterface(model, controller);
 					window.getFrame().setVisible(true);
-					
 					/*
 					Controller controller = new Controller();
 					
