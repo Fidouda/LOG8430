@@ -1,0 +1,35 @@
+package Model;
+import java.io.File;
+
+import javax.swing.JTree;
+import javax.swing.event.TreeSelectionEvent;
+import javax.swing.event.TreeSelectionListener;
+import javax.swing.tree.DefaultMutableTreeNode;
+import javax.swing.tree.DefaultTreeModel;
+
+import View.GraphicUserInterface;
+import java.util.Observable;
+
+public class SimpleModel extends Observable {
+	
+	private javax.swing.JTree tree;
+	
+	public SimpleModel() {
+		
+	}
+
+	public JTree getTree(){
+		return tree;
+	}
+	
+	public void setTree(JTree treeToSet){
+		tree = treeToSet;
+		setChanged();
+		notifyObservers("Create Tree");
+	}
+	public void clearTree(){
+		tree = new JTree();
+		setChanged();
+		notifyObservers("Clear Tree");
+	}
+}

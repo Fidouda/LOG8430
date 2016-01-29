@@ -1,51 +1,28 @@
 package View;
 
-import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import javax.swing.JTextPane;
-
-import java.awt.BorderLayout;
 import java.awt.Color;
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
-import javax.swing.SwingWorker;
-import javax.swing.border.CompoundBorder;
-import javax.swing.border.EmptyBorder;
-import javax.swing.border.LineBorder;
 import javax.swing.JTextField;
 import java.awt.Font;
 import javax.swing.JFileChooser;
-import java.awt.event.MouseAdapter;
-import java.awt.event.MouseEvent;
 import Controller.Controller;
 import javax.swing.JCheckBox;
-
-import javax.swing.JTree;
-import javax.swing.event.TreeSelectionEvent;
-import javax.swing.event.TreeSelectionListener;
-import javax.swing.tree.DefaultMutableTreeNode;
-import javax.swing.tree.DefaultTreeModel;
-import javax.swing.tree.MutableTreeNode;
-import javax.swing.tree.TreeNode;
-
 import java.io.File;
 import javax.swing.JScrollPane;
-
 import java.util.Observable;
 import java.util.Observer;
 
-import Controller.Controller;
 import Model.SimpleModel;
 
 public class GraphicUserInterface implements Observer {
 
+	
+	//Déclaration des éléments de l'interface
 	private Controller controller;
 	private SimpleModel model;
-	
 	private JFrame frame;
 	private JTextField reponse1;
 	private JTextField reponse2;
@@ -54,15 +31,12 @@ public class GraphicUserInterface implements Observer {
 	private JTextField reponse5;
 	private JButton boutonFichier;
 	private JButton boutonClear;
-	
 	private File root;
-	private javax.swing.JTree tree;
 	private JScrollPane scrollPane;
-	
 
-	/**
-	 * Create the application.
-	 */
+	/*
+	 * Initialisation de la vue()
+	*/
 	public GraphicUserInterface(SimpleModel modelToSet, Controller controllerToSet) {
 		model = modelToSet;
 		controller = controllerToSet;
@@ -116,6 +90,11 @@ public class GraphicUserInterface implements Observer {
 		boutonCommande4.setBounds(247, 239, 97, 40);
 		frame.getContentPane().add(boutonCommande4);
 		
+		JButton boutonCommande5 = new JButton("Commande 5");
+		boutonCommande5.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		boutonCommande5.setBounds(247, 302, 97, 40);
+		frame.getContentPane().add(boutonCommande5);
+		
 		reponse2 = new JTextField();
 		reponse2.setEditable(false);
 		reponse2.setColumns(10);
@@ -140,22 +119,10 @@ public class GraphicUserInterface implements Observer {
 		separator_1.setBounds(237, 367, 247, 19);
 		frame.getContentPane().add(separator_1);
 		
-		boutonClear = new JButton("Clear");
-		boutonClear.addActionListener(controller);
-        model.addObserver(this);
-        boutonClear.setActionCommand("clearButton");
-		boutonClear.setBounds(237, 380, 107, 40);
-		frame.getContentPane().add(boutonClear);
-		
 		JCheckBox checkAutoRun = new JCheckBox("Auto Run");
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
 		checkAutoRun.setBounds(381, 389, 97, 23);
 		frame.getContentPane().add(checkAutoRun);
-		
-		JButton boutonCommande5 = new JButton("Commande 5");
-		boutonCommande5.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande5.setBounds(247, 302, 97, 40);
-		frame.getContentPane().add(boutonCommande5);
 		
 		reponse5 = new JTextField();
 		reponse5.setEditable(false);
@@ -163,12 +130,24 @@ public class GraphicUserInterface implements Observer {
 		reponse5.setBounds(354, 302, 120, 40);
 		frame.getContentPane().add(reponse5);
 		
+		boutonClear = new JButton("Clear");
+		//Ajout d'un action listener qui sera notre contrôleur
+		boutonClear.addActionListener(controller);
+		//On nomme la commande "clearButton"
+        boutonClear.setActionCommand("clearButton");
+		boutonClear.setBounds(237, 380, 107, 40);
+		frame.getContentPane().add(boutonClear);
+		
 		boutonFichier = new JButton("Select file/folder");
 		boutonFichier.addActionListener(controller);
         boutonFichier.setActionCommand("browseButton");
         
 		boutonFichier.setBounds(25, 380, 175, 40);
 		frame.getContentPane().add(boutonFichier);
+		
+		//Ajout d'un observer du modèle
+        model.addObserver(this);
+        //
 	}
 	
 	public JScrollPane getScrollPane(){
@@ -209,6 +188,7 @@ public class GraphicUserInterface implements Observer {
 			scrollPane.setViewportView(model.getTree());
 			scrollPane.repaint();
 			break;
+			
 		case "Clear Tree": 
 			frame.remove(scrollPane);
 			JScrollPane scrollPaneTemp = new JScrollPane();
@@ -216,8 +196,8 @@ public class GraphicUserInterface implements Observer {
 			scrollPane = scrollPaneTemp;
 			frame.add(scrollPane);
 			scrollPane.repaint();
-			
 			break;
+			
 		case "Root Tree":
 			JFileChooser chooser = new JFileChooser();
     		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //Permet la selection de file et folder

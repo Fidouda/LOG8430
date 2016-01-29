@@ -8,6 +8,7 @@ public class MainWindow {
 	
 	private static GraphicUserInterface window;
 	private static SimpleModel model;
+	private static Controller controller;
 	
 	/**
 	 * Launch the application.
@@ -15,12 +16,18 @@ public class MainWindow {
 	public static void main(String[] args) {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					model = new SimpleModel(window);
-					Controller controller = new Controller(model);
+				try
+				{
+					//Déclaration du model
+					model = new SimpleModel();
+					//Déclaration du contrôleur 
+					controller = new Controller(model);
+					//Déclaration de la vue
 					window = new GraphicUserInterface(model, controller);
 					window.getFrame().setVisible(true);
-				} catch (Exception e) {
+				} 
+				catch (Exception e) 
+				{
 					e.printStackTrace();
 				}
 			}

@@ -7,17 +7,14 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import View.GraphicUserInterface;
 import java.util.Observable;
 
 public class SimpleModel extends Observable {
 	
 	private javax.swing.JTree tree;
-	private GraphicUserInterface view;
 	
-
-	public SimpleModel(GraphicUserInterface View) {
-		view = View;
+	public SimpleModel() {
+		
 	}
 
 	public JTree getTree(){
@@ -29,6 +26,7 @@ public class SimpleModel extends Observable {
 		setChanged();
 		notifyObservers("Create Tree");
 	}
+	//Vide l'arbre
 	public void clearTree(){
 		tree = new JTree();
 		setChanged();
