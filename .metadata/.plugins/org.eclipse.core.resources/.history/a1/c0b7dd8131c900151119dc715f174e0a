@@ -69,6 +69,11 @@ public class GraphicUserInterface implements Observer {
 		boutonCommande1.setActionCommand("commandButton1");
 		frame.getContentPane().add(boutonCommande1);
 		
+		reponse1 = new JTextField();
+		reponse1.setEditable(false);
+		reponse1.setBounds(354, 44, 120, 40);
+		frame.getContentPane().add(reponse1);
+		reponse1.setColumns(10);
 		
 		JButton boutonCommande2 = new JButton("Commande 2");
 		boutonCommande2.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -90,12 +95,32 @@ public class GraphicUserInterface implements Observer {
 		boutonCommande5.setBounds(247, 302, 97, 40);
 		frame.getContentPane().add(boutonCommande5);
 		
+		reponse2 = new JTextField();
+		reponse2.setEditable(false);
+		reponse2.setColumns(10);
+		reponse2.setBounds(354, 109, 120, 40);
+		frame.getContentPane().add(reponse2);
+		
+		reponse3 = new JTextField();
+		reponse3.setEditable(false);
+		reponse3.setColumns(10);
+		reponse3.setBounds(354, 172, 120, 40);
+		frame.getContentPane().add(reponse3);
+		
+		reponse4 = new JTextField();
+		reponse4.setEditable(false);
+		reponse4.setColumns(10);
+		reponse4.setBounds(354, 239, 120, 40);
+		frame.getContentPane().add(reponse4);
+		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(Color.DARK_GRAY);
 		separator_1.setBackground(Color.DARK_GRAY);
 		separator_1.setBounds(237, 367, 247, 19);
 		frame.getContentPane().add(separator_1);
 		
+=======
+>>>>>>> 814602c595e342ca96d551c2eb5becc4dacf5a09
 		JCheckBox checkAutoRun = new JCheckBox("Auto Run");
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
 		checkAutoRun.setBounds(381, 389, 97, 23);

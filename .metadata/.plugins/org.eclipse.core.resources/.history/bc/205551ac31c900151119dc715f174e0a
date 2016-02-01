@@ -26,7 +26,16 @@ public class Controller implements ActionListener {
         }
         else if("commandButton1".equals(e.getActionCommand()))
         {
-        	model.command1();
+        	try {
+				model.command1();
+			} catch (MalformedURLException | ClassNotFoundException | InstantiationException
+					| IllegalAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
 }
