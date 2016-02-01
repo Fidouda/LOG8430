@@ -1,5 +1,11 @@
 package Model;
 import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+
+import Commands.Command1;
+import Commands.DynamicClassInterface;
+import Commands.Interface;
 
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -12,9 +18,13 @@ import java.util.Observable;
 public class SimpleModel extends Observable {
 	
 	private javax.swing.JTree tree;
+	private DynamicClassInterface dInterface;
+	private DynamicClassInterface command1;
+	private ClassLoader loader;
 	
-	public SimpleModel() {
-		
+	
+	
+	public SimpleModel() throws ClassNotFoundException {
 	}
 
 	public JTree getTree(){
@@ -56,6 +66,23 @@ public class SimpleModel extends Observable {
 		});
 				
 		tree = treeTemp;	
+		setChanged();
+		notifyObservers("Update Tree");
+	}
+	
+	public void command1() throws ClassNotFoundException, InstantiationException, IllegalAccessException, IOException
+	{
+		ClassLoader parentClassLoader = DynamicClassInterface.class.getClassLoader();
+		DynamicClassInterface classLoader = new DynamicClassInterface(parentClassLoader);
+	    Class myObjectClass = classLoader.loadClass("Commands.Command1");
+	    
+	   Interface o = (Interface) myObjectClass.newInstance();
+	    
+	    classLoader = new DynamicClassInterface(parentClassLoader);
+	    myObjectClass = classLoader.loadClass("Commands.Command1");
+		o = (Interface) myObjectClass.newInstance();
+	    o.start("");
+		
 		setChanged();
 		notifyObservers("Update Tree");
 	}

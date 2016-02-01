@@ -1,0 +1,16 @@
+package Commands;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+
+//http://tutorials.jenkov.com/java-reflection/dynamic-class-loading-reloading.html#dynamicreloading
+public class Command1 extends  DynamicClassInterface implements Interface {
+
+	@Override
+	public void start(String option) {
+		// TODO Auto-generated method stub
+		System.out.println("SWAAAG");
+	}
+}
+

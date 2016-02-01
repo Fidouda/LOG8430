@@ -1,0 +1,94 @@
+package Commands;
+
+import java.io.ByteArrayOutputStream;
+import java.io.File;
+import java.io.IOException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.net.URLClassLoader;
+import java.net.URLConnection;
+import java.util.HashMap;
+
+import org.omg.CORBA.portable.InputStream;
+
+import java.lang.reflect.Constructor;
+import java.lang.reflect.Method;
+
+public class DynamicClassInterface extends java.lang.ClassLoader{
+	
+	private HashMap<String, Class<?>> classes = new HashMap<String, Class<?>>();
+	
+	public synchronized Class<?> loadClass(String className, boolean resolveIt) 
+	         throws ClassNotFoundException { 
+	         Class<?> result; 
+	         byte classData[]; 
+	         System.out.println(" >>>>>> Load class : "+className); 
+	         /* Check our local cache of classes */ 
+	         result = (Class<?>)classes.get(className); 
+	         if (result != null) { 
+	             System.out.println(" >>>>>> returning cached result."); 
+	             return result; 
+	         } 
+	         try { 
+	        	    result = super.findSystemClass(className); 
+	        	    System.out.println(" >>>>>> returning system class (in CLASSPATH)."); 
+	        	    return result; 
+	        	    } catch (ClassNotFoundException e) { 
+	        	             System.out.println("        >>>>>> Not a system class."); 
+	        	    } 
+	         
+	         classData = getClassImplFromDataBase(className); 
+	         if (classData == null) { 
+	             throw new ClassNotFoundException(); 
+	         } 
+	}       
+	
+		
+	    public void invokeClassMethod(String classBinName, String methodName){
+	    	try {
+	   // Create a new JavaClassLoa
+        ClassLoader classLoader = this.getClass().getClassLoader();
+
+         
+        // Load the target class using its binary name
+        Class loadedMyClass = classLoader.loadClass(classBinName);
+        System.out.println("Loaded class name: " + loadedMyClass.getName());
+        // Create a new instance from the loaded class
+
+        Constructor constructor = loadedMyClass.getConstructor();
+
+        Object myClassObject = constructor.newInstance();
+
+        // Getting the target method from the loaded class and invoke it using its name
+        Method method = loadedMyClass.getMethod(methodName);
+        
+        System.out.println("Invoked method name: " + method.getName());
+        method.invoke(myClassObject);
+    	
+        } catch (ClassNotFoundException e) {
+            e.printStackTrace();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+    }
+		public void classReload() {
+			File file = new File("c:\\myclasses\\");
+			try {
+			    // Convert File to a URL
+			    URL url = file.toURL();          // file:/c:/myclasses/
+			    URL[] urls = new URL[]{url};
+
+			    // Create a new class loader with the directory
+			    ClassLoader cl = new URLClassLoader(urls);
+
+			    // Load in the class; MyClass.class should be located in
+			    // the directory file:/c:/myclasses/com/mycompany
+			    Class cls = cl.loadClass("com.mycompany.MyClass");
+			} catch (MalformedURLException e) {
+			} catch (ClassNotFoundException e) {
+			}
+			
+		}
+ }
+

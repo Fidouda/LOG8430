@@ -3,6 +3,8 @@ import Model.SimpleModel;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.IOException;
+import java.net.MalformedURLException;
 
 public class Controller implements ActionListener {
 	
@@ -21,6 +23,19 @@ public class Controller implements ActionListener {
         else if("browseButton".equals(e.getActionCommand()))
         {
         	model.rootTree();
+        }
+        else if("commandButton1".equals(e.getActionCommand()))
+        {
+        	try {
+				model.command1();
+			} catch (MalformedURLException | ClassNotFoundException | InstantiationException
+					| IllegalAccessException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
     }
 }

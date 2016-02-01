@@ -67,6 +67,8 @@ public class GraphicUserInterface implements Observer {
 		JButton boutonCommande1 = new JButton("Commande 1");
 		boutonCommande1.setFont(new Font("Tahoma", Font.PLAIN, 10));
 		boutonCommande1.setBounds(247, 44, 97, 40);
+		boutonCommande1.addActionListener(controller);
+		boutonCommande1.setActionCommand("commandButton1");
 		frame.getContentPane().add(boutonCommande1);
 		
 		reponse1 = new JTextField();
@@ -210,6 +212,8 @@ public class GraphicUserInterface implements Observer {
     		    	model.genererArbre(root);
     		    }	
 			break;
+		case "command1":
+			System.out.println("hater");
 		}
 	}
 	

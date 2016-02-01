@@ -1,0 +1,35 @@
+package Controller;
+import Model.SimpleModel;
+
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+public class Controller implements ActionListener {
+	
+	private SimpleModel model;
+
+	public Controller(SimpleModel modelToSet){
+		model = modelToSet;
+	}
+	
+   public void actionPerformed(ActionEvent e)
+    {
+        if("clearButton".equals(e.getActionCommand()))
+        {
+        	model.clearTree();
+        }
+        else if("browseButton".equals(e.getActionCommand()))
+        {
+        	model.rootTree();
+        }
+        else if("commandButton1".equals(e.getActionCommand()))
+        {
+        	try {
+				model.command1();
+			} catch (ClassNotFoundException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        }
+    }
+}

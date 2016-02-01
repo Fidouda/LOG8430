@@ -1,5 +1,6 @@
 import java.awt.EventQueue;
 
+
 import Model.SimpleModel;
 import View.GraphicUserInterface;
 import Controller.Controller;
@@ -25,6 +26,7 @@ public class MainWindow {
 					//Déclaration de la vue
 					window = new GraphicUserInterface(model, controller);
 					window.getFrame().setVisible(true);
+					
 				} 
 				catch (Exception e) 
 				{
