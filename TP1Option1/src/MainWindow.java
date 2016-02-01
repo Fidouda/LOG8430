@@ -25,6 +25,8 @@ public class MainWindow {
 					//Déclaration de la vue
 					window = new GraphicUserInterface(model, controller);
 					window.getFrame().setVisible(true);
+					
+					
 				} 
 				catch (Exception e) 
 				{

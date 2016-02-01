@@ -24,16 +24,13 @@ public class GraphicUserInterface implements Observer {
 	private Controller controller;
 	private SimpleModel model;
 	private JFrame frame;
-	private JTextField reponse1;
-	private JTextField reponse2;
-	private JTextField reponse3;
-	private JTextField reponse4;
-	private JTextField reponse5;
+
 	private JButton boutonFichier;
 	private JButton boutonClear;
 	private File root;
 	private JScrollPane scrollPane;
-
+	private ListeCommandes listeCommandes_;
+	
 	/*
 	 * Initialisation de la vue()
 	*/
@@ -57,78 +54,17 @@ public class GraphicUserInterface implements Observer {
 		scrollPane.setBounds(15, 44, 207, 325);
 		frame.getContentPane().add(scrollPane);
 		
-		JSeparator separator = new JSeparator();
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBackground(Color.DARK_GRAY);
-		separator.setForeground(Color.DARK_GRAY);
-		separator.setBounds(237, 44, 28, 325);
-		frame.getContentPane().add(separator);
-		
-		JButton boutonCommande1 = new JButton("Commande 1");
-		boutonCommande1.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande1.setBounds(247, 44, 97, 40);
-		frame.getContentPane().add(boutonCommande1);
-		
-		reponse1 = new JTextField();
-		reponse1.setEditable(false);
-		reponse1.setBounds(354, 44, 120, 40);
-		frame.getContentPane().add(reponse1);
-		reponse1.setColumns(10);
-		
-		JButton boutonCommande2 = new JButton("Commande 2");
-		boutonCommande2.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande2.setBounds(247, 109, 97, 40);
-		frame.getContentPane().add(boutonCommande2);
-		
-		JButton boutonCommande3 = new JButton("Commande 3");
-		boutonCommande3.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande3.setBounds(247, 172, 97, 40);
-		frame.getContentPane().add(boutonCommande3);
-		
-		JButton boutonCommande4 = new JButton("Commande 4");
-		boutonCommande4.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande4.setBounds(247, 239, 97, 40);
-		frame.getContentPane().add(boutonCommande4);
-		
-		JButton boutonCommande5 = new JButton("Commande 5");
-		boutonCommande5.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande5.setBounds(247, 302, 97, 40);
-		frame.getContentPane().add(boutonCommande5);
-		
-		reponse2 = new JTextField();
-		reponse2.setEditable(false);
-		reponse2.setColumns(10);
-		reponse2.setBounds(354, 109, 120, 40);
-		frame.getContentPane().add(reponse2);
-		
-		reponse3 = new JTextField();
-		reponse3.setEditable(false);
-		reponse3.setColumns(10);
-		reponse3.setBounds(354, 172, 120, 40);
-		frame.getContentPane().add(reponse3);
-		
-		reponse4 = new JTextField();
-		reponse4.setEditable(false);
-		reponse4.setColumns(10);
-		reponse4.setBounds(354, 239, 120, 40);
-		frame.getContentPane().add(reponse4);
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setForeground(Color.DARK_GRAY);
-		separator_1.setBackground(Color.DARK_GRAY);
-		separator_1.setBounds(237, 367, 247, 19);
-		frame.getContentPane().add(separator_1);
-		
 		JCheckBox checkAutoRun = new JCheckBox("Auto Run");
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
 		checkAutoRun.setBounds(381, 389, 97, 23);
 		frame.getContentPane().add(checkAutoRun);
 		
-		reponse5 = new JTextField();
-		reponse5.setEditable(false);
-		reponse5.setColumns(10);
-		reponse5.setBounds(354, 302, 120, 40);
-		frame.getContentPane().add(reponse5);
+		/*
+		JButton boutonCommande1 = new JButton("Commande 1");
+		boutonCommande1.setFont(new Font("Tahoma", Font.PLAIN, 10));
+		boutonCommande1.setBounds(247, 44, 97, 40);
+		frame.getContentPane().add(boutonCommande1);
+		*/
 		
 		boutonClear = new JButton("Clear");
 		//Ajout d'un action listener qui sera notre contrôleur
@@ -194,7 +130,7 @@ public class GraphicUserInterface implements Observer {
 			JScrollPane scrollPaneTemp = new JScrollPane();
 			scrollPaneTemp.setBounds(15, 44, 207, 325);
 			scrollPane = scrollPaneTemp;
-			frame.add(scrollPane);
+			frame.getContentPane().add(scrollPane);
 			scrollPane.repaint();
 			break;
 			
