@@ -1,5 +1,7 @@
 package Commands;
 
+import java.io.File;
+
 public class NomFichier extends CommandeAbstraite {
 
 	public NomFichier(String chemin) {
@@ -31,5 +33,23 @@ public class NomFichier extends CommandeAbstraite {
 		setAffichage("Nom du fichier: " + cheminAffichage);
 		
 		return getAffichage();
+	}
+
+	@Override
+	public void faireCommande() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFile(File file) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearCommand() {
+		// TODO Auto-generated method stub
+		
 	}
 }

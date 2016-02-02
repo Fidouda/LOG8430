@@ -1,5 +1,7 @@
 package Commands;
 
+import java.io.File;
+
 public class CheminAbsolu extends CommandeAbstraite{
 
 	public CheminAbsolu(String chemin){
@@ -21,5 +23,23 @@ public class CheminAbsolu extends CommandeAbstraite{
 		}
 		setAffichage(chemin_);
 		return getAffichage();
+	}
+
+	@Override
+	public void faireCommande() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFile(File file) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearCommand() {
+		// TODO Auto-generated method stub
+		
 	}
 }

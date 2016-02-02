@@ -24,7 +24,18 @@ public class Controller implements ActionListener {
         {
         	model.rootTree();
         }
+        ////////////////////////////////////////
+        //Mauvaise utilisation du controlleur
+        ////////////////////////////////////////
+        else if("commandButton0".equals(e.getActionCommand()))
+        {
+        	model.command1();
+        }
         else if("commandButton1".equals(e.getActionCommand()))
+        {
+        	model.command1();
+        }
+        else if("commandButton2".equals(e.getActionCommand()))
         {
         	model.command1();
         }

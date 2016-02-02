@@ -23,15 +23,21 @@
 <fullyQualifiedTypeName name="java.net.URLConnection"/>
 <fullyQualifiedTypeName name="org.omg.CORBA.portable.InputStream"/>
 <fullyQualifiedTypeName name="javax.management.DynamicMBean"/>
-<fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="Commands.DynamicClassInterface"/>
 <fullyQualifiedTypeName name="java.io.ByteArrayOutputStream"/>
 <fullyQualifiedTypeName name="java.io.InputStream"/>
 <fullyQualifiedTypeName name="java.io.FileInputStream"/>
 <fullyQualifiedTypeName name="java.io.IOException"/>
-<fullyQualifiedTypeName name="Commands.InterfaceCommande"/>
 <fullyQualifiedTypeName name="java.util.List"/>
-<fullyQualifiedTypeName name="java.util.ArrayList"/>
 <fullyQualifiedTypeName name="java.util.Vector"/>
 <fullyQualifiedTypeName name="java.io.File"/>
+<fullyQualifiedTypeName name="Commands.InterfaceCommande"/>
+<fullyQualifiedTypeName name="Commands.ClassLoader"/>
+<fullyQualifiedTypeName name="Commands.GestionnaireCommande"/>
+<fullyQualifiedTypeName name="java.lang.reflect.InvocationTargetException"/>
+<fullyQualifiedTypeName name="java.util.ArrayList"/>
+<fullyQualifiedTypeName name="javax.print.DocFlavor.URL"/>
+<fullyQualifiedTypeName name="java.io.UnsupportedEncodingException"/>
+<fullyQualifiedTypeName name="java.util.HashMap"/>
+<fullyQualifiedTypeName name="java.net.URL"/>
 </qualifiedTypeNameHistroy>

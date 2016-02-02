@@ -17,8 +17,6 @@ public class ListeCommandes extends JPanel{
 	private final JButton btnBoutton = new JButton("Boutton");
 	
 	public ListeCommandes(){
-		
-		
 		setLayout(new BorderLayout(0, 0));
 		listePanel_ = new JPanel();
 		listePanel_.setBackground(Color.WHITE);
@@ -26,8 +24,6 @@ public class ListeCommandes extends JPanel{
 		add(listePanel_, BorderLayout.CENTER);
 		listePanel_.setLayout(new GridLayout(0, 1, 10, 10));
 		listePanel_.add(btnBoutton);
-		
-
 	}
 	
 }

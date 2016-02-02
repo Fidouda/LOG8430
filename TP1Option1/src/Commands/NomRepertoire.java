@@ -1,5 +1,7 @@
 package Commands;
 
+import java.io.File;
+
 public class NomRepertoire extends CommandeAbstraite{
 
 	public NomRepertoire(String chemin){
@@ -31,6 +33,24 @@ public class NomRepertoire extends CommandeAbstraite{
 		setAffichage("Nom du repertoir: " + cheminAffichage);
 		
 		return getAffichage();
+	}
+
+	@Override
+	public void faireCommande() {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void setFile(File file) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void clearCommand() {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

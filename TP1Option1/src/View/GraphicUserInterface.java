@@ -2,20 +2,35 @@ package View;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+
 import java.awt.Color;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+
 import java.awt.Font;
+
 import javax.swing.JFileChooser;
+
+import ClassLoader.ClassLoader;
+import ClassLoader.GestionnaireCommande;
 import Controller.Controller;
+
 import javax.swing.JCheckBox;
+
 import java.io.File;
+
 import javax.swing.JScrollPane;
+
 import java.util.Observable;
 import java.util.Observer;
 
 import Model.SimpleModel;
+
+import javax.swing.JLabel;
+
+import Commands.InterfaceCommande;
 
 public class GraphicUserInterface implements Observer {
 
@@ -30,6 +45,7 @@ public class GraphicUserInterface implements Observer {
 	private File root;
 	private JScrollPane scrollPane;
 	private ListeCommandes listeCommandes_;
+	private GestionnaireCommande gestionnaireCommandes_ = new GestionnaireCommande();
 	
 	/*
 	 * Initialisation de la vue()
@@ -44,6 +60,10 @@ public class GraphicUserInterface implements Observer {
 	 * Initialize the contents of the frame.
 	 */
 	private void initialize() {
+		
+		ClassLoader chargeur = new ClassLoader();
+		gestionnaireCommandes_.setCommandList(chargeur.chargerCommandes());
+		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setBounds(250, 100, 598, 485);
@@ -62,33 +82,20 @@ public class GraphicUserInterface implements Observer {
 		separator.setBounds(237, 44, 28, 325);
 		frame.getContentPane().add(separator);
 		
-		JButton boutonCommande1 = new JButton("Commande 1");
-		boutonCommande1.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande1.setBounds(247, 44, 97, 40);
-		boutonCommande1.addActionListener(controller);
-		boutonCommande1.setActionCommand("commandButton1");
-		frame.getContentPane().add(boutonCommande1);
+		JButton button[] = new JButton[gestionnaireCommandes_.getListeCommande().size()];
+		String nom = "";
+		for(Integer i = 0; i < button.length ; i++)
+		{
+			nom = "Commande " + (i).toString();
+			JButton bouton = new JButton(nom);
+			bouton.addActionListener(controller);
+			bouton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+			bouton.setBounds(247,(i+1)*50, 97, 40);
+			bouton.setActionCommand("commandButton"+i.toString());
+		    button[i] = bouton;
+		    frame.getContentPane().add(button[i]);
+		}
 		
-		
-		JButton boutonCommande2 = new JButton("Commande 2");
-		boutonCommande2.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande2.setBounds(247, 109, 97, 40);
-		frame.getContentPane().add(boutonCommande2);
-		
-		JButton boutonCommande3 = new JButton("Commande 3");
-		boutonCommande3.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande3.setBounds(247, 172, 97, 40);
-		frame.getContentPane().add(boutonCommande3);
-		
-		JButton boutonCommande4 = new JButton("Commande 4");
-		boutonCommande4.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande4.setBounds(247, 239, 97, 40);
-		frame.getContentPane().add(boutonCommande4);
-		
-		JButton boutonCommande5 = new JButton("Commande 5");
-		boutonCommande5.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande5.setBounds(247, 302, 97, 40);
-		frame.getContentPane().add(boutonCommande5);
 		
 		JSeparator separator_1 = new JSeparator();
 		separator_1.setForeground(Color.DARK_GRAY);
@@ -100,13 +107,6 @@ public class GraphicUserInterface implements Observer {
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
 		checkAutoRun.setBounds(381, 389, 97, 23);
 		frame.getContentPane().add(checkAutoRun);
-		
-		/*
-		JButton boutonCommande1 = new JButton("Commande 1");
-		boutonCommande1.setFont(new Font("Tahoma", Font.PLAIN, 10));
-		boutonCommande1.setBounds(247, 44, 97, 40);
-		frame.getContentPane().add(boutonCommande1);
-		*/
 		
 		boutonClear = new JButton("Clear");
 		//Ajout d'un action listener qui sera notre contrôleur
@@ -122,6 +122,11 @@ public class GraphicUserInterface implements Observer {
         
 		boutonFichier.setBounds(25, 380, 175, 40);
 		frame.getContentPane().add(boutonFichier);
+		
+		JLabel label1 = new JLabel("");
+		label1.setBackground(Color.WHITE);
+		label1.setBounds(381, 44, 191, 40);
+		frame.getContentPane().add(label1);
 		
 		//Ajout d'un observer du modèle
         model.addObserver(this);
@@ -192,6 +197,4 @@ public class GraphicUserInterface implements Observer {
 			System.out.println("hater");
 		}
 	}
-	
-	
 }

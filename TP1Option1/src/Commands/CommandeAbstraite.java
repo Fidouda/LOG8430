@@ -3,7 +3,7 @@ package Commands;
 import java.io.File;
 import java.util.Observable;
 
-public abstract class CommandeAbstraite extends Observable {
+public abstract class CommandeAbstraite extends Observable implements InterfaceCommande {
 	
 	private String affichage_;
 	protected String nom_;
