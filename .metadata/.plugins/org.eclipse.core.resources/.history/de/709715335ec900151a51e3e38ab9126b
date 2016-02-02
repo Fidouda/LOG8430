@@ -1,0 +1,18 @@
+package Commands;
+
+import java.util.ArrayList;
+import java.util.List;
+
+public class GestionnaireCommande implements InterfaceCommande {
+	
+	private List<InterfaceCommande> listeCommande = new ArrayList<InterfaceCommande>();
+	
+	public List<InterfaceCommande> getListeCommande() {
+		return listeCommande;
+	}
+	
+	public boolean ajoutCommande(InterfaceCommande commande)
+	{
+		
+	}
+}
