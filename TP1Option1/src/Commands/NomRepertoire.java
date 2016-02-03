@@ -35,8 +35,6 @@ public class NomRepertoire extends CommandeAbstraite{
 	@Override
 	public String executerCommande() throws Exception {
 		
-		System.out.println("Executer Nom Repertoir");
-		
 		if(!isValid())
 			throw new Exception("Erreur, pas un repertoir");
 		

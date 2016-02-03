@@ -89,8 +89,7 @@ public class SimpleModel extends Observable {
 				for(Object part : treeTemp.getSelectionPath().getPath())
 					selectedNodeWPath += "\\"+part.toString();
 				
-				//Print lorsque clique
-				System.out.println(selectedNodeWPath);
+				selectedNodeWPath = selectedNodeWPath.substring(1);
 		    	
 				selectedItem = selectedNodeWPath;
 				

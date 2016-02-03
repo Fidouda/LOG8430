@@ -74,7 +74,7 @@ public abstract class CommandeAbstraite extends Observable {
 	 * Assigne le bon type pour le noeud selectionne
 	 * @return type
 	 */
-	protected Type getType(){
+	public Type getType(){
 		File fichier = new File(chemin_);
 		Type type;
 	
