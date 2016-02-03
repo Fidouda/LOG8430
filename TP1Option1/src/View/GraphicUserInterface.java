@@ -201,9 +201,12 @@ public class GraphicUserInterface implements Observer {
 
 	@Override
 	public void update(Observable arg0, Object arg1) {
-		System.out.println("Je suis dans la methode update");
-		
+
 		switch(arg1.toString()){
+		
+		case "Update Commands":
+				updateUINodeClicked();
+			break;
 		
 		case "Update Tree":
 			scrollPane.setViewportView(model.getTree());
@@ -227,9 +230,8 @@ public class GraphicUserInterface implements Observer {
     		chooser.setCurrentDirectory(new java.io.File("C:\\"));
     		 int fileValue = chooser.showSaveDialog(null);
     		    if(fileValue == JFileChooser.APPROVE_OPTION){
-    		    	root = chooser.getSelectedFile();
-    		    	System.out.println(root.getAbsolutePath());
-    		    	//genererArbre(root);
+    		    	root = chooser.getSelectedFile().getAbsoluteFile();
+    		    	//System.out.println(root.getParent());
     		    	model.genererArbre(root);		
     		    }	
 			break;
@@ -237,13 +239,37 @@ public class GraphicUserInterface implements Observer {
 			System.out.println("hater");
 		}
 	}
-	public void activerToutesCommandes() throws Exception
+	
+	public void updateUINodeClicked(){
+		if(model.getSelectedNode().isDirectory()){
+			button[1].setEnabled(false);
+			button[2].setEnabled(true);
+			affichages[1].setEnabled(false);
+			affichages[2].setEnabled(true);
+		}
+		if(model.getSelectedNode().isFile()){
+			button[1].setEnabled(true);
+			button[2].setEnabled(false);
+			affichages[1].setEnabled(true);
+			affichages[2].setEnabled(false);
+		}
+		if(checkAutoRun.isSelected())
+				activerToutesCommandes();
+
+			
+	}
+	
+	public void activerToutesCommandes()
 	{
 		for(int j = 0 ; j < gestionnaireCommandes_.getListeCommande().size(); j++)
 		{
 			CommandeAbstraite commande = gestionnaireCommandes_.getListeCommande().get(j);
 			commande.setChemin(model.getSelectedItem());
-			commande.executerCommande();
+			try {
+				commande.executerCommande();
+			} catch (Exception e) {
+				continue;
+			}
 			affichages[j].setText(commande.getAffichage());
 		}
 	}

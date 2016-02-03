@@ -30,7 +30,7 @@ public class NomFichier extends CommandeAbstraite {
 		if(index != -1)
 			cheminAffichage = chemin_.substring(index+1, chemin_.length());
 		
-		setAffichage("Nom du fichier: " + cheminAffichage);
+		setAffichage(cheminAffichage);
 		
 		return getAffichage();
 	}

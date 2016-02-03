@@ -22,6 +22,9 @@ public class NomRepertoire extends CommandeAbstraite{
 
 	@Override
 	public String executerCommande() throws Exception {
+		
+		System.out.println("Executer Nom Repertoir");
+		
 		if(!isValid())
 			throw new Exception("Erreur, pas un repertoir");
 		
@@ -30,7 +33,7 @@ public class NomRepertoire extends CommandeAbstraite{
 		if(index >= 0)
 			cheminAffichage = chemin_.substring(index+1, chemin_.length());
 		
-		setAffichage("Nom du repertoir: " + cheminAffichage);
+		setAffichage(cheminAffichage);
 		
 		return getAffichage();
 	}

@@ -18,6 +18,7 @@ public class SimpleModel extends Observable {
 	private javax.swing.JTree tree;
 	private GestionnaireCommande gestionnaireCommandes = new GestionnaireCommande();
 	private String selectedItem;
+	private File selectedNode_;
 	
 	public SimpleModel() throws ClassNotFoundException {
 	}
@@ -47,24 +48,33 @@ public class SimpleModel extends Observable {
 		return selectedItem;
 	}
 	
+	public File getSelectedNode(){
+		return selectedNode_;
+	}
+	
 	public void genererArbre(File racine){
-
 		final JTree treeTemp = new JTree(new DefaultTreeModel(getTree(null, racine)));
 				treeTemp.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent arg0) {
 				if(treeTemp.getSelectionPath() == null)
 					return;
-				
+
 				String selectedNodeWPath = "";
 				
 				for(Object part : treeTemp.getSelectionPath().getPath())
-					selectedNodeWPath += part.toString();
+					selectedNodeWPath += "\\"+part.toString();
 				
+				//Print lorsque clique
 				System.out.println(selectedNodeWPath);
+		    	
 				selectedItem = selectedNodeWPath;
+				
+				selectedNode_ = new File(selectedItem);
+				
+				setChanged();
+				notifyObservers("Update Commands");
 			}
 		});
-				
 		tree = treeTemp;	
 		setChanged();
 		notifyObservers("Update Tree");

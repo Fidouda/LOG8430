@@ -47,9 +47,11 @@ public abstract class CommandeAbstraite extends Observable implements InterfaceC
 	protected Type getType(){
 		File fichier = new File(chemin_);
 		Type type;
+	
 		
-		if(fichier.exists())
+		if(fichier.isDirectory())
 			type = Type.REPERTOIR;
+		
 		else if (fichier.isFile())
 			type = Type.FICHIER;
 		else
