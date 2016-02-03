@@ -3,12 +3,21 @@ package Commands;
 import java.io.File;
 
 public class NomFichier extends CommandeAbstraite {
-
+	
+	/**
+	 * Constructeur de la classe NomFichier
+	 * @param chemin
+	 */
 	public NomFichier(String chemin) {
 		super(chemin); //generer automatiquement par eclipse
 		nom_ = "Nom du fichier";
 	}
 	
+	/**
+	 * Verifie si le chemin est valide, cest a dire qu'il n'est pas null et pas vide
+	 * et verifie que le noeud est bien un type FICHIER
+	 * @return boolean
+	 */
 	@Override
 	public boolean isValid(){
 		if(chemin_ == null || chemin_.isEmpty())
@@ -20,6 +29,9 @@ public class NomFichier extends CommandeAbstraite {
 		return false;
 	}
 	
+	/**
+	 * Retourne le nom du fichier correspondant au noeud selectionne
+	 */
 	@Override
 	public String executerCommande() throws Exception{
 		if(!isValid())

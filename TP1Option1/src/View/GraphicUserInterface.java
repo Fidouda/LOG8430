@@ -54,9 +54,9 @@ public class GraphicUserInterface implements Observer {
 	private ArrayList<CommandeAbstraite> listeCommandes_;
 	private JTextField textField;
 	
-	/*
-	 * Initialisation de la vue()
-	*/
+	/**
+	 * Constructeur de la vue
+	 */
 	public GraphicUserInterface(SimpleModel modelToSet, Controller controllerToSet) {
 		model = modelToSet;
 		controller = controllerToSet;
@@ -64,7 +64,7 @@ public class GraphicUserInterface implements Observer {
 	}
 
 	/**
-	 * Initialize the contents of the frame.
+	 * Initialisation des elements de l'interface
 	 */
 	private void initialize() {
 		
@@ -80,14 +80,6 @@ public class GraphicUserInterface implements Observer {
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(15, 44, 207, 325);
 		frame.getContentPane().add(scrollPane);
-		
-
-		JSeparator separator = new JSeparator();
-		separator.setOrientation(SwingConstants.VERTICAL);
-		separator.setBackground(Color.DARK_GRAY);
-		separator.setForeground(Color.DARK_GRAY);
-		separator.setBounds(237, 44, 28, 325);
-		frame.getContentPane().add(separator);
 		
 		button = new JButton[listeCommandes_.size()];
 		affichages = new JTextField[button.length];
@@ -116,13 +108,6 @@ public class GraphicUserInterface implements Observer {
 		    frame.getContentPane().add(button[i]);
 		    frame.getContentPane().add(textField);
 		}
-		
-		
-		JSeparator separator_1 = new JSeparator();
-		separator_1.setForeground(Color.DARK_GRAY);
-		separator_1.setBackground(Color.DARK_GRAY);
-		separator_1.setBounds(237, 367, 247, 19);
-		frame.getContentPane().add(separator_1);
 		
 		checkAutoRun = new JCheckBox("Auto Run");
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
@@ -155,34 +140,68 @@ public class GraphicUserInterface implements Observer {
         //
 	}
 	
+	/**
+	 * Retourne le pane de l'interface
+	 * @return scrollPane
+	 */
 	public JScrollPane getScrollPane(){
 		return scrollPane;
 	}
 	
+	/**
+	 * Retourne le frame de l'interface
+	 * @return frame
+	 */
 	public JFrame getFrame(){
 		return frame;
 	}
 	
+	/**
+	 * Retourne le boutonFichier de l'interface
+	 * @return boutonFichier
+	 */
 	public JButton getBoutonFichier(){
 		return boutonFichier;
 	}
 	
+	/**
+	 * Retourne le boutonClear de l'interface
+	 * @return boutonClear
+	 */
 	public JButton getBoutonClear(){
 		return boutonClear;
 	}
 	
+	/**
+	 * Methode de modification du scrollPane
+	 * @param scrollToSet
+	 */
 	public void setScrollPane(JScrollPane scrollToSet){
 		scrollPane = scrollToSet;
 	}
 	
+	/**
+	 * Methode de modification du frame
+	 * @param frameToSet
+	 */
 	public void setFrame(JFrame frameToSet){
 		frame = frameToSet;
 	}
 	
+	/**
+	 * Methode de modification du boutonFichier
+	 * @param buttonToSet
+	 */
 	public void setBoutonFichier(JButton buttonToSet){
 		boutonFichier = buttonToSet;
 	}
 
+	
+	/**
+	 * Methode de mise a jour de l'interface suite a des notification de l'observable
+	 * @param arg0
+	 * @param arg1
+	 */
 	@Override
 	public void update(Observable arg0, Object arg1) {
 
@@ -232,6 +251,10 @@ public class GraphicUserInterface implements Observer {
 		}
 	}
 	
+	/**
+	 * Active toutees les commandes dans la listes de commandes
+	 * Met a jour l'interface selon la disponibilité des commandes en changeant l'acces aux bouttons
+	 */
 	public void activerToutesCommandes()
 	{
 		for(int j = 0 ; j < listeCommandes_.size(); j++)

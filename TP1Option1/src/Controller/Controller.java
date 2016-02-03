@@ -10,10 +10,17 @@ public class Controller implements ActionListener {
 	
 	private SimpleModel model;
 
+	/**
+	 * Constructeur de la classe Controller
+	 * @param modelToSet
+	 */
 	public Controller(SimpleModel modelToSet){
 		model = modelToSet;
 	}
 	
+	/**
+	 * Fonction qui gere les actions de clique sur les boutons correspondant aux commandes
+	 */
    public void actionPerformed(ActionEvent e)
     {
         if("clearButton".equals(e.getActionCommand()))

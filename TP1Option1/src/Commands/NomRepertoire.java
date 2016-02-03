@@ -4,11 +4,20 @@ import java.io.File;
 
 public class NomRepertoire extends CommandeAbstraite{
 
+	/**
+	 * Constructeur de la classe NomRepertoire
+	 * @param chemin
+	 */
 	public NomRepertoire(String chemin){
 		super(chemin); //generer automatiquement par eclipse
 		nom_ = "Nom du repertoir";
 	}
 
+	/**
+	 * Verifie si le chemin est valide, cest a dire qu'il n'est pas null et pas vide
+	 * et verifie que le noeud est bien un type REPERTOIR
+	 * @return boolean
+	 */
 	@Override
 	public boolean isValid() {
 		if(chemin_ == null || chemin_.isEmpty())
@@ -20,6 +29,9 @@ public class NomRepertoire extends CommandeAbstraite{
 		return false;
 	}
 
+	/**
+	 * Retourne le nom du repertoir correspondant au noeud selectionne
+	 */
 	@Override
 	public String executerCommande() throws Exception {
 		
