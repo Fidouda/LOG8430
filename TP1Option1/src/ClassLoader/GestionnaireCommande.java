@@ -1,21 +1,23 @@
 package ClassLoader;
 
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
 import Commands.InterfaceCommande;
+import Commands.CommandeAbstraite;
 
 public class GestionnaireCommande {
 	
-	private List<InterfaceCommande> listeCommande = new ArrayList<InterfaceCommande>();
+	private List<CommandeAbstraite> listeCommande = new ArrayList<CommandeAbstraite>();
 	
-	public List<InterfaceCommande> getListeCommande() {
+	public List<CommandeAbstraite> getListeCommande() {
 		return listeCommande;
 	}
 	
-	public boolean ajoutCommande(InterfaceCommande commande)
+	public boolean ajoutCommande(CommandeAbstraite commande)
 	{
 		if(listeCommande != null)
 		{
@@ -26,19 +28,19 @@ public class GestionnaireCommande {
 	}
 	
 	public void executeCommands(){
-		for(InterfaceCommande command : listeCommande){
+		for(CommandeAbstraite command : listeCommande){
 			command.faireCommande();
 		}
 	}
 	
 	public void clearCommandResults() {
-		for(InterfaceCommande command: listeCommande){
+		for(CommandeAbstraite command: listeCommande){
 			command.clearCommand();
 		}
 	}
 	
-	public void setCommandList(List<InterfaceCommande> commandList) {
-		this.listeCommande = commandList;
+	public void setCommandList(List<CommandeAbstraite> commandList) {
+		listeCommande = commandList;
 	}
 
 }

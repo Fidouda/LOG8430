@@ -9,19 +9,20 @@ import java.util.ArrayList;
 
 import sun.misc.Launcher;
 import Commands.InterfaceCommande;
+import Commands.CommandeAbstraite;
 
 //Tutoriel suivi sur
 //http://www.javaworld.com/article/2077477/learn-java/java-tip-113--identify-subclasses-at-runtime.html
 public class ClassLoader extends java.lang.ClassLoader {
 	
 	
-	public ArrayList<InterfaceCommande> chargerCommandes() {
+	public ArrayList<CommandeAbstraite> chargerCommandes() {
         // Code from JWhich (source citée plus haut)
         // ======
         // Translate the package name into an absolute path
 		String pckgname = "Commands";
         String name = new String(pckgname);
-        ArrayList<InterfaceCommande> commands = new ArrayList<InterfaceCommande>();
+        ArrayList<CommandeAbstraite> commands = new ArrayList<CommandeAbstraite>();
         if (!name.startsWith("/")) {
             name = "/" + name;
         }        
@@ -53,8 +54,8 @@ public class ClassLoader extends java.lang.ClassLoader {
                         // Try to create an instance of the object
                         Object o = Class.forName(pckgname+"."+classname).getDeclaredConstructor(String.class).newInstance(new String(""));
 
-                        if (o instanceof InterfaceCommande) {
-                        	commands.add((InterfaceCommande) o);
+                        if (o instanceof CommandeAbstraite) {
+                        	commands.add((CommandeAbstraite) o);
                         }
                     } catch (ClassNotFoundException cnfex) {
                         System.err.println(cnfex);

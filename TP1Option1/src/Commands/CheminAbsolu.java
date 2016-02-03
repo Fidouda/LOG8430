@@ -6,7 +6,7 @@ public class CheminAbsolu extends CommandeAbstraite{
 
 	public CheminAbsolu(String chemin){
 		super(chemin);//generer automatiquement par eclipse
-		nom_ = "chemin absolu du fichier ou du dossier";
+		nom_ = "Chemin absolu";
 	}
 	
 	@Override

@@ -4,12 +4,15 @@ import javax.swing.JFrame;
 import javax.swing.JButton;
 
 import java.awt.Color;
+import java.awt.Dimension;
 
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
 import java.awt.Font;
+import java.awt.event.MouseAdapter;
+import java.awt.event.MouseEvent;
 
 import javax.swing.JFileChooser;
 
@@ -30,6 +33,7 @@ import Model.SimpleModel;
 
 import javax.swing.JLabel;
 
+import Commands.CommandeAbstraite;
 import Commands.InterfaceCommande;
 
 public class GraphicUserInterface implements Observer {
@@ -46,6 +50,7 @@ public class GraphicUserInterface implements Observer {
 	private JScrollPane scrollPane;
 	private ListeCommandes listeCommandes_;
 	private GestionnaireCommande gestionnaireCommandes_ = new GestionnaireCommande();
+	private JTextField textField;
 	
 	/*
 	 * Initialisation de la vue()
@@ -83,17 +88,47 @@ public class GraphicUserInterface implements Observer {
 		frame.getContentPane().add(separator);
 		
 		JButton button[] = new JButton[gestionnaireCommandes_.getListeCommande().size()];
+		final JTextField affichages[] = new JTextField[button.length];
 		String nom = "";
 		for(Integer i = 0; i < button.length ; i++)
 		{
-			nom = "Commande " + (i).toString();
+			
+			textField = new JTextField();
+			textField.setBounds(385,(i+1)*50+2, 175, 35);
+			textField.setColumns(10);
+			textField.setEditable(false);
+			affichages[i] = textField;
+			
+			
+			nom = gestionnaireCommandes_.getListeCommande().get(i).getNom();//"Commande " + (i).toString();
 			JButton bouton = new JButton(nom);
 			bouton.addActionListener(controller);
 			bouton.setFont(new Font("Tahoma", Font.PLAIN, 10));
-			bouton.setBounds(247,(i+1)*50, 97, 40);
+			bouton.setBounds(247,(i+1)*50, 130, 40);
 			bouton.setActionCommand("commandButton"+i.toString());
+			bouton.setPreferredSize(new Dimension(89, 50));
 		    button[i] = bouton;
+		    final Integer j = i;
+		    bouton.addMouseListener(new MouseAdapter() {
+				@Override
+				public void mouseClicked(MouseEvent e) {
+					try {
+						CommandeAbstraite commande = gestionnaireCommandes_.getListeCommande().get(j);
+						commande.setChemin(model.getSelectedItem());
+						commande.executerCommande();
+						affichages[j].setText(commande.getAffichage());
+						
+					} catch (Exception e1) {
+						// TODO Auto-generated catch block
+						e1.printStackTrace();
+					}
+				}
+			});
+		    
+
+		    
 		    frame.getContentPane().add(button[i]);
+		    frame.getContentPane().add(textField);
 		}
 		
 		
@@ -127,6 +162,7 @@ public class GraphicUserInterface implements Observer {
 		label1.setBackground(Color.WHITE);
 		label1.setBounds(381, 44, 191, 40);
 		frame.getContentPane().add(label1);
+		
 		
 		//Ajout d'un observer du modèle
         model.addObserver(this);
