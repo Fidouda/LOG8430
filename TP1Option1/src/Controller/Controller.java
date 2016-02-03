@@ -25,7 +25,5 @@ public class Controller implements ActionListener {
         //Vérification de la commande. On reti
         else if("commandButton".equals(e.getActionCommand().substring(0, e.getActionCommand().length()-1)))
         	model.command(e.getActionCommand().charAt(e.getActionCommand().length()-1));
-        
-   
     }
 }

@@ -98,6 +98,7 @@ public class GraphicUserInterface implements Observer {
 			textField.setBounds(385,(i+1)*50+2, 175, 35);
 			textField.setColumns(10);
 			textField.setEditable(false);
+			textField.setEditable(false);
 			affichages[i] = textField;
 			
 			
@@ -108,6 +109,7 @@ public class GraphicUserInterface implements Observer {
 			bouton.setBounds(247,(i+1)*50, 130, 40);
 			bouton.setActionCommand("commandButton"+i.toString());
 			bouton.setPreferredSize(new Dimension(89, 50));
+			bouton.setEnabled(false);
 		    button[i] = bouton;
 
 		    
@@ -187,7 +189,7 @@ public class GraphicUserInterface implements Observer {
 		switch(arg1.toString()){
 		
 		case "Update Commands":
-				updateUINodeClicked();
+			activerToutesCommandes();
 			break;
 		
 		case "Update Tree":
@@ -223,29 +225,11 @@ public class GraphicUserInterface implements Observer {
 			} 
 			catch (Exception e) 
 			{
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				
 			}
 			affichages[j].setText(commande.getAffichage());
 			break;
 		}
-	}
-	
-	public void updateUINodeClicked(){
-		if(model.getSelectedNode().isDirectory()){
-			button[1].setEnabled(false);
-			button[2].setEnabled(true);
-			affichages[1].setEnabled(false);
-			affichages[2].setEnabled(true);
-		}
-		if(model.getSelectedNode().isFile()){
-			button[1].setEnabled(true);
-			button[2].setEnabled(false);
-			affichages[1].setEnabled(true);
-			affichages[2].setEnabled(false);
-		}
-		if(checkAutoRun.isSelected())
-				activerToutesCommandes();	
 	}
 	
 	public void activerToutesCommandes()
@@ -255,11 +239,17 @@ public class GraphicUserInterface implements Observer {
 			CommandeAbstraite commande = listeCommandes_.get(j);
 			commande.setChemin(model.getSelectedItem());
 			try {
+				affichages[j].setText("");
+				button[j].setEnabled(true);
+				affichages[j].setEnabled(true);
 				commande.executerCommande();
 			} catch (Exception e) {
+				button[j].setEnabled(false);
+				affichages[j].setEnabled(false);
 				continue;
 			}
-			affichages[j].setText(commande.getAffichage());
+			if(checkAutoRun.isSelected())
+				affichages[j].setText(commande.getAffichage());
 		}
 	}
 }
