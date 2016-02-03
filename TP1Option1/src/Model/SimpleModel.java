@@ -9,14 +9,11 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import ClassLoader.GestionnaireCommande;
-
 import java.util.Observable;
 
 public class SimpleModel extends Observable {
 	
 	private javax.swing.JTree tree;
-	private GestionnaireCommande gestionnaireCommandes = new GestionnaireCommande();
 	private String selectedItem;
 	private File selectedNode_;
 	

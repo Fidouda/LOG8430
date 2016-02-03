@@ -2,39 +2,27 @@ package View;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
-
 import java.awt.Color;
 import java.awt.Dimension;
-
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
-
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
-
 import javax.swing.JFileChooser;
-
 import ClassLoader.ClassLoader;
-import ClassLoader.GestionnaireCommande;
 import Controller.Controller;
-
 import javax.swing.JCheckBox;
-
 import java.io.File;
-
 import javax.swing.JScrollPane;
-
+import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
-
 import Model.SimpleModel;
-
 import javax.swing.JLabel;
-
 import Commands.CommandeAbstraite;
-import Commands.InterfaceCommande;
+
 
 public class GraphicUserInterface implements Observer {
 
@@ -48,11 +36,10 @@ public class GraphicUserInterface implements Observer {
 	private JButton boutonClear;
 	private File root;
 	private JScrollPane scrollPane;
-	private ListeCommandes listeCommandes_;
 	private JButton button[];
 	private JTextField affichages[];
 	private JCheckBox checkAutoRun;
-	private GestionnaireCommande gestionnaireCommandes_ = new GestionnaireCommande();
+	private ArrayList<CommandeAbstraite> listeCommandes_;
 	private JTextField textField;
 	
 	/*
@@ -70,7 +57,7 @@ public class GraphicUserInterface implements Observer {
 	private void initialize() {
 		
 		ClassLoader chargeur = new ClassLoader();
-		gestionnaireCommandes_.setCommandList(chargeur.chargerCommandes());
+		listeCommandes_ = chargeur.chargerCommandes();
 		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
@@ -90,7 +77,7 @@ public class GraphicUserInterface implements Observer {
 		separator.setBounds(237, 44, 28, 325);
 		frame.getContentPane().add(separator);
 		
-		button = new JButton[gestionnaireCommandes_.getListeCommande().size()];
+		button = new JButton[listeCommandes_.size()];
 		affichages = new JTextField[button.length];
 		String nom = "";
 		for(Integer i = 0; i < button.length ; i++)
@@ -102,7 +89,7 @@ public class GraphicUserInterface implements Observer {
 			affichages[i] = textField;
 			
 			
-			nom = gestionnaireCommandes_.getListeCommande().get(i).getNom();//"Commande " + (i).toString();
+			nom = listeCommandes_.get(i).getNom();//"Commande " + (i).toString();
 			JButton bouton = new JButton(nom);
 			bouton.addActionListener(controller);
 			bouton.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -115,7 +102,7 @@ public class GraphicUserInterface implements Observer {
 				@Override
 				public void mouseClicked(MouseEvent e) {
 					try {
-						CommandeAbstraite commande = gestionnaireCommandes_.getListeCommande().get(j);
+						CommandeAbstraite commande = listeCommandes_.get(j);
 						commande.setChemin(model.getSelectedItem());
 						commande.executerCommande();
 						affichages[j].setText(commande.getAffichage());
@@ -214,14 +201,10 @@ public class GraphicUserInterface implements Observer {
 			break;
 			
 		case "Clear Tree": 
-			for(Integer i = 0; i < affichages.length; i++)
+			for(Integer i = 0; i < affichages.length; i++){
 				affichages[i].setText("");
-			frame.remove(scrollPane);
-			JScrollPane scrollPaneTemp = new JScrollPane();
-			scrollPaneTemp.setBounds(15, 44, 207, 325);
-			scrollPane = scrollPaneTemp;
-			frame.getContentPane().add(scrollPane);
-			scrollPane.repaint();
+			}
+
 			break;
 			
 		case "Root Tree":
@@ -254,16 +237,14 @@ public class GraphicUserInterface implements Observer {
 			affichages[2].setEnabled(false);
 		}
 		if(checkAutoRun.isSelected())
-				activerToutesCommandes();
-
-			
+				activerToutesCommandes();	
 	}
 	
 	public void activerToutesCommandes()
 	{
-		for(int j = 0 ; j < gestionnaireCommandes_.getListeCommande().size(); j++)
+		for(int j = 0 ; j < listeCommandes_.size(); j++)
 		{
-			CommandeAbstraite commande = gestionnaireCommandes_.getListeCommande().get(j);
+			CommandeAbstraite commande = listeCommandes_.get(j);
 			commande.setChemin(model.getSelectedItem());
 			try {
 				commande.executerCommande();
