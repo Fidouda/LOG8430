@@ -2,25 +2,37 @@ package View;
 
 import javax.swing.JFrame;
 import javax.swing.JButton;
+
 import java.awt.Color;
 import java.awt.Dimension;
+
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+
 import javax.swing.JFileChooser;
+
 import ClassLoader.ClassLoader;
 import Controller.Controller;
+
 import javax.swing.JCheckBox;
+
 import java.io.File;
+
 import javax.swing.JScrollPane;
+
 import java.util.ArrayList;
 import java.util.Observable;
 import java.util.Observer;
+
 import Model.SimpleModel;
+
 import javax.swing.JLabel;
+
 import Commands.CommandeAbstraite;
 
 
@@ -97,23 +109,6 @@ public class GraphicUserInterface implements Observer {
 			bouton.setActionCommand("commandButton"+i.toString());
 			bouton.setPreferredSize(new Dimension(89, 50));
 		    button[i] = bouton;
-		    final Integer j = i;
-		    bouton.addMouseListener(new MouseAdapter() {
-				@Override
-				public void mouseClicked(MouseEvent e) {
-					try {
-						CommandeAbstraite commande = listeCommandes_.get(j);
-						commande.setChemin(model.getSelectedItem());
-						commande.executerCommande();
-						affichages[j].setText(commande.getAffichage());
-						
-					} catch (Exception e1) {
-						// TODO Auto-generated catch block
-						e1.printStackTrace();
-					}
-				}
-			});
-		    
 
 		    
 		    frame.getContentPane().add(button[i]);
@@ -218,8 +213,21 @@ public class GraphicUserInterface implements Observer {
     		    	model.genererArbre(root);		
     		    }	
 			break;
-		case "command1":
-			System.out.println("hater");
+		case "Command":
+			int j = model.getCommand();
+			CommandeAbstraite commande = listeCommandes_.get(j);
+			commande.setChemin(model.getSelectedItem());
+			try 
+			{
+				commande.executerCommande();
+			} 
+			catch (Exception e) 
+			{
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			affichages[j].setText(commande.getAffichage());
+			break;
 		}
 	}
 	

@@ -17,27 +17,15 @@ public class Controller implements ActionListener {
    public void actionPerformed(ActionEvent e)
     {
         if("clearButton".equals(e.getActionCommand()))
-        {
         	model.clearTree();
-        }
+        
         else if("browseButton".equals(e.getActionCommand()))
-        {
         	model.rootTree();
-        }
-        ////////////////////////////////////////
-        //Mauvaise utilisation du controlleur
-        ////////////////////////////////////////
-        else if("commandButton0".equals(e.getActionCommand()))
-        {
-        	model.command1();
-        }
-        else if("commandButton1".equals(e.getActionCommand()))
-        {
-        	model.command1();
-        }
-        else if("commandButton2".equals(e.getActionCommand()))
-        {
-        	model.command1();
-        }
+        
+        //Vérification de la commande. On reti
+        else if("commandButton".equals(e.getActionCommand().substring(0, e.getActionCommand().length()-1)))
+        	model.command(e.getActionCommand().charAt(e.getActionCommand().length()-1));
+        
+   
     }
 }

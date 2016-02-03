@@ -8,7 +8,6 @@ import java.net.URL;
 import java.util.ArrayList;
 
 import sun.misc.Launcher;
-import Commands.InterfaceCommande;
 import Commands.CommandeAbstraite;
 
 //Tutoriel suivi sur

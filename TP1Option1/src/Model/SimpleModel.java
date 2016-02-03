@@ -16,6 +16,7 @@ public class SimpleModel extends Observable {
 	private javax.swing.JTree tree;
 	private String selectedItem;
 	private File selectedNode_;
+	private int commandClicked_;
 	
 	public SimpleModel() throws ClassNotFoundException {
 	}
@@ -31,7 +32,6 @@ public class SimpleModel extends Observable {
 	}
 	//Vide l'arbre
 	public void clearTree(){
-		tree = new JTree();
 		setChanged();
 		notifyObservers("Clear Tree");
 	}
@@ -77,11 +77,16 @@ public class SimpleModel extends Observable {
 		notifyObservers("Update Tree");
 	}
 	
-	public void command1()
+	public void command(char numero)
 	{
-		
+		commandClicked_ = Character.getNumericValue(numero);
 		setChanged();
-		notifyObservers("Update Tree");
+		notifyObservers("Command");
+	}
+	
+	public int getCommand()
+	{
+		return commandClicked_;
 	}
 	
 	//http://www.java2s.com/Code/Java/File-Input-Output/DisplayafilesysteminaJTreeview.htm
@@ -108,4 +113,6 @@ public class SimpleModel extends Observable {
 			
 			return currentNode;
 		}
+		
+	
 }
