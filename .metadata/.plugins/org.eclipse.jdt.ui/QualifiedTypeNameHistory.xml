@@ -40,4 +40,5 @@
 <fullyQualifiedTypeName name="java.io.UnsupportedEncodingException"/>
 <fullyQualifiedTypeName name="java.util.HashMap"/>
 <fullyQualifiedTypeName name="java.net.URL"/>
+<fullyQualifiedTypeName name="javax.swing.JCheckBox"/>
 </qualifiedTypeNameHistroy>

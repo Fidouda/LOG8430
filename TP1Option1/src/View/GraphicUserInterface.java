@@ -49,6 +49,9 @@ public class GraphicUserInterface implements Observer {
 	private File root;
 	private JScrollPane scrollPane;
 	private ListeCommandes listeCommandes_;
+	private JButton button[];
+	private JTextField affichages[];
+	private JCheckBox checkAutoRun;
 	private GestionnaireCommande gestionnaireCommandes_ = new GestionnaireCommande();
 	private JTextField textField;
 	
@@ -87,12 +90,11 @@ public class GraphicUserInterface implements Observer {
 		separator.setBounds(237, 44, 28, 325);
 		frame.getContentPane().add(separator);
 		
-		JButton button[] = new JButton[gestionnaireCommandes_.getListeCommande().size()];
-		final JTextField affichages[] = new JTextField[button.length];
+		button = new JButton[gestionnaireCommandes_.getListeCommande().size()];
+		affichages = new JTextField[button.length];
 		String nom = "";
 		for(Integer i = 0; i < button.length ; i++)
 		{
-			
 			textField = new JTextField();
 			textField.setBounds(385,(i+1)*50+2, 175, 35);
 			textField.setColumns(10);
@@ -138,7 +140,7 @@ public class GraphicUserInterface implements Observer {
 		separator_1.setBounds(237, 367, 247, 19);
 		frame.getContentPane().add(separator_1);
 		
-		JCheckBox checkAutoRun = new JCheckBox("Auto Run");
+		checkAutoRun = new JCheckBox("Auto Run");
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
 		checkAutoRun.setBounds(381, 389, 97, 23);
 		frame.getContentPane().add(checkAutoRun);
@@ -209,6 +211,8 @@ public class GraphicUserInterface implements Observer {
 			break;
 			
 		case "Clear Tree": 
+			for(Integer i = 0; i < affichages.length; i++)
+				affichages[i].setText("");
 			frame.remove(scrollPane);
 			JScrollPane scrollPaneTemp = new JScrollPane();
 			scrollPaneTemp.setBounds(15, 44, 207, 325);
@@ -226,11 +230,21 @@ public class GraphicUserInterface implements Observer {
     		    	root = chooser.getSelectedFile();
     		    	System.out.println(root.getAbsolutePath());
     		    	//genererArbre(root);
-    		    	model.genererArbre(root);
+    		    	model.genererArbre(root);		
     		    }	
 			break;
 		case "command1":
 			System.out.println("hater");
+		}
+	}
+	public void activerToutesCommandes() throws Exception
+	{
+		for(int j = 0 ; j < gestionnaireCommandes_.getListeCommande().size(); j++)
+		{
+			CommandeAbstraite commande = gestionnaireCommandes_.getListeCommande().get(j);
+			commande.setChemin(model.getSelectedItem());
+			commande.executerCommande();
+			affichages[j].setText(commande.getAffichage());
 		}
 	}
 }
