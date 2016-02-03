@@ -2,6 +2,7 @@ package ClassLoader;
 
 
 import java.io.File;
+import java.io.UnsupportedEncodingException;
 import java.lang.reflect.InvocationTargetException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -37,13 +38,24 @@ public class ClassLoader extends java.lang.ClassLoader {
         //J'ai donc dû modifier ma configuration de gestion d'erreur de librairie 
         @SuppressWarnings("restriction")
 		URL url = Launcher.class.getResource(nom);
-        File directory = new File(url.getFile());
+        String result = new String("");
+        try 
+        {
+        	//http://stackoverflow.com/questions/6138127/how-to-do-url-decoding-in-java
+        	result = java.net.URLDecoder.decode(url.getFile(), "UTF-8");
+		} 
+        catch (UnsupportedEncodingException e)
+        {
+			e.printStackTrace();
+		}
+        
+        File directory = new File(result);
         
         //Verification de l'existance du directory
         if (directory.exists()) 
         {
            
-            String[] files = directory.list();
+            String [] files = directory.list();
             for (int i=0; i<files.length; i++)
             {
             	//
