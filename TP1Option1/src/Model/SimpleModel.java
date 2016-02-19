@@ -9,6 +9,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
+import java.util.ArrayList;
 import java.util.Observable;
 
 public class SimpleModel extends Observable {
@@ -17,8 +18,12 @@ public class SimpleModel extends Observable {
 	private String selectedItem;
 	private File selectedNode_;
 	private int commandClicked_;
+	private ArrayList<String> commandResults_;
+	private ArrayList<Boolean> commandEnable_;
 	
 	public SimpleModel() throws ClassNotFoundException {
+		commandResults_ = new ArrayList<String>();
+		commandEnable_ = new ArrayList<Boolean>();
 	}
 
 	/**
@@ -57,6 +62,30 @@ public class SimpleModel extends Observable {
 	}
 	
 	/**
+	 * Initialise la liste de résultats des commandes
+	 * @param size
+	 */
+	public void initializeCommandResults(int size)
+	{
+		for(Integer i = 0; i < size ; i++)
+		{
+			commandResults_.add("");
+		}
+	}
+	
+	/**
+	 * Initialise la liste de commandes actives
+	 * @param size
+	 */
+	public void initializeCommandEnable(int size)
+	{
+		for(Integer i = 0; i < size ; i++)
+		{
+			commandEnable_.add(false);
+		}
+	}
+	
+	/**
 	 * Methode d'acces pour l'attribut selectedItem
 	 * @return selectedItem
 	 */
@@ -78,6 +107,7 @@ public class SimpleModel extends Observable {
 	 * @param racine
 	 */
 	public void genererArbre(File racine){
+		selectedItem = "";
 		final JTree treeTemp = new JTree(new DefaultTreeModel(getTree(null, racine)));
 				treeTemp.addTreeSelectionListener(new TreeSelectionListener() {
 			public void valueChanged(TreeSelectionEvent arg0) {
@@ -110,12 +140,14 @@ public class SimpleModel extends Observable {
 	 * Elle permet a la vue de savoir quelle classe de commande utiliser
 	 * @param numero
 	 */
+	/*
 	public void command(char numero)
 	{
 		commandClicked_ = Character.getNumericValue(numero);
 		setChanged();
 		notifyObservers("Command");
 	}
+	*/
 	
 	/**
 	 * Retourne le numero de la commande clique par lutilisateur a la vue
@@ -124,6 +156,48 @@ public class SimpleModel extends Observable {
 	public int getCommand()
 	{
 		return commandClicked_;
+	}
+	
+	/**
+	 * Retourne la valeur à l'index de commandResults_
+	 * @param index
+	 */
+	public String getCommandResults(int index)
+	{
+		return commandResults_.get(index);
+	}
+	
+	/**
+	 * Mettre à jour la liste de réponse des commandes
+	 * @param index
+	 * @param result
+	 */
+	public void setCommandResults(int index, String result)
+	{
+		commandResults_.set(index, result);
+		setChanged();
+		notifyObservers("Command");
+	}
+	
+	/**
+	 * Retourne la valeur à l'index de commandEnable_
+	 * @param index
+	 */
+	public Boolean getCommandEnable(int index)
+	{
+		return commandEnable_.get(index);
+	}
+	
+	/**
+	 * Mettre à jour la liste de réponse des commandes
+	 * @param index
+	 * @param result
+	 */
+	public void setCommandEnable(int index, Boolean result)
+	{
+		commandEnable_.set(index, result);
+		setChanged();
+		notifyObservers("Update Commands");
 	}
 	
 	/**

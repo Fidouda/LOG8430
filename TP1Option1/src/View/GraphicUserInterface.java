@@ -110,6 +110,10 @@ public class GraphicUserInterface implements Observer {
 		}
 		
 		checkAutoRun = new JCheckBox("Auto Run");
+		//Ajout d'un action listener qui sera notre contrôleur
+		checkAutoRun.addActionListener(controller);
+		//On nomme la commande "checkAutoRun"
+		checkAutoRun.setActionCommand("checkAutoRun");
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
 		checkAutoRun.setBounds(381, 389, 97, 23);
 		frame.getContentPane().add(checkAutoRun);
@@ -208,7 +212,11 @@ public class GraphicUserInterface implements Observer {
 		switch(arg1.toString()){
 		
 		case "Update Commands":
-			activerToutesCommandes();
+			for(Integer i = 0; i < affichages.length; i++){
+				button[i].setEnabled(model.getCommandEnable(i));
+				affichages[i].setEnabled(model.getCommandEnable(i));
+				affichages[i].setText(model.getCommandResults(i));
+			}
 			break;
 		
 		case "Update Tree":
@@ -220,59 +228,13 @@ public class GraphicUserInterface implements Observer {
 			for(Integer i = 0; i < affichages.length; i++){
 				affichages[i].setText("");
 			}
-
 			break;
 			
-		case "Root Tree":
-			JFileChooser chooser = new JFileChooser();
-    		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //Permet la selection de file et folder
-    		chooser.setCurrentDirectory(new java.io.File("C:\\"));
-    		 int fileValue = chooser.showSaveDialog(null);
-    		    if(fileValue == JFileChooser.APPROVE_OPTION){
-    		    	root = chooser.getSelectedFile().getAbsoluteFile();
-    		    	//System.out.println(root.getParent());
-    		    	model.genererArbre(root);		
-    		    }	
-			break;
 		case "Command":
-			int j = model.getCommand();
-			CommandeAbstraite commande = listeCommandes_.get(j);
-			commande.setChemin(model.getSelectedItem());
-			try 
-			{
-				commande.executerCommande();
-			} 
-			catch (Exception e) 
-			{
-				
+			for(Integer i = 0; i < affichages.length; i++){
+				affichages[i].setText(model.getCommandResults(i));
 			}
-			affichages[j].setText(commande.getAffichage());
 			break;
-		}
-	}
-	
-	/**
-	 * Active toutees les commandes dans la listes de commandes
-	 * Met a jour l'interface selon la disponibilité des commandes en changeant l'acces aux bouttons
-	 */
-	public void activerToutesCommandes()
-	{
-		for(int j = 0 ; j < listeCommandes_.size(); j++)
-		{
-			CommandeAbstraite commande = listeCommandes_.get(j);
-			commande.setChemin(model.getSelectedItem());
-			try {
-				affichages[j].setText("");
-				button[j].setEnabled(true);
-				affichages[j].setEnabled(true);
-				commande.executerCommande();
-			} catch (Exception e) {
-				button[j].setEnabled(false);
-				affichages[j].setEnabled(false);
-				continue;
-			}
-			if(checkAutoRun.isSelected())
-				affichages[j].setText(commande.getAffichage());
 		}
 	}
 }
