@@ -1,9 +1,0 @@
-package Commands;
-
-public interface Interface{
-	
-	public void sayHello();
-
-	public void invokeClassMethod(String string, String string2);
-
-}

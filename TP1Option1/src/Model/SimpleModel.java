@@ -8,6 +8,9 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
+import ClassLoader.ClassLoader;
+import Commands.CommandeAbstraite;
+import Controller.Controller;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -20,10 +23,13 @@ public class SimpleModel extends Observable {
 	private int commandClicked_;
 	private ArrayList<String> commandResults_;
 	private ArrayList<Boolean> commandEnable_;
+	private ArrayList<CommandeAbstraite> listeCommandes_;
 	
 	public SimpleModel() throws ClassNotFoundException {
 		commandResults_ = new ArrayList<String>();
 		commandEnable_ = new ArrayList<Boolean>();
+		ClassLoader chargeur = new ClassLoader();
+		listeCommandes_ = chargeur.chargerCommandes();
 	}
 
 	/**
@@ -196,8 +202,8 @@ public class SimpleModel extends Observable {
 	public void setCommandEnable(int index, Boolean result)
 	{
 		commandEnable_.set(index, result);
-		setChanged();
-		notifyObservers("Update Commands");
+		//setChanged();
+		//notifyObservers("Update Commands");
 	}
 	
 	/**
@@ -230,6 +236,13 @@ public class SimpleModel extends Observable {
 		
 		return currentNode;
 	}
+	
+	public ArrayList<CommandeAbstraite> getCommandList()
+	{
+		return listeCommandes_;
+	}
+	
+	
 		
 	
 }

@@ -65,7 +65,6 @@ public class Controller implements ActionListener {
     		    if(fileValue == JFileChooser.APPROVE_OPTION){
     		    	File root = chooser.getSelectedFile().getAbsoluteFile();
     		    	model.genererArbre(root);
-    		    	System.out.println(chooser.getSelectedFile().toString());
     		    	activerToutesCommandes(chooser.getSelectedFile().toString());
     		    }
         }
@@ -86,6 +85,13 @@ public class Controller implements ActionListener {
 			}
 			model.setCommandResults(commandIndex, commande.getAffichage());
         }
+        
+        else if("mockUpdate".equals(e.getActionCommand()))
+        {
+        	if(model.getSelectedItem() != "")
+        		activerToutesCommandes(model.getSelectedItem());
+        }
+        
     }
    
    /**

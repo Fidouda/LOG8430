@@ -13,6 +13,7 @@ import javax.swing.JTextField;
 import java.awt.Font;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
 
 import javax.swing.JFileChooser;
 
@@ -46,12 +47,12 @@ public class GraphicUserInterface implements Observer {
 
 	private JButton boutonFichier;
 	private JButton boutonClear;
+	private JButton mockBouton;
 	private File root;
 	private JScrollPane scrollPane;
 	private JButton button[];
 	private JTextField affichages[];
 	private JCheckBox checkAutoRun;
-	private ArrayList<CommandeAbstraite> listeCommandes_;
 	private JTextField textField;
 	
 	/**
@@ -68,9 +69,6 @@ public class GraphicUserInterface implements Observer {
 	 */
 	private void initialize() {
 		
-		ClassLoader chargeur = new ClassLoader();
-		listeCommandes_ = chargeur.chargerCommandes();
-		
 		frame = new JFrame();
 		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
 		frame.setBounds(250, 100, 598, 485);
@@ -81,7 +79,7 @@ public class GraphicUserInterface implements Observer {
 		scrollPane.setBounds(15, 44, 207, 325);
 		frame.getContentPane().add(scrollPane);
 		
-		button = new JButton[listeCommandes_.size()];
+		button = new JButton[model.getCommandList().size()];
 		affichages = new JTextField[button.length];
 		String nom = "";
 		for(Integer i = 0; i < button.length ; i++)
@@ -94,7 +92,7 @@ public class GraphicUserInterface implements Observer {
 			affichages[i] = textField;
 			
 			
-			nom = listeCommandes_.get(i).getNom();//"Commande " + (i).toString();
+			nom = model.getCommandList().get(i).getNom();//"Commande " + (i).toString();
 			JButton bouton = new JButton(nom);
 			bouton.addActionListener(controller);
 			bouton.setFont(new Font("Tahoma", Font.PLAIN, 10));
@@ -103,11 +101,13 @@ public class GraphicUserInterface implements Observer {
 			bouton.setPreferredSize(new Dimension(89, 50));
 			bouton.setEnabled(false);
 		    button[i] = bouton;
-
 		    
 		    frame.getContentPane().add(button[i]);
 		    frame.getContentPane().add(textField);
 		}
+		mockBouton = new JButton();
+		mockBouton.addActionListener(controller);
+		mockBouton.setActionCommand("mockUpdate");
 		
 		checkAutoRun = new JCheckBox("Auto Run");
 		//Ajout d'un action listener qui sera notre contrôleur
@@ -212,6 +212,7 @@ public class GraphicUserInterface implements Observer {
 		switch(arg1.toString()){
 		
 		case "Update Commands":
+			mockBouton.doClick();
 			for(Integer i = 0; i < affichages.length; i++){
 				button[i].setEnabled(model.getCommandEnable(i));
 				affichages[i].setEnabled(model.getCommandEnable(i));
@@ -237,4 +238,5 @@ public class GraphicUserInterface implements Observer {
 			break;
 		}
 	}
+	
 }
