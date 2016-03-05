@@ -1,0 +1,31 @@
+package com.eclipsetotale.rcp.application;
+
+import org.eclipse.ui.application.IWorkbenchConfigurer;
+import org.eclipse.ui.application.IWorkbenchWindowConfigurer;
+import org.eclipse.ui.application.WorkbenchAdvisor;
+import org.eclipse.ui.application.WorkbenchWindowAdvisor;
+
+public class ApplicationWorkbenchAdvisor extends WorkbenchAdvisor {
+
+	private static final String PERSPECTIVE_ID = "com.eclipsetotale.rcp.application.perspective"; //$NON-NLS-1$
+
+    public WorkbenchWindowAdvisor createWorkbenchWindowAdvisor(IWorkbenchWindowConfigurer configurer) {
+        return new ApplicationWorkbenchWindowAdvisor(configurer);
+    }
+
+	public String getInitialWindowPerspectiveId() {
+		return PERSPECTIVE_ID;
+	}
+	
+	  public void initialize(IWorkbenchConfigurer configurer) {
+	      // Utiliser la valeur 'true' pour que l'état du workbench soit sauvegardé.
+	      configurer.setSaveAndRestore(false);
+
+	      // Attention, si sauvegarde de l'état, la méthode createInitialLayout de la
+	      // perspective sera appelée uniquement au premier lancement de l'application.
+	      // Il est alors préférable de prévoir une entrée dans un menu permettant
+	      // à l'utilisateur de réinitialiser la vue avec le code suivant :
+	      //      PlatformUI.getWorkbench().getActiveWorkbenchWindow().
+	      //                                    getActivePage().resetPerspective();
+	   }
+}

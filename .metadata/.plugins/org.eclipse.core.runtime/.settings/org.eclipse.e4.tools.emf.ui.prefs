@@ -1,0 +1,9 @@
+autoCreateElementId=true
+eclipse.preferences.version=1
+list-tab-remember-columns=false
+list-tab-remember-filters=false
+list-tab-xml=<list-tab><columns><column><attribute>GoTree</attribute><width>29</width></column><column><attribute>GoXmi</attribute><width>34</width></column><column><attribute>Marked</attribute><width>41</width></column><column><attribute>Item</attribute><width>114</width></column><column><attribute>elementId</attribute><width>320</width></column><column><attribute>label</attribute><width>148</width></column></columns><filters/></list-tab>
+notRenderedColor=200,200,200
+notVisibleAndRenderedColor=200,200,200
+notVisibleColor=200,200,200
+tab-form-search-show=false
