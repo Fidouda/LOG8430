@@ -8,9 +8,24 @@ import java.awt.Dimension;
 
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.swt.awt.SWT_AWT;
 import javax.swing.JTextField;
+import org.eclipse.swt.SWT;
+import org.eclipse.swt.awt.SWT_AWT;
+import org.eclipse.swt.graphics.Image;
+import org.eclipse.swt.widgets.Composite;
+import org.eclipse.ui.ISharedImages;
+import org.eclipse.ui.PlatformUI;
+import org.eclipse.ui.internal.Model;
+import org.eclipse.ui.part.ViewPart;
+
+import Controller.Controller;
+import Model.SimpleModel;
 
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.event.MouseAdapter;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
@@ -34,7 +49,7 @@ public class GraphicUserInterface implements Observer {
 
 	
 	//Déclaration des éléments de l'interface
-	private JFrame frame;
+	//private JFrame frame;
 
 	private JButton boutonFichier;
 	private JButton boutonClear;
@@ -46,27 +61,32 @@ public class GraphicUserInterface implements Observer {
 	private JCheckBox checkAutoRun;
 	private JTextField textField;
 	
+	private Controller controller;
+	private SimpleModel model;
+	
 	/**
 	 * Constructeur de la vue
 	 */
-	public GraphicUserInterface() {
-		initialize();
+	public GraphicUserInterface(Frame frame, Controller controller, SimpleModel model) {
+		this.controller = controller;
+		this.model = model;
+		initialize(frame);
 	}
 
 	/**
 	 * Initialisation des elements de l'interface
 	 */
-	private void initialize() {
+	private void initialize(Frame frame) {
 		
-		frame = new JFrame();
-		frame.getContentPane().setBackground(Color.LIGHT_GRAY);
+		//frame = new JFrame();
+		frame.setBackground(Color.LIGHT_GRAY);
 		frame.setBounds(250, 100, 598, 485);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		//frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		frame.setLayout(null);
 		
 		scrollPane = new JScrollPane();
 		scrollPane.setBounds(15, 44, 207, 325);
-		frame.getContentPane().add(scrollPane);
+		frame.add(scrollPane);
 		
 		//button = new JButton[model.getCommandList().size()];
 		//affichages = new JTextField[button.length];
@@ -96,9 +116,9 @@ public class GraphicUserInterface implements Observer {
 		    frame.getContentPane().add(textField);
 		}
 		*/
-		mockBouton = new JButton();
+		//mockBouton = new JButton();
 		//mockBouton.addActionListener(controller);
-		mockBouton.setActionCommand("mockUpdate");
+		//mockBouton.setActionCommand("mockUpdate");
 		
 		checkAutoRun = new JCheckBox("Auto Run");
 		//Ajout d'un action listener qui sera notre contrôleur
@@ -107,32 +127,31 @@ public class GraphicUserInterface implements Observer {
 		checkAutoRun.setActionCommand("checkAutoRun");
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
 		checkAutoRun.setBounds(381, 389, 97, 23);
-		frame.getContentPane().add(checkAutoRun);
+		frame.add(checkAutoRun);
 		
 		boutonClear = new JButton("Clear");
 		//Ajout d'un action listener qui sera notre contrôleur
-		//boutonClear.addActionListener(controller);
+		boutonClear.addActionListener(controller);
 		//On nomme la commande "clearButton"
         boutonClear.setActionCommand("clearButton");
 		boutonClear.setBounds(237, 380, 107, 40);
-		frame.getContentPane().add(boutonClear);
+		frame.add(boutonClear);
 		
 		boutonFichier = new JButton("Select file/folder");
-		//boutonFichier.addActionListener(controller);
+		boutonFichier.addActionListener(controller);
         boutonFichier.setActionCommand("browseButton");
         
 		boutonFichier.setBounds(25, 380, 175, 40);
-		frame.getContentPane().add(boutonFichier);
+		frame.add(boutonFichier);
 		
 		JLabel label1 = new JLabel("");
 		label1.setBackground(Color.WHITE);
 		label1.setBounds(381, 44, 191, 40);
-		frame.getContentPane().add(label1);
+		frame.add(label1);
 		
 		
 		//Ajout d'un observer du modèle
-        //model.addObserver(this);
-        //
+        model.addObserver(this);
 	}
 	
 	/**
@@ -148,7 +167,8 @@ public class GraphicUserInterface implements Observer {
 	 * @return frame
 	 */
 	public JFrame getFrame(){
-		return frame;
+		//return frame;
+		return null;
 	}
 	
 	/**
@@ -180,7 +200,7 @@ public class GraphicUserInterface implements Observer {
 	 * @param frameToSet
 	 */
 	public void setFrame(JFrame frameToSet){
-		frame = frameToSet;
+		//frame = frameToSet;
 	}
 	
 	/**
@@ -212,8 +232,9 @@ public class GraphicUserInterface implements Observer {
 			break;
 		
 		case "Update Tree":
-			//scrollPane.setViewportView(model.getTree());
+			scrollPane.setViewportView(model.getTree());
 			scrollPane.repaint();
+			
 			break;
 			
 		case "Clear Tree": 
