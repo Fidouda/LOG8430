@@ -21,10 +21,11 @@ Copyrights and other legal stuff goes here.
    <configIni use="default"/>
 
    <launcherArgs>
+      <programArgs>-clearPersistedState
+      </programArgs>
    </launcherArgs>
 
    <windowImages/>
-
 
    <launcher>
       <solaris/>
@@ -46,5 +47,6 @@ Copyrights and other legal stuff goes here.
       <plugin id="org.eclipse.ui.tutorials.rcp.part3"/>
       <plugin id="org.eclipse.ui.workbench"/>
    </plugins>
+
 
 </product>

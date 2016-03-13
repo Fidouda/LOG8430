@@ -88,10 +88,9 @@ public class GraphicUserInterface implements Observer {
 		scrollPane.setBounds(15, 44, 207, 325);
 		frame.add(scrollPane);
 		
-		//button = new JButton[model.getCommandList().size()];
-		//affichages = new JTextField[button.length];
+		button = new JButton[model.getCommandList().size()];
+		affichages = new JTextField[button.length];
 		String nom = "";
-		/*
 		for(Integer i = 0; i < button.length ; i++)
 		{
 			textField = new JTextField();
@@ -112,17 +111,16 @@ public class GraphicUserInterface implements Observer {
 			bouton.setEnabled(false);
 		    button[i] = bouton;
 		    
-		    frame.getContentPane().add(button[i]);
-		    frame.getContentPane().add(textField);
+		    frame.add(button[i]);
+		    frame.add(textField);
 		}
-		*/
-		//mockBouton = new JButton();
-		//mockBouton.addActionListener(controller);
-		//mockBouton.setActionCommand("mockUpdate");
+		mockBouton = new JButton();
+		mockBouton.addActionListener(controller);
+		mockBouton.setActionCommand("mockUpdate");
 		
 		checkAutoRun = new JCheckBox("Auto Run");
 		//Ajout d'un action listener qui sera notre contrôleur
-		//checkAutoRun.addActionListener(controller);
+		checkAutoRun.addActionListener(controller);
 		//On nomme la commande "checkAutoRun"
 		checkAutoRun.setActionCommand("checkAutoRun");
 		checkAutoRun.setBackground(Color.LIGHT_GRAY);
@@ -225,9 +223,9 @@ public class GraphicUserInterface implements Observer {
 		case "Update Commands":
 			mockBouton.doClick();
 			for(Integer i = 0; i < affichages.length; i++){
-				//button[i].setEnabled(model.getCommandEnable(i));
-				//affichages[i].setEnabled(model.getCommandEnable(i));
-				//affichages[i].setText(model.getCommandResults(i));
+				button[i].setEnabled(model.getCommandEnable(i));
+				affichages[i].setEnabled(model.getCommandEnable(i));
+				affichages[i].setText(model.getCommandResults(i));
 			}
 			break;
 		
@@ -244,9 +242,9 @@ public class GraphicUserInterface implements Observer {
 			break;
 			
 		case "Command":
-			//for(Integer i = 0; i < affichages.length; i++){
-				//affichages[i].setText(model.getCommandResults(i));
-			//}
+			for(Integer i = 0; i < affichages.length; i++){
+				affichages[i].setText(model.getCommandResults(i));
+			}
 			break;
 		}
 	}

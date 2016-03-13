@@ -8,7 +8,8 @@ import javax.swing.event.TreeSelectionEvent;
 import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
-//import ClassLoader.ClassLoader;
+
+import ClassLoader.ClassLoader;
 import Commands.CommandeAbstraite;
 import Controller.Controller;
 
@@ -28,8 +29,12 @@ public class SimpleModel extends Observable {
 	public SimpleModel() throws ClassNotFoundException {
 		commandResults_ = new ArrayList<String>();
 		commandEnable_ = new ArrayList<Boolean>();
-		//ClassLoader chargeur = new ClassLoader();
-		//listeCommandes_ = chargeur.chargerCommandes();
+		ClassLoader chargeur = new ClassLoader();
+		try {
+			listeCommandes_ = chargeur.chargerCommandes();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		}
 	}
 
 	/**

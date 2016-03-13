@@ -4,13 +4,12 @@ import Model.SimpleModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
-import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
-//import ClassLoader.ClassLoader;
+import ClassLoader.ClassLoader;
 import Commands.CommandeAbstraite;
 
 public class Controller implements ActionListener {
@@ -26,13 +25,19 @@ public class Controller implements ActionListener {
 	public Controller(SimpleModel modelToSet){
 		autoRunEnabled = false;
 		
-		//ClassLoader chargeur = new ClassLoader();
-		//listeCommandes_ = chargeur.chargerCommandes();
+		ClassLoader chargeur = new ClassLoader();
+		try {
+			listeCommandes_ = chargeur.chargerCommandes();
+		} catch (MalformedURLException e) {
+			e.printStackTrace();
+		} catch (ClassNotFoundException e) {
+			e.printStackTrace();
+		}
 		
 		model = modelToSet;
 		
-		//model.initializeCommandResults(listeCommandes_.size());
-		//model.initializeCommandEnable(listeCommandes_.size());
+		model.initializeCommandResults(listeCommandes_.size());
+		model.initializeCommandEnable(listeCommandes_.size());
 		
 	}
 	
@@ -65,7 +70,7 @@ public class Controller implements ActionListener {
     		    if(fileValue == JFileChooser.APPROVE_OPTION){
     		    	File root = chooser.getSelectedFile().getAbsoluteFile();
     		    	model.genererArbre(root);
-    		    	//activerToutesCommandes(chooser.getSelectedFile().toString());
+    		    	activerToutesCommandes(chooser.getSelectedFile().toString());
     		    }
         }
         

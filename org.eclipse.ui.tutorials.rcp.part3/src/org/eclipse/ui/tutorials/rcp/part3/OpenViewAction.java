@@ -21,7 +21,6 @@ public class OpenViewAction extends Action {
 		setId(ICommandIds.CMD_OPEN);
         // Associate the action with a pre-defined command, to allow key bindings.
 		setActionDefinitionId(ICommandIds.CMD_OPEN);
-		setImageDescriptor(org.eclipse.ui.tutorials.rcp.part3.Part3Plugin.getImageDescriptor("/icons/sample2.gif"));
 	}
 	
 	public void run() {
