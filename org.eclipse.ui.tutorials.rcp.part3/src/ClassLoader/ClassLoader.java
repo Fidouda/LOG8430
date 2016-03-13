@@ -1,11 +1,12 @@
 package ClassLoader;
 
-
 import java.io.File;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
 import java.util.ArrayList;
+
+import javax.swing.JFileChooser;
 
 import Commands.CommandeAbstraite;
 
@@ -13,6 +14,26 @@ import Commands.CommandeAbstraite;
 //http://www.javaworld.com/article/2077477/learn-java/java-tip-113--identify-subclasses-at-runtime.html
 //Modifie pour permettre d'ouvrir des fichiers .jar
 public class ClassLoader extends java.lang.ClassLoader {
+	
+	File directory = null;
+	
+	/**
+	 * Constructeur de ClassLoader.
+	 * Invite l'utilisateur à sélectionner le répertoire où sont situés les commandes en fichiers .jar
+	 */
+	public ClassLoader(){
+		JFileChooser chooser = new JFileChooser();
+		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES); //Permet la selection de file et folder
+		chooser.setCurrentDirectory(new java.io.File("C:\\"));
+		chooser.setDialogTitle("Choisir le répertoire contenant les commandes au format .jar");
+		 int fileValue = chooser.showSaveDialog(null);
+		    if(fileValue == JFileChooser.APPROVE_OPTION){
+		    	directory = chooser.getSelectedFile().getAbsoluteFile();
+		    }
+		    else {
+		    	System.exit(0);
+		    }
+	}
 	
 	/**
 	 * Nous utilisons le chargeur du class trouvé sur le site cité plus haut pour lire le dossier "Commands"
@@ -34,15 +55,6 @@ public class ClassLoader extends java.lang.ClassLoader {
         if (!nom.startsWith("/"))
         	nom = "/" + nom;
         nom = nom.replace('.','/');
-        
-        // À REFACTORISER + OUVRIR UN FILECHOOSER
-        String absolutePath = new File(".").getAbsolutePath();
-        absolutePath = absolutePath.substring(0, 2);//Remove the dot at the end of path
-        absolutePath = absolutePath + "/Temp" + nom + "/";
-        
-        // URL vers le repertoire contenant les commandes
-		URL url = new URL("file", "", absolutePath);
-        File directory = new File(url.getFile());
         
         //Verification de l'existance du repertoire
         if (directory.exists()) 

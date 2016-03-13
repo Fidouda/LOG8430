@@ -1,7 +1,5 @@
 package Model;
 import java.io.File;
-import java.io.IOException;
-import java.net.MalformedURLException;
 
 import javax.swing.JTree;
 import javax.swing.event.TreeSelectionEvent;
@@ -9,9 +7,7 @@ import javax.swing.event.TreeSelectionListener;
 import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 
-import ClassLoader.ClassLoader;
 import Commands.CommandeAbstraite;
-import Controller.Controller;
 
 import java.util.ArrayList;
 import java.util.Observable;
@@ -29,12 +25,6 @@ public class SimpleModel extends Observable {
 	public SimpleModel() throws ClassNotFoundException {
 		commandResults_ = new ArrayList<String>();
 		commandEnable_ = new ArrayList<Boolean>();
-		ClassLoader chargeur = new ClassLoader();
-		try {
-			listeCommandes_ = chargeur.chargerCommandes();
-		} catch (MalformedURLException e) {
-			e.printStackTrace();
-		}
 	}
 
 	/**
@@ -70,6 +60,14 @@ public class SimpleModel extends Observable {
 	public void rootTree(){
 		setChanged();
 		notifyObservers("Root Tree");
+	}
+	
+	/**
+	 * Itinialise la liste de commandes disponibles
+	 * @param listeCommandes
+	 */
+	public void initializeCommandList(ArrayList<CommandeAbstraite> listeCommandes){
+		listeCommandes_ = listeCommandes;
 	}
 	
 	/**

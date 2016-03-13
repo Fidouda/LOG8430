@@ -36,6 +36,7 @@ public class Controller implements ActionListener {
 		
 		model = modelToSet;
 		
+		model.initializeCommandList(listeCommandes_);
 		model.initializeCommandResults(listeCommandes_.size());
 		model.initializeCommandEnable(listeCommandes_.size());
 		
