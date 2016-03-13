@@ -1,7 +1,5 @@
 package org.eclipse.ui.tutorials.rcp.part3;
 
-import org.eclipse.swt.layout.GridData;
-import org.eclipse.ui.IFolderLayout;
 import org.eclipse.ui.IPageLayout;
 import org.eclipse.ui.IPerspectiveFactory;
 
