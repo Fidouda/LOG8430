@@ -56,7 +56,7 @@ public class ClassLoader extends java.lang.ClassLoader {
                 {
                 	//Creation de l'URL vers le fichier .jar
                 	URL[] urljar = new URL[1];
-                	urljar[i] = new URL("jar", "", "file:" + directory.getAbsolutePath() + "\\" + files[i] + "!/");
+                	urljar[0] = new URL("jar", "", "file:" + directory.getAbsolutePath() + "\\" + files[i] + "!/");
                 	
                 	//ClassLoader
                 	URLClassLoader cl = URLClassLoader.newInstance(urljar, this.getClass().getClassLoader());

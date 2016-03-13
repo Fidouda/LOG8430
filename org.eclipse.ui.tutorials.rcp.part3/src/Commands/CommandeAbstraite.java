@@ -23,10 +23,8 @@ public abstract class CommandeAbstraite extends Observable {
 	
 	/**
 	 * Constructeur de la classe CommandeAbstraite
-	 * @param chemin
 	 */
-	public CommandeAbstraite(String chemin){
-		chemin_ = chemin;
+	public CommandeAbstraite(){
 	}
 	
 	/**
