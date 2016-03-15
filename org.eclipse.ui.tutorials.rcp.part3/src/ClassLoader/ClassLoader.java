@@ -23,8 +23,9 @@ public class ClassLoader extends java.lang.ClassLoader {
 	 */
 	public ClassLoader() {
 		JFileChooser chooser = new JFileChooser();
-		chooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
 		chooser.setCurrentDirectory(new java.io.File("C:\\"));
+		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		chooser.setMultiSelectionEnabled(false);
 		chooser.setDialogTitle("Choisir le répertoire contenant les commandes au format .jar");
 		int fileValue = chooser.showSaveDialog(null);
 		if (fileValue == JFileChooser.APPROVE_OPTION) {
