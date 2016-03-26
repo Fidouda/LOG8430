@@ -1,10 +1,17 @@
 package ClassLoader;
 
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.net.URLClassLoader;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.swing.JFileChooser;
 
@@ -21,7 +28,15 @@ public class ClassLoader extends java.lang.ClassLoader {
 	 * Constructeur de ClassLoader. Invite l'utilisateur à sélectionner le
 	 * répertoire où sont situés les commandes en fichiers .jar
 	 */
-	public ClassLoader() {
+	public ClassLoader(String path) {
+		if(path != null) {
+			File f = new File(path);
+			if(f.exists() && f.isDirectory()) { 
+			    directory = f;
+			    return;
+			}
+		}		
+		
 		JFileChooser chooser = new JFileChooser();
 		chooser.setCurrentDirectory(new java.io.File("C:\\"));
 		chooser.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
@@ -41,10 +56,10 @@ public class ClassLoader extends java.lang.ClassLoader {
 	 * abstraite seront chargés grâce à ce chargeur de classes.
 	 * 
 	 * @return
-	 * @throws MalformedURLException
 	 * @throws ClassNotFoundException
+	 * @throws IOException 
 	 */
-	public ArrayList<CommandeAbstraite> chargerCommandes() throws MalformedURLException, ClassNotFoundException {
+	public ArrayList<CommandeAbstraite> chargerCommandes() throws ClassNotFoundException, IOException {
 
 		// Déclaration des variables pertinentes.
 		// Folder "Commands"
@@ -53,6 +68,8 @@ public class ClassLoader extends java.lang.ClassLoader {
 		String nomPaquet = "Commands";
 		String nom = new String(nomPaquet);
 		ArrayList<CommandeAbstraite> listeDesCommandes = new ArrayList<CommandeAbstraite>();
+		
+		Boolean hadValidJars = false;
 
 		// Manoeuvre pour s'assurer de retourner le nom "/" + nom
 		if (!nom.startsWith("/"))
@@ -77,14 +94,23 @@ public class ClassLoader extends java.lang.ClassLoader {
 						Object o = loadedClass.newInstance();
 						// Accepter la commande seulement si c'est une instance
 						// de CommandeAbstraite
-						if (o instanceof CommandeAbstraite)
+						if (o instanceof CommandeAbstraite) {
 							listeDesCommandes.add((CommandeAbstraite) o);
+							hadValidJars = true;
+						}
 					} catch (InstantiationException e) {
 						e.printStackTrace();
 					} catch (IllegalAccessException e) {
 						e.printStackTrace();
 					}
 				}
+			}
+			// Enregistrement du choix du répertoire si ce dernier existe et contient des fichers JAR valides
+			if(hadValidJars) {
+				List<String> lines = Arrays.asList(directory.getAbsolutePath().toString());
+				Path currentRelativePath = Paths.get("");
+				Path file = Paths.get(currentRelativePath.toAbsolutePath().toString() + "\\pathToPlugins.txt");
+				Files.write(file, lines, Charset.forName("UTF-8"));
 			}
 		}
 		return listeDesCommandes;
