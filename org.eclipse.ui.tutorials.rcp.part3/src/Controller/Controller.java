@@ -5,6 +5,7 @@ import Model.SimpleModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 import java.net.MalformedURLException;
 import java.util.ArrayList;
 
@@ -23,8 +24,9 @@ public class Controller implements ActionListener {
 	 * Constructeur de la classe Controller
 	 * 
 	 * @param modelToSet
+	 * @throws IOException 
 	 */
-	public Controller(SimpleModel modelToSet) {
+	public Controller(SimpleModel modelToSet) throws IOException {
 		autoRunEnabled = false;
 
 		ClassLoader chargeur = new ClassLoader();
