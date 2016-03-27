@@ -11,6 +11,9 @@ import org.eclipse.ui.part.ViewPart;
 import Controller.Controller;
 import Model.SimpleModel;
 
+/**
+ * Classe qui creer le controlleur, le model, et la vue.
+ */
 public class NavigationView extends ViewPart {
 	public NavigationView() {
 	}

@@ -11,7 +11,9 @@ import java.net.MalformedURLException;
 import java.util.ArrayList;
 
 import Commands.*;
-
+/**
+ * Classe de tests unitaires
+ */
 public class TestCommandes {
 
 	private String root_;

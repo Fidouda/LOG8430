@@ -14,6 +14,11 @@ import javax.swing.JFileChooser;
 import ClassLoader.ClassLoader;
 import Commands.CommandeAbstraite;
 
+/**
+ * Class Controller
+ * Class qui sert de controlleur a l'interface utilisateur
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
 public class Controller implements ActionListener {
 
 	private SimpleModel model;

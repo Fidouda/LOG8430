@@ -13,6 +13,11 @@ import Commands.CommandeAbstraite;
 import java.util.ArrayList;
 import java.util.Observable;
 
+/**
+ * Class SimpleModel
+ * Classe qui sert de model à l'interface.
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
 public class SimpleModel extends Observable {
 
 	private javax.swing.JTree tree;
@@ -132,7 +137,7 @@ public class SimpleModel extends Observable {
 
 				for (Object part : treeTemp.getSelectionPath().getPath())
 					selectedNodeWPath += "\\" + part.toString();
-
+				
 				selectedNodeWPath = selectedNodeWPath.substring(1);
 
 				selectedItem = selectedNodeWPath;

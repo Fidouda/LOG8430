@@ -13,6 +13,12 @@ import Commands.CommandeAbstraite;
 //Tutoriel suivi sur
 //http://www.javaworld.com/article/2077477/learn-java/java-tip-113--identify-subclasses-at-runtime.html
 //Modifie pour permettre d'ouvrir des fichiers .jar
+
+/**
+ * Class ClassLoader
+ * Charge des classes en .java dynamiquement
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
 public class ClassLoader extends java.lang.ClassLoader {
 
 	File directory = null;
