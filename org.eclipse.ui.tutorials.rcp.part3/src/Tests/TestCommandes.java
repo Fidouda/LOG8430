@@ -6,8 +6,14 @@ import ClassLoader.ClassLoader;
 
 import static org.junit.Assert.*;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 import Commands.*;
@@ -21,9 +27,29 @@ public class TestCommandes {
 	
 	@Before
 	public void setUp() throws Exception {
-		
+		// Open and read file to check if a path for JAR files for the ClassLoader already exist
+		Path currentRelativePath = Paths.get("");
+		File file = new File(currentRelativePath.toAbsolutePath().toString() + "\\pathToPlugins.txt");
+		BufferedReader reader = null;
+		String directory = null;
 
-		ClassLoader chargeur = new ClassLoader();
+		try {
+		    reader = new BufferedReader(new FileReader(file));
+		    directory = reader.readLine();
+		} catch (FileNotFoundException e) {
+			// Do nothing, will prompt to choose folder later
+		} catch (IOException e) {
+		    e.printStackTrace();
+		} finally {
+		    try {
+		        if (reader != null) {
+		            reader.close();
+		        }
+		    } catch (IOException e) {
+		    }
+		}	
+		
+		ClassLoader chargeur = new ClassLoader(directory);
 		try {
 			listeCommandes_ = chargeur.chargerCommandes();
 		} catch (MalformedURLException e) {
