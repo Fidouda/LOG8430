@@ -2,4 +2,5 @@ ClassLoader
 Commands
 Controller
 Model
+Tests
 org.eclipse.ui.tutorials.rcp.part3

@@ -1,6 +1,7 @@
 package org.eclipse.ui.tutorials.rcp.part3;
 
 import java.awt.Frame;
+import java.io.IOException;
 
 import org.eclipse.swt.SWT;
 import org.eclipse.swt.awt.SWT_AWT;
@@ -10,6 +11,9 @@ import org.eclipse.ui.part.ViewPart;
 import Controller.Controller;
 import Model.SimpleModel;
 
+/**
+ * Classe qui creer le controlleur, le model, et la vue.
+ */
 public class NavigationView extends ViewPart {
 	public NavigationView() {
 	}
@@ -30,7 +34,13 @@ public class NavigationView extends ViewPart {
 			e.printStackTrace();
 		}
 		// Déclaration du contrôleur
-		Controller controller = new Controller(model);
+		Controller controller = null;
+		try {
+			controller = new Controller(model);
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		Composite composite = new Composite(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND);
 		Frame frame = SWT_AWT.new_Frame(composite);

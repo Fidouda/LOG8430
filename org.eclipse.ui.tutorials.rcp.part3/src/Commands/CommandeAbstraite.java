@@ -3,6 +3,11 @@ package Commands;
 import java.io.File;
 import java.util.Observable;
 
+/**
+ * Class CommandeAbstraite
+ * Classe abstraite pour les commandes. Contient des methodes communes aux commandes
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
 public abstract class CommandeAbstraite extends Observable {
 
 	private String affichage_;
@@ -108,7 +113,7 @@ public abstract class CommandeAbstraite extends Observable {
 	 * 
 	 * @return boolean
 	 */
-	public abstract boolean isValid();
+	public abstract boolean estValide();
 
 	/**
 	 * Fonction abstraite d'execution de commande

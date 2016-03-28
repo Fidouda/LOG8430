@@ -22,6 +22,12 @@ import java.util.Observer;
 
 import javax.swing.JLabel;
 
+/**
+ * Class GraphicUserInterface
+ * Interface utilisateur
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class GraphicUserInterface implements Observer {
 
 	// Déclaration des éléments de l'interface

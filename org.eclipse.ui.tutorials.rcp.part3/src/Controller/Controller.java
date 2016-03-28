@@ -19,6 +19,11 @@ import javax.swing.JFileChooser;
 import ClassLoader.ClassLoader;
 import Commands.CommandeAbstraite;
 
+/**
+ * Class Controller
+ * Class qui sert de controlleur a l'interface utilisateur
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
 public class Controller implements ActionListener {
 
 	private SimpleModel model;
@@ -29,8 +34,9 @@ public class Controller implements ActionListener {
 	 * Constructeur de la classe Controller
 	 * 
 	 * @param modelToSet
+	 * @throws IOException 
 	 */
-	public Controller(SimpleModel modelToSet) {
+	public Controller(SimpleModel modelToSet) throws IOException {
 		autoRunEnabled = false;
 		
 		// Open and read file to check if a path for JAR files for the ClassLoader already exist
@@ -69,9 +75,9 @@ public class Controller implements ActionListener {
 		
 		model = modelToSet;
 
-		model.initializeCommandList(listeCommandes_);
-		model.initializeCommandResults(listeCommandes_.size());
-		model.initializeCommandEnable(listeCommandes_.size());
+		model.initialiserListeCommande(listeCommandes_);
+		model.initialiserCommandeResultats(listeCommandes_.size());
+		model.initialiserCommandeDisponible(listeCommandes_.size());
 
 	}
 
@@ -109,8 +115,8 @@ public class Controller implements ActionListener {
 			int commandIndex = Character
 					.getNumericValue(e.getActionCommand().charAt(e.getActionCommand().length() - 1));
 			CommandeAbstraite commande = listeCommandes_.get(commandIndex);
-			System.out.println(model.getSelectedItem());
-			commande.setChemin(model.getSelectedItem());
+			System.out.println(model.obtenirItemSelectionne());
+			commande.setChemin(model.obtenirItemSelectionne());
 			try {
 				commande.executerCommande();
 			} catch (Exception exception) {
@@ -120,8 +126,8 @@ public class Controller implements ActionListener {
 		}
 
 		else if ("mockUpdate".equals(e.getActionCommand())) {
-			if (model.getSelectedItem() != "")
-				activerToutesCommandes(model.getSelectedItem());
+			if (model.obtenirItemSelectionne() != "")
+				activerToutesCommandes(model.obtenirItemSelectionne());
 		}
 		
 		else if ("jarsButton".equals(e.getActionCommand())) {
@@ -137,10 +143,10 @@ public class Controller implements ActionListener {
 				error.printStackTrace();
 			}
 
-			model.initializeCommandList(listeCommandes_);
-			model.initializeCommandResults(listeCommandes_.size());
-			model.initializeCommandEnable(listeCommandes_.size());
-			model.refreshCommandList();
+			model.initialiserListeCommande(listeCommandes_);
+			model.initialiserCommandeResultats(listeCommandes_.size());
+			model.initialiserCommandeDisponible(listeCommandes_.size());
+			model.rafraichirListeCommande();
 		}
 
 	}

@@ -13,6 +13,11 @@ import Commands.CommandeAbstraite;
 import java.util.ArrayList;
 import java.util.Observable;
 
+/**
+ * Class SimpleModel
+ * Classe qui sert de model à l'interface.
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
 public class SimpleModel extends Observable {
 
 	private javax.swing.JTree tree;
@@ -70,7 +75,7 @@ public class SimpleModel extends Observable {
 	 * 
 	 * @param listeCommandes
 	 */
-	public void initializeCommandList(ArrayList<CommandeAbstraite> listeCommandes) {
+	public void initialiserListeCommande(ArrayList<CommandeAbstraite> listeCommandes) {
 		listeCommandes_ = listeCommandes;
 	}
 
@@ -79,7 +84,7 @@ public class SimpleModel extends Observable {
 	 * 
 	 * @param size
 	 */
-	public void initializeCommandResults(int size) {
+	public void initialiserCommandeResultats(int size) {
 		for (Integer i = 0; i < size; i++) {
 			commandResults_.add("");
 		}
@@ -90,7 +95,7 @@ public class SimpleModel extends Observable {
 	 * 
 	 * @param size
 	 */
-	public void initializeCommandEnable(int size) {
+	public void initialiserCommandeDisponible(int size) {
 		for (Integer i = 0; i < size; i++) {
 			commandEnable_.add(false);
 		}
@@ -99,7 +104,7 @@ public class SimpleModel extends Observable {
 	/**
 	 * Methode permettant de mettre a jour la liste de commandes dans la vue
 	 */
-	public void refreshCommandList() {
+	public void rafraichirListeCommande() {
 		setChanged();
 		notifyObservers("Refresh Commands");
 	}
@@ -109,7 +114,7 @@ public class SimpleModel extends Observable {
 	 * 
 	 * @return selectedItem
 	 */
-	public String getSelectedItem() {
+	public String obtenirItemSelectionne() {
 		return selectedItem;
 	}
 
@@ -140,7 +145,7 @@ public class SimpleModel extends Observable {
 
 				for (Object part : treeTemp.getSelectionPath().getPath())
 					selectedNodeWPath += "\\" + part.toString();
-
+				
 				selectedNodeWPath = selectedNodeWPath.substring(1);
 
 				selectedItem = selectedNodeWPath;
