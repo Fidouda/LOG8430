@@ -27,17 +27,12 @@ public class NavigationView extends ViewPart {
 
 		// Initialisation du model et du controlleur
 		SimpleModel model = null; //Necessaire, ceci n'est pas un bug
-		try {
-			model = new SimpleModel();
-		} catch (ClassNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		// Déclaration du contrôleur
 		Controller controller = null;
 		try {
+			model = new SimpleModel();
 			controller = new Controller(model);
-		} catch (IOException e) {
+		} catch (IOException | ClassNotFoundException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
