@@ -123,6 +123,25 @@ public class Controller implements ActionListener {
 			if (model.getSelectedItem() != "")
 				activerToutesCommandes(model.getSelectedItem());
 		}
+		
+		else if ("jarsButton".equals(e.getActionCommand())) {
+			// Create new ClassLoader Class
+			ClassLoader chargeur = new ClassLoader(null);
+			try {
+				listeCommandes_ = chargeur.chargerCommandes();
+			} catch (MalformedURLException error) {
+				error.printStackTrace();
+			} catch (ClassNotFoundException error) {
+				error.printStackTrace();
+			} catch (IOException error) {
+				error.printStackTrace();
+			}
+
+			model.initializeCommandList(listeCommandes_);
+			model.initializeCommandResults(listeCommandes_.size());
+			model.initializeCommandEnable(listeCommandes_.size());
+			model.refreshCommandList();
+		}
 
 	}
 

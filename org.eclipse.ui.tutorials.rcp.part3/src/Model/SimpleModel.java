@@ -95,6 +95,14 @@ public class SimpleModel extends Observable {
 			commandEnable_.add(false);
 		}
 	}
+	
+	/**
+	 * Methode permettant de mettre a jour la liste de commandes dans la vue
+	 */
+	public void refreshCommandList() {
+		setChanged();
+		notifyObservers("Refresh Commands");
+	}
 
 	/**
 	 * Methode d'acces pour l'attribut selectedItem

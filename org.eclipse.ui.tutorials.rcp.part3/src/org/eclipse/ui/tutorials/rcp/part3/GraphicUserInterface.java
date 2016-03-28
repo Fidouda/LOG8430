@@ -28,6 +28,7 @@ public class GraphicUserInterface implements Observer {
 	// private JFrame frame;
 
 	private JButton boutonFichier;
+	private JButton boutonPathJAR;
 	private JButton boutonClear;
 	private JButton mockBouton;
 	private JScrollPane scrollPane;
@@ -38,6 +39,7 @@ public class GraphicUserInterface implements Observer {
 
 	private Controller controller;
 	private SimpleModel model;
+	private Frame frameGUI;
 
 	/**
 	 * Constructeur de la vue
@@ -53,7 +55,7 @@ public class GraphicUserInterface implements Observer {
 	 */
 	private void initialize(Frame frame) {
 
-		// frame = new JFrame();
+		frameGUI = frame;
 		frame.setBackground(Color.LIGHT_GRAY);
 		frame.setBounds(250, 100, 598, 485);
 		// frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -111,9 +113,14 @@ public class GraphicUserInterface implements Observer {
 		boutonFichier = new JButton("Select file/folder");
 		boutonFichier.addActionListener(controller);
 		boutonFichier.setActionCommand("browseButton");
-
 		boutonFichier.setBounds(25, 380, 175, 40);
 		frame.add(boutonFichier);
+		
+		boutonPathJAR = new JButton("Select JARs' folder");
+		boutonPathJAR.addActionListener(controller);
+		boutonPathJAR.setActionCommand("jarsButton");
+		boutonPathJAR.setBounds(25, 430, 175, 40);
+		frame.add(boutonPathJAR);
 
 		JLabel label1 = new JLabel("");
 		label1.setBackground(Color.WHITE);
@@ -226,7 +233,41 @@ public class GraphicUserInterface implements Observer {
 				affichages[i].setText(model.getCommandResults(i));
 			}
 			break;
+			
+		case "Refresh Commands":
+			//Clear old buttons
+			for (Integer i = 0; i < button.length; i++) {
+				frameGUI.remove(affichages[i]);
+				frameGUI.remove(button[i]);
+			}
+			
+			//Create new buttons
+			button = new JButton[model.getCommandList().size()];
+			affichages = new JTextField[button.length];
+			String nom = "";
+			for (Integer i = 0; i < button.length; i++) {
+				textField = new JTextField();
+				textField.setBounds(385, (i + 1) * 50 + 2, 175, 35);
+				textField.setColumns(10);
+				textField.setEditable(false);
+				textField.setEditable(false);
+				affichages[i] = textField;
+
+				nom = model.getCommandList().get(i).getNom();// "Commande " + (i).toString();
+				JButton bouton = new JButton(nom);
+				bouton.addActionListener(controller);
+				bouton.setFont(new Font("Tahoma", Font.PLAIN, 10));
+				bouton.setBounds(247, (i + 1) * 50, 130, 40);
+				bouton.setActionCommand("commandButton" + i.toString());
+				bouton.setPreferredSize(new Dimension(89, 50));
+				bouton.setEnabled(false);
+				button[i] = bouton;
+
+				frameGUI.add(button[i]);
+				frameGUI.add(textField);
+			}
+			frameGUI.repaint();
+			break;
 		}
 	}
-
 }
