@@ -26,7 +26,7 @@ public class NavigationView extends ViewPart {
 	public void createPartControl(Composite parent) {
 
 		// Initialisation du model et du controlleur
-		SimpleModel model = null;
+		SimpleModel model = null; //Necessaire, ceci n'est pas un bug
 		try {
 			model = new SimpleModel();
 		} catch (ClassNotFoundException e) {
@@ -45,7 +45,7 @@ public class NavigationView extends ViewPart {
 		Composite composite = new Composite(parent, SWT.EMBEDDED | SWT.NO_BACKGROUND);
 		Frame frame = SWT_AWT.new_Frame(composite);
 
-		GraphicUserInterface face = new GraphicUserInterface(frame, controller, model);
+		new GraphicUserInterface(frame, controller, model);
 		frame.setLayout(frame.getLayout());
 	}
 

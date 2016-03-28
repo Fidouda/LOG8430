@@ -71,10 +71,11 @@ public class TestCommandes {
 	@Test
 	public void cheminAbsolu_executerCommande_Repertoir() {
 		try{
+			CommandeAbstraite commande = listeCommandes_.get(0);
 			String pathFile = root_;
-			listeCommandes_.get(0).setAffichage(pathFile);
+			commande.setChemin(pathFile);
 			
-			assertEquals(listeCommandes_.get(0).executerCommande(), pathFile);
+			assertEquals(commande.executerCommande(), pathFile);
 			
 		}
 		catch (Exception e){
@@ -87,8 +88,9 @@ public class TestCommandes {
 	public void cheminAbsolu_executerCommande_Null() {
 		try{
 			String pathFile = null;
-			listeCommandes_.get(0).setAffichage(pathFile);
-			assertNull(listeCommandes_.get(0).executerCommande());
+			CommandeAbstraite commande = listeCommandes_.get(0);
+			commande.setChemin(pathFile);
+			assertNull(commande.executerCommande());
 			
 		}
 		catch (Exception e){
@@ -100,7 +102,7 @@ public class TestCommandes {
 	public void cheminAbsolu_executerCommande_Fichier() {
 		try{
 			String pathFile = root_+"\\src\\Tests\\TestCommandes.java";
-			listeCommandes_.get(0).setAffichage(pathFile);
+			listeCommandes_.get(0).setChemin(pathFile);
 			
 			assertEquals(listeCommandes_.get(0).executerCommande(), pathFile);
 		}
@@ -114,7 +116,7 @@ public class TestCommandes {
 		try{
 			String pathFile = root_+"\\src\\Tests\\TestCommandes.java";
 	
-			listeCommandes_.get(1).setAffichage(pathFile);
+			listeCommandes_.get(1).setChemin(pathFile);
 			assertEquals(listeCommandes_.get(1).executerCommande(), "TestCommandes.java");
 		}
 		catch (Exception e){
@@ -122,38 +124,13 @@ public class TestCommandes {
 		}
 	}
 	
-	@Test
-	public void NomFichier_estValide_Valide() {
-		try{
-			String pathFile = root_+"\\src\\Tests\\TestCommandes.java";
-	
-			listeCommandes_.get(1).setAffichage(pathFile);
-			assertTrue(listeCommandes_.get(1).estValide());
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void NomFichier_estValide_Invalide() {
-		try{
-			String pathFile = root_+"\\src\\Tests";
-	
-			listeCommandes_.get(1).setAffichage(pathFile);
-			assertFalse(listeCommandes_.get(1).estValide());
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-	}
 	
 	@Test
 	public void NomRepertoire_executerCommande() {
 		try{
 			String pathFile = root_+"\\src\\Tests";
 	
-			listeCommandes_.get(2).setAffichage(pathFile);
+			listeCommandes_.get(2).setChemin(pathFile);
 			assertEquals(listeCommandes_.get(2).executerCommande(), "Tests");
 		}
 		catch (Exception e){
@@ -161,38 +138,14 @@ public class TestCommandes {
 		}
 	}
 	
-	@Test
-	public void NomRepertoire_estValide_Valide() {
-		try{
-			String pathFile = root_+"\\src\\Tests";
 	
-			listeCommandes_.get(2).setAffichage(pathFile);
-			assertTrue(listeCommandes_.get(2).estValide());
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-	}
-	
-	@Test
-	public void NomRepertoire_estValide_Invalide() {
-		try{
-			String pathFile = root_+"\\src\\Tests\\TestCommandes.java";
-	
-			listeCommandes_.get(2).setAffichage(pathFile);
-			assertFalse(listeCommandes_.get(2).estValide());
-		}
-		catch (Exception e){
-			e.printStackTrace();
-		}
-	}
 	
 	@Test
 	public void CommandeAbstraite_getType_Fichier() {
 		try{
 			String pathFile = root_+"\\src\\Tests\\TestCommandes.java";
 	
-			listeCommandes_.get(1).setAffichage(pathFile);
+			listeCommandes_.get(1).setChemin(pathFile);
 			assertEquals(listeCommandes_.get(1).getType(), CommandeAbstraite.Type.FICHIER);
 		}
 		catch (Exception e){
@@ -205,7 +158,7 @@ public class TestCommandes {
 		try{
 			String pathFile = root_+"\\src\\Tests";
 	
-			listeCommandes_.get(2).setAffichage(pathFile);
+			listeCommandes_.get(2).setChemin(pathFile);
 			assertEquals(listeCommandes_.get(2).getType(), CommandeAbstraite.Type.REPERTOIR);
 		}
 		catch (Exception e){

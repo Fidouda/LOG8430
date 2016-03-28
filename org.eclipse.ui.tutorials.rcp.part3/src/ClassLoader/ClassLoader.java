@@ -86,28 +86,31 @@ public class ClassLoader extends java.lang.ClassLoader {
 		if (directory.exists()) {
 			// Noms de toutes les fichiers contenu dans le repertoire
 			String[] files = directory.list();
-			for (int i = 0; i < files.length; i++) {
-				// Pour tous les fichiers .jar
-				if (files[i].endsWith(".jar")) {
-					// Creation de l'URL vers le fichier .jar
-					URL[] urljar = new URL[1];
-					urljar[0] = new URL("jar", "", "file:" + directory.getAbsolutePath() + "\\" + files[i] + "!/");
-
-					// ClassLoader
-					URLClassLoader cl = URLClassLoader.newInstance(urljar, this.getClass().getClassLoader());
-					Class loadedClass = cl.loadClass("Commands." + files[i].substring(0, files[i].length() - 4));
-					try {
-						Object o = loadedClass.newInstance();
-						// Accepter la commande seulement si c'est une instance
-						// de CommandeAbstraite
-						if (o instanceof CommandeAbstraite) {
-							listeDesCommandes.add((CommandeAbstraite) o);
-							hadValidJars = true;
+			if(files != null)
+			{
+				for (int i = 0; i < files.length; i++) {
+					// Pour tous les fichiers .jar
+					if (files[i].endsWith(".jar")) {
+						// Creation de l'URL vers le fichier .jar
+						URL[] urljar = new URL[1];
+						urljar[0] = new URL("jar", "", "file:" + directory.getAbsolutePath() + "\\" + files[i] + "!/");
+	
+						// ClassLoader
+						URLClassLoader cl = URLClassLoader.newInstance(urljar, this.getClass().getClassLoader());
+						Class loadedClass = cl.loadClass("Commands." + files[i].substring(0, files[i].length() - 4));
+						try {
+							Object o = loadedClass.newInstance();
+							// Accepter la commande seulement si c'est une instance
+							// de CommandeAbstraite
+							if (o instanceof CommandeAbstraite) {
+								listeDesCommandes.add((CommandeAbstraite) o);
+								hadValidJars = true;
+							}
+						} catch (InstantiationException e) {
+							e.printStackTrace();
+						} catch (IllegalAccessException e) {
+							e.printStackTrace();
 						}
-					} catch (InstantiationException e) {
-						e.printStackTrace();
-					} catch (IllegalAccessException e) {
-						e.printStackTrace();
 					}
 				}
 			}

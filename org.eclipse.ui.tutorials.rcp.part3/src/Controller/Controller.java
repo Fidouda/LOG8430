@@ -126,7 +126,7 @@ public class Controller implements ActionListener {
 		}
 
 		else if ("mockUpdate".equals(e.getActionCommand())) {
-			if (model.obtenirItemSelectionne() != "")
+			if (model.obtenirItemSelectionne() != null && !model.obtenirItemSelectionne().isEmpty())
 				activerToutesCommandes(model.obtenirItemSelectionne());
 		}
 		
