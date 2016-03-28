@@ -113,7 +113,7 @@ public abstract class CommandeAbstraite extends Observable {
 	 * 
 	 * @return boolean
 	 */
-	public abstract boolean isValid();
+	public abstract boolean estValide();
 
 	/**
 	 * Fonction abstraite d'execution de commande

@@ -45,8 +45,8 @@ public class Controller implements ActionListener {
 
 		model = modelToSet;
 
-		model.initializeCommandList(listeCommandes_);
-		model.initializeCommandResults(listeCommandes_.size());
+		model.initialiserListeCommande(listeCommandes_);
+		model.initialiserCommandeResultats(listeCommandes_.size());
 		model.initializeCommandEnable(listeCommandes_.size());
 
 	}
@@ -85,8 +85,8 @@ public class Controller implements ActionListener {
 			int commandIndex = Character
 					.getNumericValue(e.getActionCommand().charAt(e.getActionCommand().length() - 1));
 			CommandeAbstraite commande = listeCommandes_.get(commandIndex);
-			System.out.println(model.getSelectedItem());
-			commande.setChemin(model.getSelectedItem());
+			System.out.println(model.obtenirItemSelectionne());
+			commande.setChemin(model.obtenirItemSelectionne());
 			try {
 				commande.executerCommande();
 			} catch (Exception exception) {
@@ -96,8 +96,8 @@ public class Controller implements ActionListener {
 		}
 
 		else if ("mockUpdate".equals(e.getActionCommand())) {
-			if (model.getSelectedItem() != "")
-				activerToutesCommandes(model.getSelectedItem());
+			if (model.obtenirItemSelectionne() != "")
+				activerToutesCommandes(model.obtenirItemSelectionne());
 		}
 
 	}

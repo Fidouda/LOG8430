@@ -75,7 +75,7 @@ public class SimpleModel extends Observable {
 	 * 
 	 * @param listeCommandes
 	 */
-	public void initializeCommandList(ArrayList<CommandeAbstraite> listeCommandes) {
+	public void initialiserListeCommande(ArrayList<CommandeAbstraite> listeCommandes) {
 		listeCommandes_ = listeCommandes;
 	}
 
@@ -84,7 +84,7 @@ public class SimpleModel extends Observable {
 	 * 
 	 * @param size
 	 */
-	public void initializeCommandResults(int size) {
+	public void initialiserCommandeResultats(int size) {
 		for (Integer i = 0; i < size; i++) {
 			commandResults_.add("");
 		}
@@ -106,7 +106,7 @@ public class SimpleModel extends Observable {
 	 * 
 	 * @return selectedItem
 	 */
-	public String getSelectedItem() {
+	public String obtenirItemSelectionne() {
 		return selectedItem;
 	}
 

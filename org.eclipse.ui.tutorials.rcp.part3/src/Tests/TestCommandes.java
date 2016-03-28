@@ -97,12 +97,12 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void NomFichier_isValid_Valide() {
+	public void NomFichier_estValide_Valide() {
 		try{
 			String pathFile = root_+"\\src\\Tests\\TestCommandes.java";
 	
 			listeCommandes_.get(1).setAffichage(pathFile);
-			assertTrue(listeCommandes_.get(1).isValid());
+			assertTrue(listeCommandes_.get(1).estValide());
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -110,12 +110,12 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void NomFichier_isValid_Invalide() {
+	public void NomFichier_estValide_Invalide() {
 		try{
 			String pathFile = root_+"\\src\\Tests";
 	
 			listeCommandes_.get(1).setAffichage(pathFile);
-			assertFalse(listeCommandes_.get(1).isValid());
+			assertFalse(listeCommandes_.get(1).estValide());
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -136,12 +136,12 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void NomRepertoire_isValid_Valide() {
+	public void NomRepertoire_estValide_Valide() {
 		try{
 			String pathFile = root_+"\\src\\Tests";
 	
 			listeCommandes_.get(2).setAffichage(pathFile);
-			assertTrue(listeCommandes_.get(2).isValid());
+			assertTrue(listeCommandes_.get(2).estValide());
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -149,12 +149,12 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void NomRepertoire_isValid_Invalide() {
+	public void NomRepertoire_estValide_Invalide() {
 		try{
 			String pathFile = root_+"\\src\\Tests\\TestCommandes.java";
 	
 			listeCommandes_.get(2).setAffichage(pathFile);
-			assertFalse(listeCommandes_.get(2).isValid());
+			assertFalse(listeCommandes_.get(2).estValide());
 		}
 		catch (Exception e){
 			e.printStackTrace();
