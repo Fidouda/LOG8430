@@ -8,5 +8,6 @@ public class Tp3Option3Application {
 
 	public static void main(String[] args) {
 		SpringApplication.run(Tp3Option3Application.class, args);
+		
 	}
 }

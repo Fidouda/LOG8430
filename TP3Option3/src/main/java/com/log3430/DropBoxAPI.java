@@ -48,7 +48,7 @@ public class DropBoxAPI {
 
 	            result = client.files().listFolderContinue(result.getCursor());
 	        }
-	        List<String> lines = Arrays.asList("The first line", "The second line");
+	        List<String> lines = Arrays.asList("The first line", "The ssweetdyolo");
 	        Path file = Paths.get("test.txt");
 	        Files.write(file, lines, Charset.forName("UTF-8"));
 	        
