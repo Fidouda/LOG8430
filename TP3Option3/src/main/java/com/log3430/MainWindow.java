@@ -1,9 +1,11 @@
 import java.awt.EventQueue;
 
+import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 import Model.SimpleModel;
 import View.GraphicUserInterface;
 import Controller.Controller;
+
 
 public class MainWindow {
 	
@@ -19,11 +21,11 @@ public class MainWindow {
 			public void run() {
 				try
 				{
-					//Déclaration du model
+					//Dï¿½claration du model
 					model = new SimpleModel();
-					//Déclaration du contrôleur 
+					//Dï¿½claration du contrï¿½leur 
 					controller = new Controller(model);
-					//Déclaration de la vue
+					//Dï¿½claration de la vue
 					window = new GraphicUserInterface(model, controller);
 					window.getFrame().setVisible(true);
 				} 
