@@ -1,3 +1,5 @@
+package com.log3430;
+
 import java.awt.EventQueue;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;

@@ -35,6 +35,8 @@ import Model.SimpleModel;
 import javax.swing.JLabel;
 
 import Commands.CommandeAbstraite;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
 
 
 public class GraphicUserInterface implements Observer {
@@ -138,6 +140,24 @@ public class GraphicUserInterface implements Observer {
 		label1.setBounds(381, 44, 191, 40);
 		frame.getContentPane().add(label1);
 		
+		JButton boutonDrop = new JButton("DropBox");
+		boutonDrop.addActionListener(controller);
+		boutonDrop.setActionCommand("dropBoxButton");
+		boutonDrop.setBounds(241, 346, 103, 23);
+		frame.getContentPane().add(boutonDrop);
+		
+		JButton boutonGoogle = new JButton("Google Drive");
+		boutonGoogle.addActionListener(controller);
+		boutonGoogle.setActionCommand("googleButton");
+		boutonGoogle.setBounds(241, 312, 103, 23);
+		frame.getContentPane().add(boutonGoogle);
+		
+		JButton boutonServeur = new JButton("Server");
+		boutonServeur.addActionListener(controller);
+		boutonServeur.setActionCommand("serverButton");
+		boutonServeur.setBounds(241, 278, 103, 23);
+		frame.getContentPane().add(boutonServeur);
+		
 		
 		//Ajout d'un observer du modèle
         model.addObserver(this);
@@ -238,5 +258,4 @@ public class GraphicUserInterface implements Observer {
 			break;
 		}
 	}
-	
 }
