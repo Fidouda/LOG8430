@@ -15,10 +15,11 @@ import com.dropbox.core.v2.users.FullAccount;
 
 import java.util.Arrays;
 import java.util.List;
-
+import java.io.File;
 import java.io.FileInputStream;
 import java.io.InputStream;
 import java.nio.charset.Charset;
+import java.nio.file.FileAlreadyExistsException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -95,7 +96,7 @@ public class DropBoxAPI {
 	        
 	    }
 	    
-	    private void getFiles(DbxClientV1 client, String path ) throws ListFolderErrorException, DbxException
+	    private void getFiles(DbxClientV1 client, String path ) throws ListFolderErrorException, DbxException, IOException
 	    {
 	    	if(path.isEmpty())
 	    		path = "/";
@@ -105,12 +106,15 @@ public class DropBoxAPI {
 	        for (DbxEntry child : listing.children) {
 	        	if(child.isFolder())
 	        	{
-	        		System.out.println("	" + child.name + ": " + "Folder!");
+	        		File dir = new File("root" + path +"/" + child.name);
+	        		dir.mkdirs();
+	        		
 	        		getFiles(client, path + "/" + child.name);
 	        	}
 	        	else
 	        	{
-	        		System.out.println("	" + child.name + ": " + "Files!");
+	        		File tmp = new File("root" + path, child.name);
+	        		tmp.createNewFile();
 	        	}
 	        }
 	    }

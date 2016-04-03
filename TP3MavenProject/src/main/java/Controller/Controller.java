@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
 
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+
 import com.dropbox.core.DbxException;
 
 import ClassLoader.ClassLoader;
@@ -98,6 +100,8 @@ public class Controller implements ActionListener {
         
         else if("dropBoxButton".equals(e.getActionCommand()))
         {
+        	File file = new File("root");
+        	file.mkdir();
         	DropBoxAPI api = new DropBoxAPI();
         	try {
 				api.getFiles("");
@@ -108,6 +112,18 @@ public class Controller implements ActionListener {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+        	
+        	File root = new File("root");
+	    	model.genererArbre(root.getAbsoluteFile());
+	    	activerToutesCommandes(root.toString());
+	    	
+	    	//try {
+				//FileUtils.deleteDirectory(root);
+			//} catch (IOException e1) {
+				// TODO Auto-generated catch block
+			//	e1.printStackTrace();
+			//}
+        	
         }
         
         else if("googleButton".equals(e.getActionCommand()))
