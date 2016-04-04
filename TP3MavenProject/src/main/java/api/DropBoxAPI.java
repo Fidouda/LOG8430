@@ -31,7 +31,7 @@ public class DropBoxAPI {
 	    private DbxClientV1 client1;
 	    private DbxClientV2 client;
 	    //https://www.dropbox.com/developers/documentation/java#tutorial
-	    public void getFiles(String path) throws DbxException, IOException {
+	    public  void getFiles(String path) throws DbxException, IOException {
 	        // Create Dropbox client
 	        DbxRequestConfig config = new DbxRequestConfig("dropbox/java-tutorial", "en_US");
 	        client1 = new DbxClientV1(config,ACCESS_TOKEN );
@@ -42,57 +42,6 @@ public class DropBoxAPI {
 	        System.out.println(account.getName().getDisplayName());
 	        
 	        getFiles(client1, path);
-
-	        // Get files and folder metadata from Dropbox root directory
-	       /* ListFolderBuilder allFiles = client.files().listFolderBuilder(path); 
-	        
-	        //getFiles(client, result);
-	        
-	        allFiles.withRecursive(true);
-	        
-	        ListFolderResult result = allFiles.start();
-	        
-	        while (true) {
-	            for (Metadata metadata : result.getEntries()) {
-	                System.out.println(metadata.getPathLower());
-	                
-	            }
-
-	            if (!result.getHasMore()) {
-	                break;
-	            }
-
-	            result = client.files().listFolderContinue(result.getCursor());
-	        }
-	       */
-	        
-	        //Metadata meta = client.files().getMetadata("");
-	        //System.out.println(meta.toStringMultiline());
-	        
-	        
-	        /*DbxEntry.WithChildren listing = client1.getMetadataWithChildren("/");
-	        System.out.println("Files in the root path:");
-	        for (DbxEntry child : listing.children) {
-	            System.out.println("	" + child.name + ": " + child.toString());
-	            if(child.isFolder())
-	        }/*
-	        
-	        
-	        
-	        /*while (true) {
-	            for (Metadata metadata : result.getEntries()) {
-	                System.out.println(metadata.getPathLower());
-	                
-	            }
-
-	            if (!result.getHasMore()) {
-	                break;
-	            }
-
-	            result = client.files().listFolderContinue(result.getCursor());
-	        }*/
-
-	        
 	        
 	    }
 	    
@@ -117,11 +66,6 @@ public class DropBoxAPI {
 	        		tmp.createNewFile();
 	        	}
 	        }
-	    }
-	    
-	    private void subFolder(String path)
-	    {
-	    	
 	    }
 	    
 	    public void uploadFile() throws IOException, UploadErrorException, DbxException

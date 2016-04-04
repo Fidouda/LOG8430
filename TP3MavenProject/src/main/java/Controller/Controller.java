@@ -18,6 +18,7 @@ import ClassLoader.ClassLoader;
 import Commands.CommandeAbstraite;
 
 import api.DropBoxAPI;
+import api.GoogleDriveAPI;
 
 public class Controller implements ActionListener {
 	
@@ -128,7 +129,14 @@ public class Controller implements ActionListener {
         
         else if("googleButton".equals(e.getActionCommand()))
         {
+        	GoogleDriveAPI drive = new GoogleDriveAPI();
         	
+        	try {
+				drive.getFiles();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
         }
         	
         else if("serverButton".equals(e.getActionCommand()))
