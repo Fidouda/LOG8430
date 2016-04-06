@@ -100,28 +100,27 @@ public class GoogleDriveAPI {
         // Build a new authorized API client service.
         Drive service = getDriveService();
         
-        List<File> result = service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder'").execute().getFiles();
+       // List<File> result = service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder' and 'root' in parents and trashed=false").execute().getFiles();
       
         // Print the names and IDs for up to 10 files.
-       // FileList result = service.files().list()
-       //    .setPageSize(1000)
-        //   .setFields("nextPageToken, files(id, name, parents)")
-         //  .execute();
-        for (File file : result) {
-        	System.out.println(file.getName() + file.getId() + " Ta mere " + file.getParents());
-        	
-        }
+        FileList result = service.files().list()
+           .setQ("mimeType='application/vnd.google-apps.folder'")
+           .setSpaces("drive")
+           .setPageSize(1000)
+           .setFields("nextPageToken, files(id, name, parents)")
+           .execute();
+        
 
-       //List<File> files = result.getFiles();
-       /*if (files == null || files.size() == 0) {
+       List<File> files = result.getFiles();
+       if (files == null || files.size() == 0) {
             System.out.println("No files found.");
        } else {
             System.out.println("Files:");
             for (File file : files) {
           
-            System.out.printf("%s (%s)\n", file.getName(), file.getParents());
+            System.out.printf("%s id: %s parent:(%s)\n", file.getName(), file.getId(), file.getParents());
             }
-       }*/
+       }
       
     }
 
