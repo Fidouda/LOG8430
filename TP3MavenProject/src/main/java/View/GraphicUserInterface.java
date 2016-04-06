@@ -8,6 +8,9 @@ import java.awt.Dimension;
 
 import javax.swing.JSeparator;
 import javax.swing.SwingConstants;
+
+import org.apache.tomcat.util.http.fileupload.FileUtils;
+
 import javax.swing.JTextField;
 
 import java.awt.Font;
@@ -23,6 +26,7 @@ import Controller.Controller;
 import javax.swing.JCheckBox;
 
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JScrollPane;
 
@@ -42,7 +46,7 @@ import java.awt.event.ActionEvent;
 public class GraphicUserInterface implements Observer {
 
 	
-	//Déclaration des éléments de l'interface
+	//Dï¿½claration des ï¿½lï¿½ments de l'interface
 	private Controller controller;
 	private SimpleModel model;
 	private JFrame frame;
@@ -112,7 +116,7 @@ public class GraphicUserInterface implements Observer {
 		mockBouton.setActionCommand("mockUpdate");
 		
 		checkAutoRun = new JCheckBox("Auto Run");
-		//Ajout d'un action listener qui sera notre contrôleur
+		//Ajout d'un action listener qui sera notre contrï¿½leur
 		checkAutoRun.addActionListener(controller);
 		//On nomme la commande "checkAutoRun"
 		checkAutoRun.setActionCommand("checkAutoRun");
@@ -121,7 +125,7 @@ public class GraphicUserInterface implements Observer {
 		frame.getContentPane().add(checkAutoRun);
 		
 		boutonClear = new JButton("Clear");
-		//Ajout d'un action listener qui sera notre contrôleur
+		//Ajout d'un action listener qui sera notre contrï¿½leur
 		boutonClear.addActionListener(controller);
 		//On nomme la commande "clearButton"
         boutonClear.setActionCommand("clearButton");
@@ -158,8 +162,21 @@ public class GraphicUserInterface implements Observer {
 		boutonServeur.setBounds(241, 278, 103, 23);
 		frame.getContentPane().add(boutonServeur);
 		
+		frame.addWindowListener(new java.awt.event.WindowAdapter() {
+		    @Override
+		    public void windowClosing(java.awt.event.WindowEvent windowEvent) {
+		    	try {
+		    	File root = new File("root");
+				FileUtils.deleteDirectory(root);
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+				}
+		    }
+		});
 		
-		//Ajout d'un observer du modèle
+		
+		//Ajout d'un observer du modï¿½le
         model.addObserver(this);
         //
 	}

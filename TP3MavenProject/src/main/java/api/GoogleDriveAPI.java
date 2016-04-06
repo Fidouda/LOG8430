@@ -99,21 +99,30 @@ public class GoogleDriveAPI {
     public static void getFiles() throws IOException {
         // Build a new authorized API client service.
         Drive service = getDriveService();
-
+        
+        List<File> result = service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder'").execute().getFiles();
+      
         // Print the names and IDs for up to 10 files.
-        FileList result = service.files().list()
-             .setPageSize(1000)
-             .setFields("nextPageToken, files(id, name)")
-             .execute();
-        List<File> files = result.getFiles();
-        if (files == null || files.size() == 0) {
+       // FileList result = service.files().list()
+       //    .setPageSize(1000)
+        //   .setFields("nextPageToken, files(id, name, parents)")
+         //  .execute();
+        for (File file : result) {
+        	System.out.println(file.getName() + file.getId() + " Ta mere " + file.getParents());
+        	
+        }
+
+       //List<File> files = result.getFiles();
+       /*if (files == null || files.size() == 0) {
             System.out.println("No files found.");
-        } else {
+       } else {
             System.out.println("Files:");
             for (File file : files) {
-                System.out.printf("%s (%s)\n", file.getName(), file.getId());
+          
+            System.out.printf("%s (%s)\n", file.getName(), file.getParents());
             }
-        }
+       }*/
+      
     }
 
 }
