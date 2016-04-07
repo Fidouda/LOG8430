@@ -6,6 +6,7 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 import java.net.MalformedURLException;
+import java.nio.file.Files;
 import java.util.ArrayList;
 
 import javax.swing.JFileChooser;
@@ -101,6 +102,17 @@ public class Controller implements ActionListener {
         
         else if("dropBoxButton".equals(e.getActionCommand()))
         {
+        	File f = new File("root");
+        	if (f.exists())
+        	{
+        		try {
+					FileUtils.deleteDirectory(f);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        	
         	File file = new File("root");
         	file.mkdir();
         	DropBoxAPI api = new DropBoxAPI();
@@ -129,14 +141,32 @@ public class Controller implements ActionListener {
         
         else if("googleButton".equals(e.getActionCommand()))
         {
+        	File f = new File("root");
+        	if (f.exists())
+        	{
+        		try {
+					FileUtils.deleteDirectory(f);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
+        	
+        	File file = new File("root");
+        	file.mkdir();
         	GoogleDriveAPI drive = new GoogleDriveAPI();
         	
         	try {
-				drive.getFiles();
+        		drive.startApi();
+				
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
 			}
+        	
+        	File root = new File("root");
+	    	model.genererArbre(root.getAbsoluteFile());
+	    	activerToutesCommandes(root.toString());
         }
         	
         else if("serverButton".equals(e.getActionCommand()))

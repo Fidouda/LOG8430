@@ -14,11 +14,14 @@ import com.google.api.services.drive.DriveScopes;
 import com.google.api.services.drive.model.*;
 import com.google.api.services.drive.Drive;
 
+import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 public class GoogleDriveAPI {
     /** Application name. */
@@ -56,7 +59,8 @@ public class GoogleDriveAPI {
             System.exit(1);
         }
     }
-
+    private Map<String, String> mapFolder;
+    private Drive service;
     /**
      * Creates an authorized Credential object.
      * @return an authorized Credential object.
@@ -96,31 +100,86 @@ public class GoogleDriveAPI {
                 .build();
     }
 
-    public static void getFiles() throws IOException {
+    public void startApi() throws IOException {
         // Build a new authorized API client service.
-        Drive service = getDriveService();
+    	mapFolder = new HashMap<String, String>();
+        service = getDriveService();
+        createFolder("root", "root");
+        
+        createFilesInFoler();
+        
+        String n = "test";
+        System.out.println(n);
+    }
         
        // List<File> result = service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder' and 'root' in parents and trashed=false").execute().getFiles();
       
-        // Print the names and IDs for up to 10 files.
+        private void createFilesInFoler() throws IOException {
+		
+        	 FileList result = service.files().list()
+        	           .setQ("mimeType!='application/vnd.google-apps.folder' and trashed=false")
+        	           .setSpaces("drive")
+        	           .setPageSize(1000)
+        	           .setFields("nextPageToken, files(id, name, parents)")
+        	           .execute();
+        	        
+
+        	       List<com.google.api.services.drive.model.File> files = result.getFiles();
+        	       if (files == null || files.size() == 0) {
+        	            System.out.println("No files found.");
+        	       } else {
+        	    	   
+        	            for (com.google.api.services.drive.model.File file : files) {
+        	            			
+        	            		if(file.getParents()!=null && mapFolder.containsKey(file.getParents().get(0)))
+        	            		{
+        	            			File tmp = new File(mapFolder.get(file.getParents().get(0)), file.getName());
+        	            			tmp.createNewFile();
+        	            		}
+        	            		
+        	            		else
+        	            		{
+        	
+        	            			File tmp = new File("root", file.getName());
+        	            			System.out.println( file.getName());
+        	            			tmp.createNewFile();
+        	            		}
+        	            	
+        	        		
+        	            }
+        	       }
+		
+	}
+
+	// Print the names and IDs for up to 10 files.
+    private void createFolder(String id, String path) throws IOException{
+    	
+    	//Ajout dans le liste map
+    	if(id != "root")
+    		mapFolder.put(id, path);
+    	
         FileList result = service.files().list()
-           .setQ("mimeType='application/vnd.google-apps.folder'")
+           .setQ("'" +id + "' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false")
            .setSpaces("drive")
            .setPageSize(1000)
            .setFields("nextPageToken, files(id, name, parents)")
            .execute();
         
+        
 
-       List<File> files = result.getFiles();
+       List<com.google.api.services.drive.model.File> files = result.getFiles();
        if (files == null || files.size() == 0) {
             System.out.println("No files found.");
        } else {
-            System.out.println("Files:");
-            for (File file : files) {
-          
-            System.out.printf("%s id: %s parent:(%s)\n", file.getName(), file.getId(), file.getParents());
+    	   
+            for (com.google.api.services.drive.model.File file : files) {
+            	File dir = new File(path +"/" +file.getName());
+        		dir.mkdirs();
+        		createFolder(file.getId(), path +"/" +file.getName());
             }
        }
+       
+      
       
     }
 
