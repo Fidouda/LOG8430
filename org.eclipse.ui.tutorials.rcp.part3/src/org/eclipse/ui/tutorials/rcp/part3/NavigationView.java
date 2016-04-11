@@ -29,7 +29,7 @@ public class NavigationView extends ViewPart {
 		SimpleModel model = null; //Necessaire, ceci n'est pas un bug
 		// Déclaration du contrôleur
 		Controller controller = null;
-		try {
+		try {x
 			model = new SimpleModel();
 			controller = new Controller(model);
 		} catch (IOException | ClassNotFoundException e) {

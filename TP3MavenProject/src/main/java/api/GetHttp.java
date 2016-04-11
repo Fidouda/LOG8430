@@ -7,6 +7,12 @@ import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
+/**
+ * Class GetHttp
+ * Gere les requete HTTP
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class GetHttp {
 	//http://www.journaldev.com/7148/java-httpurlconnection-example-to-send-http-getpost-requests
 	 public static void getHTML() throws Exception {
