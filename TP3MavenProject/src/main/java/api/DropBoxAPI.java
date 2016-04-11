@@ -25,12 +25,24 @@ import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.io.IOException;
 
+/**
+ * Class DropBoxAPI
+ * Utilise l'API de dropbox pour se connecter et chercher les informations sur les fichiers dans l'entrepot
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class DropBoxAPI {
 	
 	    private static final String ACCESS_TOKEN = "BEmi3psTGxkAAAAAAAAAE8nmTqNcJB3Dg6wSlCj4bsAwos0pjpSaHmEYq1h-sGKG";
 	    private DbxClientV1 client1;
 	    private DbxClientV2 client;
-	    //https://www.dropbox.com/developers/documentation/java#tutorial
+	  
+	    
+		/**
+		 * Recupere les fichiers sur l'entrepot dropbox
+		 * Source: https://www.dropbox.com/developers/documentation/java#tutorial
+		 * @param path
+		 */
 	    public  void getFiles(String path) throws DbxException, IOException {
 	        // Create Dropbox client
 	        DbxRequestConfig config = new DbxRequestConfig("dropbox/java-tutorial", "en_US");
@@ -45,6 +57,11 @@ public class DropBoxAPI {
 	        
 	    }
 	    
+		/**
+		 * Recupere les fichiers sur l'entrepot dropbox
+		 * @param path
+		 * @param client
+		 */
 	    private void getFiles(DbxClientV1 client, String path ) throws ListFolderErrorException, DbxException, IOException
 	    {
 	    	if(path.isEmpty())
@@ -68,6 +85,9 @@ public class DropBoxAPI {
 	        }
 	    }
 	    
+		/**
+		 * Upload un fichier dans l'entrepot dropbox
+		 */
 	    public void uploadFile() throws IOException, UploadErrorException, DbxException
 	    {
 	    

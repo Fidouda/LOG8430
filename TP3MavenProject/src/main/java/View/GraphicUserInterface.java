@@ -42,6 +42,11 @@ import Commands.CommandeAbstraite;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 
+/**
+ * Class GraphicUserInterface
+ * Interface utilisateur
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
 
 public class GraphicUserInterface implements Observer {
 

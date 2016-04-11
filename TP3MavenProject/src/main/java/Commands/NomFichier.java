@@ -2,6 +2,12 @@ package Commands;
 
 import java.io.File;
 
+/**
+ * Class NomFichier
+ * Classe de commande qui va chercher le nom d'un fichier
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class NomFichier extends CommandeAbstraite {
 	
 	/**

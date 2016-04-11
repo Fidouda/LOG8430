@@ -22,6 +22,12 @@ import api.DropBoxAPI;
 import api.GetHttp;
 import api.GoogleDriveAPI;
 
+/**
+ * Class Controller
+ * Class qui sert de controlleur a l'interface utilisateur
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class Controller implements ActionListener {
 	
 	private SimpleModel model;

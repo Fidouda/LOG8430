@@ -15,6 +15,12 @@ import Controller.Controller;
 import java.util.ArrayList;
 import java.util.Observable;
 
+/**
+ * Class SimpleModel
+ * Classe qui sert de model Ã  l'interface.
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class SimpleModel extends Observable {
 	
 	private javax.swing.JTree tree;
@@ -68,7 +74,7 @@ public class SimpleModel extends Observable {
 	}
 	
 	/**
-	 * Initialise la liste de résultats des commandes
+	 * Initialise la liste de rï¿½sultats des commandes
 	 * @param size
 	 */
 	public void initializeCommandResults(int size)
@@ -165,7 +171,7 @@ public class SimpleModel extends Observable {
 	}
 	
 	/**
-	 * Retourne la valeur à l'index de commandResults_
+	 * Retourne la valeur ï¿½ l'index de commandResults_
 	 * @param index
 	 */
 	public String getCommandResults(int index)
@@ -174,7 +180,7 @@ public class SimpleModel extends Observable {
 	}
 	
 	/**
-	 * Mettre à jour la liste de réponse des commandes
+	 * Mettre ï¿½ jour la liste de rï¿½ponse des commandes
 	 * @param index
 	 * @param result
 	 */
@@ -186,7 +192,7 @@ public class SimpleModel extends Observable {
 	}
 	
 	/**
-	 * Retourne la valeur à l'index de commandEnable_
+	 * Retourne la valeur ï¿½ l'index de commandEnable_
 	 * @param index
 	 */
 	public Boolean getCommandEnable(int index)
@@ -195,7 +201,7 @@ public class SimpleModel extends Observable {
 	}
 	
 	/**
-	 * Mettre à jour la liste de réponse des commandes
+	 * Mettre ï¿½ jour la liste de rï¿½ponse des commandes
 	 * @param index
 	 * @param result
 	 */
@@ -208,7 +214,7 @@ public class SimpleModel extends Observable {
 	
 	/**
 	 * Genere l'arbre
-	 * Tiré de: http://www.java2s.com/Code/Java/File-Input-Output/DisplayafilesysteminaJTreeview.htm
+	 * Tirï¿½ de: http://www.java2s.com/Code/Java/File-Input-Output/DisplayafilesysteminaJTreeview.htm
 	 * @param top
 	 * @param repertoire
 	 * @return

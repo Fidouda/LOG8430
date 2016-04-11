@@ -2,6 +2,12 @@ package Commands;
 
 import java.io.File;
 
+/**
+ * Class CheminAbsolu
+ * Classe de commande qui va chercher le chemin absolu d'un fichier/repertoir
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class CheminAbsolu extends CommandeAbstraite{
 
 	/**

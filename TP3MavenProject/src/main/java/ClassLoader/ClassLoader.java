@@ -9,20 +9,27 @@ import java.util.ArrayList;
 import sun.misc.Launcher;
 import Commands.CommandeAbstraite;
 
-//Tutoriel suivi sur
-//http://www.javaworld.com/article/2077477/learn-java/java-tip-113--identify-subclasses-at-runtime.html
+/**
+ * Class ClassLoader
+ * Charge des classes en .java dynamiquement
+ * Tutoriel suivi sur
+ * http://www.javaworld.com/article/2077477/learn-java/java-tip-113--identify-subclasses-at-runtime.html
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
+
 public class ClassLoader extends java.lang.ClassLoader {
 	
 	/**
-	 * Nous utilisons le chargeur du class trouvé sur le site cité plus haut pour lire le dossier "Commands"
-	 * Toutes les classes héritant de la classe abstraite seront chargés grâce à ce chargeur de classes.
+	 * Nous utilisons le chargeur du class trouvï¿½ sur le site citï¿½ plus haut pour lire le dossier "Commands"
+	 * Toutes les classes hï¿½ritant de la classe abstraite seront chargï¿½s grï¿½ce ï¿½ ce chargeur de classes.
 	 * @return
 	 */
 	public ArrayList<CommandeAbstraite> chargerCommandes() {
        
-		//Déclaration des variables pertinentes.
+		//Dï¿½claration des variables pertinentes.
 		//Folder "Commands"
-		//ArrayList contenant les commandes qui seront chargées et retournées à la vue
+		//ArrayList contenant les commandes qui seront chargï¿½es et retournï¿½es ï¿½ la vue
 		String nomPaquet = "Commands";
         String nom = new String(nomPaquet);
         ArrayList<CommandeAbstraite> listeDesCommandes = new ArrayList<CommandeAbstraite>();
@@ -32,9 +39,9 @@ public class ClassLoader extends java.lang.ClassLoader {
         	nom = "/" + nom;
         nom = nom.replace('.','/');
         
-       //Il était impossible de compiler avec l'erreur en lien avec la librairie sun.misc.Launcher
-        //La version n'était plus supporté ou trop récente pour ma version d'Eclipse.
-        //J'ai donc dû modifier ma configuration de gestion d'erreur de librairie 
+       //Il ï¿½tait impossible de compiler avec l'erreur en lien avec la librairie sun.misc.Launcher
+        //La version n'ï¿½tait plus supportï¿½ ou trop rï¿½cente pour ma version d'Eclipse.
+        //J'ai donc dï¿½ modifier ma configuration de gestion d'erreur de librairie 
         @SuppressWarnings("restriction")
 		URL url = Launcher.class.getResource(nom);
         File directory = new File(url.getFile());
@@ -55,7 +62,7 @@ public class ClassLoader extends java.lang.ClassLoader {
                     {
                       
                         Object o = Class.forName(nomPaquet+"."+classname).getDeclaredConstructor(String.class).newInstance(new String(""));
-                        //Considère seulement les instances de CommandeAbstraite. Cela permet de seulement isoler les classes concrètes
+                        //Considï¿½re seulement les instances de CommandeAbstraite. Cela permet de seulement isoler les classes concrï¿½tes
                         if (o instanceof CommandeAbstraite)
                         	listeDesCommandes.add((CommandeAbstraite) o);
                         

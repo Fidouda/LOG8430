@@ -2,6 +2,12 @@ package Commands;
 
 import java.io.File;
 
+/**
+ * Class NomRepertoire
+ * Classe de commande qui va chercher le nom d'un repertoir
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class NomRepertoire extends CommandeAbstraite{
 
 	/**

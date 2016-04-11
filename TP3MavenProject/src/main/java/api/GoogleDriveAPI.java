@@ -23,6 +23,12 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * Class GoogleDriveAPI
+ * Utilise l'API de Drive pour se connecter et chercher les informations sur les fichiers dans l'entrepot
+ * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
+ */
+
 public class GoogleDriveAPI {
     /** Application name. */
     private static final String APPLICATION_NAME =
@@ -100,6 +106,10 @@ public class GoogleDriveAPI {
                 .build();
     }
 
+    
+	/**
+	 * Demarre la connecter avec l'entrepot Drive
+	 */
     public void startApi() throws IOException {
         // Build a new authorized API client service.
     	mapFolder = new HashMap<String, String>();
@@ -112,9 +122,10 @@ public class GoogleDriveAPI {
         System.out.println(n);
     }
         
-       // List<File> result = service.files().list().setQ("mimeType = 'application/vnd.google-apps.folder' and 'root' in parents and trashed=false").execute().getFiles();
-      
-        private void createFilesInFoler() throws IOException {
+   /**
+	* Creer des repertoire et des fichier avec les meme noms que ceux sur l'entrepot Drive
+	*/
+    private void createFilesInFoler() throws IOException {
 		
         	 FileList result = service.files().list()
         	           .setQ("mimeType!='application/vnd.google-apps.folder' and trashed=false")
@@ -151,7 +162,12 @@ public class GoogleDriveAPI {
 		
 	}
 
-	// Print the names and IDs for up to 10 files.
+
+    /**
+    * Creer un repertoire selon les parametre en entree
+    * @param id
+    * @param path
+    */
     private void createFolder(String id, String path) throws IOException{
     	
     	//Ajout dans le liste map
