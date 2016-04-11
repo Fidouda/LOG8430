@@ -141,7 +141,7 @@ public class GoogleDriveAPI {
         	            		{
         	
         	            			File tmp = new File("root", file.getName());
-        	            			System.out.println( file.getName());
+        	         
         	            			tmp.createNewFile();
         	            		}
         	            	

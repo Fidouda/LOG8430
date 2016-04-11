@@ -19,6 +19,7 @@ import ClassLoader.ClassLoader;
 import Commands.CommandeAbstraite;
 
 import api.DropBoxAPI;
+import api.GetHttp;
 import api.GoogleDriveAPI;
 
 public class Controller implements ActionListener {
@@ -171,7 +172,31 @@ public class Controller implements ActionListener {
         	
         else if("serverButton".equals(e.getActionCommand()))
         {
+        	File f = new File("root");
+        	if (f.exists())
+        	{
+        		try {
+					FileUtils.deleteDirectory(f);
+				} catch (IOException e1) {
+					// TODO Auto-generated catch block
+					e1.printStackTrace();
+				}
+        	}
         	
+        	File file = new File("root");
+        	file.mkdir();
+        	
+        	try {
+				GetHttp.getHTML();
+				
+			} catch (Exception e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        	
+        	File root = new File("root");
+	    	model.genererArbre(root.getAbsoluteFile());
+	    	activerToutesCommandes(root.toString());
         }
     }
    
