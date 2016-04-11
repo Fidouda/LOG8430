@@ -108,7 +108,7 @@ public class GoogleDriveAPI {
 
     
 	/**
-	 * Demarre la connecter avec l'entrepot Drive
+	 * Demarre la connection avec l'entrepot Drive
 	 */
     public void startApi() throws IOException {
         // Build a new authorized API client service.
@@ -123,7 +123,7 @@ public class GoogleDriveAPI {
     }
         
    /**
-	* Creer des repertoire et des fichier avec les meme noms que ceux sur l'entrepot Drive
+	* Creer des repertoire et des fichier localement avec les meme noms que ceux sur l'entrepot Drive
 	*/
     private void createFilesInFoler() throws IOException {
 		
@@ -164,7 +164,7 @@ public class GoogleDriveAPI {
 
 
     /**
-    * Creer un repertoire selon les parametre en entree
+    * Creer un repertoire dans l'entrepot selon les parametre en entree
     * @param id
     * @param path
     */
