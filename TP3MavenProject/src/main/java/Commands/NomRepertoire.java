@@ -3,35 +3,37 @@ package Commands;
 import java.io.File;
 
 /**
- * Class NomRepertoire
- * Classe de commande qui va chercher le nom d'un repertoir
+ * Class NomRepertoire Classe de commande qui va chercher le nom d'un repertoir
+ * 
  * @author Sylvester Vuong, Julien Aymong, Samuel Gaudreau
  */
 
-public class NomRepertoire extends CommandeAbstraite{
+public class NomRepertoire extends CommandeAbstraite {
 
 	/**
 	 * Constructeur de la classe NomRepertoire
+	 * 
 	 * @param chemin
 	 */
-	public NomRepertoire(String chemin){
-		super(chemin); //generer automatiquement par eclipse
+	public NomRepertoire(String chemin) {
+		super(chemin); // generer automatiquement par eclipse
 		nom_ = "Nom du repertoir";
 	}
 
 	/**
-	 * Verifie si le chemin est valide, cest a dire qu'il n'est pas null et pas vide
-	 * et verifie que le noeud est bien un type REPERTOIR
+	 * Verifie si le chemin est valide, cest a dire qu'il n'est pas null et pas
+	 * vide et verifie que le noeud est bien un type REPERTOIR
+	 * 
 	 * @return boolean
 	 */
 	@Override
 	public boolean isValid() {
-		if(chemin_ == null || chemin_.isEmpty())
+		if (chemin_ == null || chemin_.isEmpty())
 			return false;
-		
-		if(getType() == Type.REPERTOIR)
+
+		if (getType() == Type.REPERTOIR)
 			return true;
-		
+
 		return false;
 	}
 
@@ -40,19 +42,18 @@ public class NomRepertoire extends CommandeAbstraite{
 	 */
 	@Override
 	public String executerCommande() throws Exception {
-		
-		if(!isValid())
+
+		if (!isValid())
 			throw new Exception("Erreur, pas un repertoir");
-		
+
 		int index = chemin_.lastIndexOf("\\");
 		String cheminAffichage = chemin_;
-		if(index >= 0)
-			cheminAffichage = chemin_.substring(index+1, chemin_.length());
-		
+		if (index >= 0)
+			cheminAffichage = chemin_.substring(index + 1, chemin_.length());
+
 		setAffichage(cheminAffichage);
-		
+
 		return getAffichage();
 	}
 
-	
 }
