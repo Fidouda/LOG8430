@@ -27,7 +27,7 @@ public class NomFichier extends CommandeAbstraite {
 	 * @return boolean
 	 */
 	@Override
-	public boolean isValid() {
+	public boolean estValide() {
 		if (chemin_ == null || chemin_.isEmpty())
 			return false;
 
@@ -42,7 +42,7 @@ public class NomFichier extends CommandeAbstraite {
 	 */
 	@Override
 	public String executerCommande() throws Exception {
-		if (!isValid())
+		if (!estValide())
 			throw new Exception("Erreur, pas un fichier");
 
 		int index = chemin_.lastIndexOf("\\");

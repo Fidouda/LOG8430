@@ -27,7 +27,7 @@ public class NomRepertoire extends CommandeAbstraite {
 	 * @return boolean
 	 */
 	@Override
-	public boolean isValid() {
+	public boolean estValide() {
 		if (chemin_ == null || chemin_.isEmpty())
 			return false;
 
@@ -43,7 +43,7 @@ public class NomRepertoire extends CommandeAbstraite {
 	@Override
 	public String executerCommande() throws Exception {
 
-		if (!isValid())
+		if (!estValide())
 			throw new Exception("Erreur, pas un repertoir");
 
 		int index = chemin_.lastIndexOf("\\");

@@ -124,7 +124,7 @@ public class Controller implements ActionListener {
 			file.mkdir();
 			DropBoxAPI api = new DropBoxAPI();
 			try {
-				api.getFiles("");
+				api.obtenirFichiers("");
 			} catch (DbxException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();

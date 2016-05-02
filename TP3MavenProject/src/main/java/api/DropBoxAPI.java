@@ -44,7 +44,7 @@ public class DropBoxAPI {
 	 * 
 	 * @param path
 	 */
-	public void getFiles(String path) throws DbxException, IOException {
+	public void obtenirFichiers(String path) throws DbxException, IOException {
 		// Create Dropbox client
 		DbxRequestConfig config = new DbxRequestConfig("dropbox/java-tutorial", "en_US");
 		client1 = new DbxClientV1(config, ACCESS_TOKEN);
@@ -54,7 +54,7 @@ public class DropBoxAPI {
 		FullAccount account = client.users().getCurrentAccount();
 		System.out.println(account.getName().getDisplayName());
 
-		getFiles(client1, path);
+		obtenirFichiers(client1, path);
 
 	}
 
@@ -64,7 +64,7 @@ public class DropBoxAPI {
 	 * @param path
 	 * @param client
 	 */
-	private void getFiles(DbxClientV1 client, String path) throws ListFolderErrorException, DbxException, IOException {
+	private void obtenirFichiers(DbxClientV1 client, String path) throws ListFolderErrorException, DbxException, IOException {
 		if (path.isEmpty())
 			path = "/";
 
@@ -75,7 +75,7 @@ public class DropBoxAPI {
 				File dir = new File("root" + path + "/" + child.name);
 				dir.mkdirs();
 
-				getFiles(client, path + "/" + child.name);
+				obtenirFichiers(client, path + "/" + child.name);
 			} else {
 				File tmp = new File("root" + path, child.name);
 				tmp.createNewFile();
@@ -86,7 +86,7 @@ public class DropBoxAPI {
 	/**
 	 * Upload un fichier dans l'entrepot dropbox
 	 */
-	public void uploadFile() throws IOException, UploadErrorException, DbxException {
+	public void chargerFichier() throws IOException, UploadErrorException, DbxException {
 
 		DbxRequestConfig config = new DbxRequestConfig("dropbox/java-tutorial", "en_US");
 		DbxClientV2 client = new DbxClientV2(config, ACCESS_TOKEN);

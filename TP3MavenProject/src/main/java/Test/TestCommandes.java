@@ -92,12 +92,12 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void NomFichier_isValid_Valide() {
+	public void NomFichier_estValide_Valide() {
 		try{
 			String pathFile = root_+"\\src\\main\\java\\Test\\TestCommandes.java";
 	
 			NomFichier nomFichier = new NomFichier(pathFile);
-			assertTrue(nomFichier.isValid());
+			assertTrue(nomFichier.estValide());
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -105,12 +105,12 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void NomFichier_isValid_Invalide() {
+	public void NomFichier_estValide_Invalide() {
 		try{
 			String pathFile = root_+"\\src\\main\\java\\Test\\";
 	
 			NomFichier nomFichier = new NomFichier(pathFile);
-			assertFalse(nomFichier.isValid());
+			assertFalse(nomFichier.estValide());
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -131,12 +131,12 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void NomRepertoire_isValid_Valide() {
+	public void NomRepertoire_estValide_Valide() {
 		try{
 			String pathFile = root_+"\\src\\main\\java\\Test\\";
 	
 			NomRepertoire nomRepertoir = new NomRepertoire(pathFile);
-			assertTrue(nomRepertoir.isValid());
+			assertTrue(nomRepertoir.estValide());
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -144,12 +144,12 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void NomRepertoire_isValid_Invalide() {
+	public void NomRepertoire_estValide_Invalide() {
 		try{
 			String pathFile = root_+"\\src\\main\\java\\Test\\TestCommandes.java";
 	
 			NomRepertoire nomRepertoir = new NomRepertoire(pathFile);
-			assertFalse(nomRepertoir.isValid());
+			assertFalse(nomRepertoir.estValide());
 		}
 		catch (Exception e){
 			e.printStackTrace();
@@ -183,7 +183,7 @@ public class TestCommandes {
 	}
 	
 	@Test
-	public void Dropbox_getFiles_uploadFile() {
+	public void Dropbox_obtenirFichiers_chargerFichier() {
 		try{
 			
 			File f = new File("root");
@@ -202,11 +202,11 @@ public class TestCommandes {
         	DropBoxAPI api = new DropBoxAPI();
         	
         	//Upload le fichier test.txt dans l'entrepot dropbox
-        	api.uploadFile();
+        	api.chargerFichier();
         	
-        	//L'application va creer le fichier text.txt localement avec getFiles
+        	//L'application va creer le fichier text.txt localement avec obtenirFichiers
         	try {
-				api.getFiles("");
+				api.obtenirFichiers("");
 			} catch (DbxException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -217,7 +217,7 @@ public class TestCommandes {
         	
         	File fileTest = new File("root/test.txt");
         	
-        	//Check si test.txt a bien ete creer, donc si getFiles a reussi a chercher test.txt
+        	//Check si test.txt a bien ete creer, donc si obtenirFichiers a reussi a chercher test.txt
 			assertTrue(fileTest.exists());
 		}
 		catch (Exception e){

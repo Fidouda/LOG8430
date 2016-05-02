@@ -106,9 +106,9 @@ public class GoogleDriveAPI {
 		// Build a new authorized API client service.
 		mapFolder = new HashMap<String, String>();
 		service = getDriveService();
-		createFolder("root", "root");
+		creerRepertoir("root", "root");
 
-		createFilesInFoler();
+		creerFichierDansRepertoir();
 
 		String n = "test";
 		System.out.println(n);
@@ -118,13 +118,13 @@ public class GoogleDriveAPI {
 	 * Creer des repertoire et des fichier localement avec les meme noms que
 	 * ceux sur l'entrepot Drive
 	 */
-	private void createFilesInFoler() throws IOException {
+	private void creerFichierDansRepertoir() throws IOException {
 
 		FileList result = service.files().list()
 				.setQ("mimeType!='application/vnd.google-apps.folder' and trashed=false").setSpaces("drive")
 				.setPageSize(1000).setFields("nextPageToken, files(id, name, parents)").execute();
 
-		List<com.google.api.services.drive.model.File> files = result.getFiles();
+		List<com.google.api.services.drive.model.File> files = result.obtenirFichiers();
 		if (files == null || files.size() == 0) {
 			System.out.println("No files found.");
 		} else {
@@ -154,7 +154,7 @@ public class GoogleDriveAPI {
 	 * @param id
 	 * @param path
 	 */
-	private void createFolder(String id, String path) throws IOException {
+	private void creerRepertoir(String id, String path) throws IOException {
 
 		// Ajout dans le liste map
 		if (id != "root")
@@ -164,7 +164,7 @@ public class GoogleDriveAPI {
 				.setQ("'" + id + "' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false")
 				.setSpaces("drive").setPageSize(1000).setFields("nextPageToken, files(id, name, parents)").execute();
 
-		List<com.google.api.services.drive.model.File> files = result.getFiles();
+		List<com.google.api.services.drive.model.File> files = result.obtenirFichiers();
 		if (files == null || files.size() == 0) {
 			System.out.println("No files found.");
 		} else {
@@ -172,7 +172,7 @@ public class GoogleDriveAPI {
 			for (com.google.api.services.drive.model.File file : files) {
 				File dir = new File(path + "/" + file.getName());
 				dir.mkdirs();
-				createFolder(file.getId(), path + "/" + file.getName());
+				creerRepertoir(file.getId(), path + "/" + file.getName());
 			}
 		}
 

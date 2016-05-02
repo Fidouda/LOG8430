@@ -26,7 +26,7 @@ public class CheminAbsolu extends CommandeAbstraite {
 	 * vide
 	 */
 	@Override
-	public boolean isValid() {
+	public boolean estValide() {
 		if (chemin_ == null || chemin_.isEmpty())
 			return false;
 		return true;
@@ -40,7 +40,7 @@ public class CheminAbsolu extends CommandeAbstraite {
 	 */
 	@Override
 	public String executerCommande() throws Exception {
-		if (!isValid()) {
+		if (!estValide()) {
 			throw new Exception("Erreur, chemin null");
 		}
 		setAffichage(chemin_);
