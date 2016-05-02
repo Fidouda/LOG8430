@@ -124,7 +124,7 @@ public class GoogleDriveAPI {
 				.setQ("mimeType!='application/vnd.google-apps.folder' and trashed=false").setSpaces("drive")
 				.setPageSize(1000).setFields("nextPageToken, files(id, name, parents)").execute();
 
-		List<com.google.api.services.drive.model.File> files = result.obtenirFichiers();
+		List<com.google.api.services.drive.model.File> files = result.getFiles();
 		if (files == null || files.size() == 0) {
 			System.out.println("No files found.");
 		} else {
@@ -164,7 +164,7 @@ public class GoogleDriveAPI {
 				.setQ("'" + id + "' in parents and mimeType='application/vnd.google-apps.folder' and trashed=false")
 				.setSpaces("drive").setPageSize(1000).setFields("nextPageToken, files(id, name, parents)").execute();
 
-		List<com.google.api.services.drive.model.File> files = result.obtenirFichiers();
+		List<com.google.api.services.drive.model.File> files = result.getFiles();
 		if (files == null || files.size() == 0) {
 			System.out.println("No files found.");
 		} else {
